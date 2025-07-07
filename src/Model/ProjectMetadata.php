@@ -24,7 +24,7 @@ class ProjectMetadata
     /**
      * The public status of the project. The valid values are "true", "false".
      *
-     * @var string
+     * @var string|null
      */
     protected $public;
     /**
@@ -73,7 +73,7 @@ class ProjectMetadata
     /**
      * The public status of the project. The valid values are "true", "false".
      */
-    public function getPublic(): string
+    public function getPublic(): ?string
     {
         return $this->public;
     }
@@ -81,7 +81,7 @@ class ProjectMetadata
     /**
      * The public status of the project. The valid values are "true", "false".
      */
-    public function setPublic(string $public): self
+    public function setPublic(?string $public): self
     {
         $this->initialized['public'] = true;
         $this->public = $public;

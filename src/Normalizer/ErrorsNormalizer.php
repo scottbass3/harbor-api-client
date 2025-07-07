@@ -49,12 +49,14 @@ class ErrorsNormalizer implements DenormalizerInterface, NormalizerInterface, De
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('errors', $data)) {
+        if (\array_key_exists('errors', $data) && $data['errors'] !== null) {
             $values = [];
             foreach ($data['errors'] as $value) {
                 $values[] = $this->denormalizer->denormalize($value, \Flownative\Harbor\Api\Model\Error::class, 'json', $context);
             }
             $object->setErrors($values);
+        } elseif (\array_key_exists('errors', $data) && $data['errors'] === null) {
+            $object->setErrors(null);
         }
 
         return $object;

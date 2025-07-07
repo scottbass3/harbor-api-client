@@ -49,31 +49,45 @@ class RepositoryNormalizer implements DenormalizerInterface, NormalizerInterface
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('id', $data)) {
+        if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
+        } elseif (\array_key_exists('id', $data) && $data['id'] === null) {
+            $object->setId(null);
         }
-        if (\array_key_exists('project_id', $data)) {
+        if (\array_key_exists('project_id', $data) && $data['project_id'] !== null) {
             $object->setProjectId($data['project_id']);
+        } elseif (\array_key_exists('project_id', $data) && $data['project_id'] === null) {
+            $object->setProjectId(null);
         }
-        if (\array_key_exists('name', $data)) {
+        if (\array_key_exists('name', $data) && $data['name'] !== null) {
             $object->setName($data['name']);
+        } elseif (\array_key_exists('name', $data) && $data['name'] === null) {
+            $object->setName(null);
         }
-        if (\array_key_exists('description', $data)) {
+        if (\array_key_exists('description', $data) && $data['description'] !== null) {
             $object->setDescription($data['description']);
+        } elseif (\array_key_exists('description', $data) && $data['description'] === null) {
+            $object->setDescription(null);
         }
-        if (\array_key_exists('artifact_count', $data)) {
+        if (\array_key_exists('artifact_count', $data) && $data['artifact_count'] !== null) {
             $object->setArtifactCount($data['artifact_count']);
+        } elseif (\array_key_exists('artifact_count', $data) && $data['artifact_count'] === null) {
+            $object->setArtifactCount(null);
         }
-        if (\array_key_exists('pull_count', $data)) {
+        if (\array_key_exists('pull_count', $data) && $data['pull_count'] !== null) {
             $object->setPullCount($data['pull_count']);
+        } elseif (\array_key_exists('pull_count', $data) && $data['pull_count'] === null) {
+            $object->setPullCount(null);
         }
         if (\array_key_exists('creation_time', $data) && $data['creation_time'] !== null) {
             $object->setCreationTime(\DateTime::createFromFormat('Y-m-d\TH:i:s.vp', $data['creation_time']));
         } elseif (\array_key_exists('creation_time', $data) && $data['creation_time'] === null) {
             $object->setCreationTime(null);
         }
-        if (\array_key_exists('update_time', $data)) {
+        if (\array_key_exists('update_time', $data) && $data['update_time'] !== null) {
             $object->setUpdateTime(\DateTime::createFromFormat('Y-m-d\TH:i:s.vp', $data['update_time']));
+        } elseif (\array_key_exists('update_time', $data) && $data['update_time'] === null) {
+            $object->setUpdateTime(null);
         }
 
         return $object;

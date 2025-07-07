@@ -24,7 +24,7 @@ class ProjectReq
     /**
      * The name of the project.
      *
-     * @var string
+     * @var string|null
      */
     protected $projectName;
     /**
@@ -34,13 +34,13 @@ class ProjectReq
      */
     protected $public;
     /**
-     * @var ProjectMetadata
+     * @var ProjectMetadata|null
      */
     protected $metadata;
     /**
      * The CVE Allowlist for system or project.
      *
-     * @var CVEAllowlist
+     * @var CVEAllowlist|null
      */
     protected $cveAllowlist;
     /**
@@ -59,7 +59,7 @@ class ProjectReq
     /**
      * The name of the project.
      */
-    public function getProjectName(): string
+    public function getProjectName(): ?string
     {
         return $this->projectName;
     }
@@ -67,7 +67,7 @@ class ProjectReq
     /**
      * The name of the project.
      */
-    public function setProjectName(string $projectName): self
+    public function setProjectName(?string $projectName): self
     {
         $this->initialized['projectName'] = true;
         $this->projectName = $projectName;
@@ -94,12 +94,12 @@ class ProjectReq
         return $this;
     }
 
-    public function getMetadata(): ProjectMetadata
+    public function getMetadata(): ?ProjectMetadata
     {
         return $this->metadata;
     }
 
-    public function setMetadata(ProjectMetadata $metadata): self
+    public function setMetadata(?ProjectMetadata $metadata): self
     {
         $this->initialized['metadata'] = true;
         $this->metadata = $metadata;
@@ -110,7 +110,7 @@ class ProjectReq
     /**
      * The CVE Allowlist for system or project.
      */
-    public function getCveAllowlist(): CVEAllowlist
+    public function getCveAllowlist(): ?CVEAllowlist
     {
         return $this->cveAllowlist;
     }
@@ -118,7 +118,7 @@ class ProjectReq
     /**
      * The CVE Allowlist for system or project.
      */
-    public function setCveAllowlist(CVEAllowlist $cveAllowlist): self
+    public function setCveAllowlist(?CVEAllowlist $cveAllowlist): self
     {
         $this->initialized['cveAllowlist'] = true;
         $this->cveAllowlist = $cveAllowlist;

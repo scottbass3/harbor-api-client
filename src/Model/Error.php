@@ -24,20 +24,20 @@ class Error
     /**
      * The error code.
      *
-     * @var string
+     * @var string|null
      */
     protected $code;
     /**
      * The error message.
      *
-     * @var string
+     * @var string|null
      */
     protected $message;
 
     /**
      * The error code.
      */
-    public function getCode(): string
+    public function getCode(): ?string
     {
         return $this->code;
     }
@@ -45,7 +45,7 @@ class Error
     /**
      * The error code.
      */
-    public function setCode(string $code): self
+    public function setCode(?string $code): self
     {
         $this->initialized['code'] = true;
         $this->code = $code;
@@ -56,7 +56,7 @@ class Error
     /**
      * The error message.
      */
-    public function getMessage(): string
+    public function getMessage(): ?string
     {
         return $this->message;
     }
@@ -64,7 +64,7 @@ class Error
     /**
      * The error message.
      */
-    public function setMessage(string $message): self
+    public function setMessage(?string $message): self
     {
         $this->initialized['message'] = true;
         $this->message = $message;

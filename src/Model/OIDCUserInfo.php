@@ -24,44 +24,44 @@ class OIDCUserInfo
     /**
      * the ID of the OIDC info record.
      *
-     * @var int
+     * @var int|null
      */
     protected $id;
     /**
      * the ID of the user.
      *
-     * @var int
+     * @var int|null
      */
     protected $userId;
     /**
      * the concatenation of sub and issuer in the ID token.
      *
-     * @var string
+     * @var string|null
      */
     protected $subiss;
     /**
      * the secret of the OIDC user that can be used for CLI to push/pull artifacts.
      *
-     * @var string
+     * @var string|null
      */
     protected $secret;
     /**
      * The creation time of the OIDC user info record.
      *
-     * @var \DateTimeInterface
+     * @var \DateTimeInterface|null
      */
     protected $creationTime;
     /**
      * The update time of the OIDC user info record.
      *
-     * @var \DateTimeInterface
+     * @var \DateTimeInterface|null
      */
     protected $updateTime;
 
     /**
      * the ID of the OIDC info record.
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -69,7 +69,7 @@ class OIDCUserInfo
     /**
      * the ID of the OIDC info record.
      */
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->initialized['id'] = true;
         $this->id = $id;
@@ -80,7 +80,7 @@ class OIDCUserInfo
     /**
      * the ID of the user.
      */
-    public function getUserId(): int
+    public function getUserId(): ?int
     {
         return $this->userId;
     }
@@ -88,7 +88,7 @@ class OIDCUserInfo
     /**
      * the ID of the user.
      */
-    public function setUserId(int $userId): self
+    public function setUserId(?int $userId): self
     {
         $this->initialized['userId'] = true;
         $this->userId = $userId;
@@ -99,7 +99,7 @@ class OIDCUserInfo
     /**
      * the concatenation of sub and issuer in the ID token.
      */
-    public function getSubiss(): string
+    public function getSubiss(): ?string
     {
         return $this->subiss;
     }
@@ -107,7 +107,7 @@ class OIDCUserInfo
     /**
      * the concatenation of sub and issuer in the ID token.
      */
-    public function setSubiss(string $subiss): self
+    public function setSubiss(?string $subiss): self
     {
         $this->initialized['subiss'] = true;
         $this->subiss = $subiss;
@@ -118,7 +118,7 @@ class OIDCUserInfo
     /**
      * the secret of the OIDC user that can be used for CLI to push/pull artifacts.
      */
-    public function getSecret(): string
+    public function getSecret(): ?string
     {
         return $this->secret;
     }
@@ -126,7 +126,7 @@ class OIDCUserInfo
     /**
      * the secret of the OIDC user that can be used for CLI to push/pull artifacts.
      */
-    public function setSecret(string $secret): self
+    public function setSecret(?string $secret): self
     {
         $this->initialized['secret'] = true;
         $this->secret = $secret;
@@ -137,7 +137,7 @@ class OIDCUserInfo
     /**
      * The creation time of the OIDC user info record.
      */
-    public function getCreationTime(): \DateTimeInterface
+    public function getCreationTime(): ?\DateTimeInterface
     {
         return $this->creationTime;
     }
@@ -145,7 +145,7 @@ class OIDCUserInfo
     /**
      * The creation time of the OIDC user info record.
      */
-    public function setCreationTime(\DateTimeInterface $creationTime): self
+    public function setCreationTime(?\DateTimeInterface $creationTime): self
     {
         $this->initialized['creationTime'] = true;
         $this->creationTime = $creationTime;
@@ -156,7 +156,7 @@ class OIDCUserInfo
     /**
      * The update time of the OIDC user info record.
      */
-    public function getUpdateTime(): \DateTimeInterface
+    public function getUpdateTime(): ?\DateTimeInterface
     {
         return $this->updateTime;
     }
@@ -164,7 +164,7 @@ class OIDCUserInfo
     /**
      * The update time of the OIDC user info record.
      */
-    public function setUpdateTime(\DateTimeInterface $updateTime): self
+    public function setUpdateTime(?\DateTimeInterface $updateTime): self
     {
         $this->initialized['updateTime'] = true;
         $this->updateTime = $updateTime;

@@ -24,20 +24,20 @@ class PasswordReq
     /**
      * The user's existing password.
      *
-     * @var string
+     * @var string|null
      */
     protected $oldPassword;
     /**
      * New password for marking as to be updated.
      *
-     * @var string
+     * @var string|null
      */
     protected $newPassword;
 
     /**
      * The user's existing password.
      */
-    public function getOldPassword(): string
+    public function getOldPassword(): ?string
     {
         return $this->oldPassword;
     }
@@ -45,7 +45,7 @@ class PasswordReq
     /**
      * The user's existing password.
      */
-    public function setOldPassword(string $oldPassword): self
+    public function setOldPassword(?string $oldPassword): self
     {
         $this->initialized['oldPassword'] = true;
         $this->oldPassword = $oldPassword;
@@ -56,7 +56,7 @@ class PasswordReq
     /**
      * New password for marking as to be updated.
      */
-    public function getNewPassword(): string
+    public function getNewPassword(): ?string
     {
         return $this->newPassword;
     }
@@ -64,7 +64,7 @@ class PasswordReq
     /**
      * New password for marking as to be updated.
      */
-    public function setNewPassword(string $newPassword): self
+    public function setNewPassword(?string $newPassword): self
     {
         $this->initialized['newPassword'] = true;
         $this->newPassword = $newPassword;

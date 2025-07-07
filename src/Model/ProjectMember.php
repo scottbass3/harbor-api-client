@@ -24,22 +24,22 @@ class ProjectMember
     /**
      * The role id 1 for projectAdmin, 2 for developer, 3 for guest, 4 for maintainer.
      *
-     * @var int
+     * @var int|null
      */
     protected $roleId;
     /**
-     * @var UserEntity
+     * @var UserEntity|null
      */
     protected $memberUser;
     /**
-     * @var UserGroup
+     * @var UserGroup|null
      */
     protected $memberGroup;
 
     /**
      * The role id 1 for projectAdmin, 2 for developer, 3 for guest, 4 for maintainer.
      */
-    public function getRoleId(): int
+    public function getRoleId(): ?int
     {
         return $this->roleId;
     }
@@ -47,7 +47,7 @@ class ProjectMember
     /**
      * The role id 1 for projectAdmin, 2 for developer, 3 for guest, 4 for maintainer.
      */
-    public function setRoleId(int $roleId): self
+    public function setRoleId(?int $roleId): self
     {
         $this->initialized['roleId'] = true;
         $this->roleId = $roleId;
@@ -55,12 +55,12 @@ class ProjectMember
         return $this;
     }
 
-    public function getMemberUser(): UserEntity
+    public function getMemberUser(): ?UserEntity
     {
         return $this->memberUser;
     }
 
-    public function setMemberUser(UserEntity $memberUser): self
+    public function setMemberUser(?UserEntity $memberUser): self
     {
         $this->initialized['memberUser'] = true;
         $this->memberUser = $memberUser;
@@ -68,12 +68,12 @@ class ProjectMember
         return $this;
     }
 
-    public function getMemberGroup(): UserGroup
+    public function getMemberGroup(): ?UserGroup
     {
         return $this->memberGroup;
     }
 
-    public function setMemberGroup(UserGroup $memberGroup): self
+    public function setMemberGroup(?UserGroup $memberGroup): self
     {
         $this->initialized['memberGroup'] = true;
         $this->memberGroup = $memberGroup;

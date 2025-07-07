@@ -49,20 +49,30 @@ class UserCreationReqNormalizer implements DenormalizerInterface, NormalizerInte
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('email', $data)) {
+        if (\array_key_exists('email', $data) && $data['email'] !== null) {
             $object->setEmail($data['email']);
+        } elseif (\array_key_exists('email', $data) && $data['email'] === null) {
+            $object->setEmail(null);
         }
-        if (\array_key_exists('realname', $data)) {
+        if (\array_key_exists('realname', $data) && $data['realname'] !== null) {
             $object->setRealname($data['realname']);
+        } elseif (\array_key_exists('realname', $data) && $data['realname'] === null) {
+            $object->setRealname(null);
         }
-        if (\array_key_exists('comment', $data)) {
+        if (\array_key_exists('comment', $data) && $data['comment'] !== null) {
             $object->setComment($data['comment']);
+        } elseif (\array_key_exists('comment', $data) && $data['comment'] === null) {
+            $object->setComment(null);
         }
-        if (\array_key_exists('password', $data)) {
+        if (\array_key_exists('password', $data) && $data['password'] !== null) {
             $object->setPassword($data['password']);
+        } elseif (\array_key_exists('password', $data) && $data['password'] === null) {
+            $object->setPassword(null);
         }
-        if (\array_key_exists('username', $data)) {
+        if (\array_key_exists('username', $data) && $data['username'] !== null) {
             $object->setUsername($data['username']);
+        } elseif (\array_key_exists('username', $data) && $data['username'] === null) {
+            $object->setUsername(null);
         }
 
         return $object;

@@ -49,23 +49,35 @@ class OIDCUserInfoNormalizer implements DenormalizerInterface, NormalizerInterfa
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('id', $data)) {
+        if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
+        } elseif (\array_key_exists('id', $data) && $data['id'] === null) {
+            $object->setId(null);
         }
-        if (\array_key_exists('user_id', $data)) {
+        if (\array_key_exists('user_id', $data) && $data['user_id'] !== null) {
             $object->setUserId($data['user_id']);
+        } elseif (\array_key_exists('user_id', $data) && $data['user_id'] === null) {
+            $object->setUserId(null);
         }
-        if (\array_key_exists('subiss', $data)) {
+        if (\array_key_exists('subiss', $data) && $data['subiss'] !== null) {
             $object->setSubiss($data['subiss']);
+        } elseif (\array_key_exists('subiss', $data) && $data['subiss'] === null) {
+            $object->setSubiss(null);
         }
-        if (\array_key_exists('secret', $data)) {
+        if (\array_key_exists('secret', $data) && $data['secret'] !== null) {
             $object->setSecret($data['secret']);
+        } elseif (\array_key_exists('secret', $data) && $data['secret'] === null) {
+            $object->setSecret(null);
         }
-        if (\array_key_exists('creation_time', $data)) {
+        if (\array_key_exists('creation_time', $data) && $data['creation_time'] !== null) {
             $object->setCreationTime(\DateTime::createFromFormat('Y-m-d\TH:i:s.vp', $data['creation_time']));
+        } elseif (\array_key_exists('creation_time', $data) && $data['creation_time'] === null) {
+            $object->setCreationTime(null);
         }
-        if (\array_key_exists('update_time', $data)) {
+        if (\array_key_exists('update_time', $data) && $data['update_time'] !== null) {
             $object->setUpdateTime(\DateTime::createFromFormat('Y-m-d\TH:i:s.vp', $data['update_time']));
+        } elseif (\array_key_exists('update_time', $data) && $data['update_time'] === null) {
+            $object->setUpdateTime(null);
         }
 
         return $object;

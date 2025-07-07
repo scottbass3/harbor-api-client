@@ -24,13 +24,13 @@ class CVEAllowlist
     /**
      * ID of the allowlist.
      *
-     * @var int
+     * @var int|null
      */
     protected $id;
     /**
      * ID of the project which the allowlist belongs to.  For system level allowlist this attribute is zero.
      *
-     * @var int
+     * @var int|null
      */
     protected $projectId;
     /**
@@ -40,26 +40,26 @@ class CVEAllowlist
      */
     protected $expiresAt;
     /**
-     * @var list<CVEAllowlistItem>
+     * @var list<CVEAllowlistItem>|null
      */
     protected $items;
     /**
      * The creation time of the allowlist.
      *
-     * @var \DateTimeInterface
+     * @var \DateTimeInterface|null
      */
     protected $creationTime;
     /**
      * The update time of the allowlist.
      *
-     * @var \DateTimeInterface
+     * @var \DateTimeInterface|null
      */
     protected $updateTime;
 
     /**
      * ID of the allowlist.
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -67,7 +67,7 @@ class CVEAllowlist
     /**
      * ID of the allowlist.
      */
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->initialized['id'] = true;
         $this->id = $id;
@@ -78,7 +78,7 @@ class CVEAllowlist
     /**
      * ID of the project which the allowlist belongs to.  For system level allowlist this attribute is zero.
      */
-    public function getProjectId(): int
+    public function getProjectId(): ?int
     {
         return $this->projectId;
     }
@@ -86,7 +86,7 @@ class CVEAllowlist
     /**
      * ID of the project which the allowlist belongs to.  For system level allowlist this attribute is zero.
      */
-    public function setProjectId(int $projectId): self
+    public function setProjectId(?int $projectId): self
     {
         $this->initialized['projectId'] = true;
         $this->projectId = $projectId;
@@ -114,17 +114,17 @@ class CVEAllowlist
     }
 
     /**
-     * @return list<CVEAllowlistItem>
+     * @return list<CVEAllowlistItem>|null
      */
-    public function getItems(): array
+    public function getItems(): ?array
     {
         return $this->items;
     }
 
     /**
-     * @param list<CVEAllowlistItem> $items
+     * @param list<CVEAllowlistItem>|null $items
      */
-    public function setItems(array $items): self
+    public function setItems(?array $items): self
     {
         $this->initialized['items'] = true;
         $this->items = $items;
@@ -135,7 +135,7 @@ class CVEAllowlist
     /**
      * The creation time of the allowlist.
      */
-    public function getCreationTime(): \DateTimeInterface
+    public function getCreationTime(): ?\DateTimeInterface
     {
         return $this->creationTime;
     }
@@ -143,7 +143,7 @@ class CVEAllowlist
     /**
      * The creation time of the allowlist.
      */
-    public function setCreationTime(\DateTimeInterface $creationTime): self
+    public function setCreationTime(?\DateTimeInterface $creationTime): self
     {
         $this->initialized['creationTime'] = true;
         $this->creationTime = $creationTime;
@@ -154,7 +154,7 @@ class CVEAllowlist
     /**
      * The update time of the allowlist.
      */
-    public function getUpdateTime(): \DateTimeInterface
+    public function getUpdateTime(): ?\DateTimeInterface
     {
         return $this->updateTime;
     }
@@ -162,7 +162,7 @@ class CVEAllowlist
     /**
      * The update time of the allowlist.
      */
-    public function setUpdateTime(\DateTimeInterface $updateTime): self
+    public function setUpdateTime(?\DateTimeInterface $updateTime): self
     {
         $this->initialized['updateTime'] = true;
         $this->updateTime = $updateTime;

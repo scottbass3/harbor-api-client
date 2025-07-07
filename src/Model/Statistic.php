@@ -24,50 +24,50 @@ class Statistic
     /**
      * The count of the private projects.
      *
-     * @var int
+     * @var int|null
      */
     protected $privateProjectCount;
     /**
      * The count of the private repositories.
      *
-     * @var int
+     * @var int|null
      */
     protected $privateRepoCount;
     /**
      * The count of the public projects.
      *
-     * @var int
+     * @var int|null
      */
     protected $publicProjectCount;
     /**
      * The count of the public repositories.
      *
-     * @var int
+     * @var int|null
      */
     protected $publicRepoCount;
     /**
      * The count of the total projects, only be seen by the system admin.
      *
-     * @var int
+     * @var int|null
      */
     protected $totalProjectCount;
     /**
      * The count of the total repositories, only be seen by the system admin.
      *
-     * @var int
+     * @var int|null
      */
     protected $totalRepoCount;
     /**
      * The total storage consumption of blobs, only be seen by the system admin.
      *
-     * @var int
+     * @var int|null
      */
     protected $totalStorageConsumption;
 
     /**
      * The count of the private projects.
      */
-    public function getPrivateProjectCount(): int
+    public function getPrivateProjectCount(): ?int
     {
         return $this->privateProjectCount;
     }
@@ -75,7 +75,7 @@ class Statistic
     /**
      * The count of the private projects.
      */
-    public function setPrivateProjectCount(int $privateProjectCount): self
+    public function setPrivateProjectCount(?int $privateProjectCount): self
     {
         $this->initialized['privateProjectCount'] = true;
         $this->privateProjectCount = $privateProjectCount;
@@ -86,7 +86,7 @@ class Statistic
     /**
      * The count of the private repositories.
      */
-    public function getPrivateRepoCount(): int
+    public function getPrivateRepoCount(): ?int
     {
         return $this->privateRepoCount;
     }
@@ -94,7 +94,7 @@ class Statistic
     /**
      * The count of the private repositories.
      */
-    public function setPrivateRepoCount(int $privateRepoCount): self
+    public function setPrivateRepoCount(?int $privateRepoCount): self
     {
         $this->initialized['privateRepoCount'] = true;
         $this->privateRepoCount = $privateRepoCount;
@@ -105,7 +105,7 @@ class Statistic
     /**
      * The count of the public projects.
      */
-    public function getPublicProjectCount(): int
+    public function getPublicProjectCount(): ?int
     {
         return $this->publicProjectCount;
     }
@@ -113,7 +113,7 @@ class Statistic
     /**
      * The count of the public projects.
      */
-    public function setPublicProjectCount(int $publicProjectCount): self
+    public function setPublicProjectCount(?int $publicProjectCount): self
     {
         $this->initialized['publicProjectCount'] = true;
         $this->publicProjectCount = $publicProjectCount;
@@ -124,7 +124,7 @@ class Statistic
     /**
      * The count of the public repositories.
      */
-    public function getPublicRepoCount(): int
+    public function getPublicRepoCount(): ?int
     {
         return $this->publicRepoCount;
     }
@@ -132,7 +132,7 @@ class Statistic
     /**
      * The count of the public repositories.
      */
-    public function setPublicRepoCount(int $publicRepoCount): self
+    public function setPublicRepoCount(?int $publicRepoCount): self
     {
         $this->initialized['publicRepoCount'] = true;
         $this->publicRepoCount = $publicRepoCount;
@@ -143,7 +143,7 @@ class Statistic
     /**
      * The count of the total projects, only be seen by the system admin.
      */
-    public function getTotalProjectCount(): int
+    public function getTotalProjectCount(): ?int
     {
         return $this->totalProjectCount;
     }
@@ -151,7 +151,7 @@ class Statistic
     /**
      * The count of the total projects, only be seen by the system admin.
      */
-    public function setTotalProjectCount(int $totalProjectCount): self
+    public function setTotalProjectCount(?int $totalProjectCount): self
     {
         $this->initialized['totalProjectCount'] = true;
         $this->totalProjectCount = $totalProjectCount;
@@ -162,7 +162,7 @@ class Statistic
     /**
      * The count of the total repositories, only be seen by the system admin.
      */
-    public function getTotalRepoCount(): int
+    public function getTotalRepoCount(): ?int
     {
         return $this->totalRepoCount;
     }
@@ -170,7 +170,7 @@ class Statistic
     /**
      * The count of the total repositories, only be seen by the system admin.
      */
-    public function setTotalRepoCount(int $totalRepoCount): self
+    public function setTotalRepoCount(?int $totalRepoCount): self
     {
         $this->initialized['totalRepoCount'] = true;
         $this->totalRepoCount = $totalRepoCount;
@@ -181,7 +181,7 @@ class Statistic
     /**
      * The total storage consumption of blobs, only be seen by the system admin.
      */
-    public function getTotalStorageConsumption(): int
+    public function getTotalStorageConsumption(): ?int
     {
         return $this->totalStorageConsumption;
     }
@@ -189,7 +189,7 @@ class Statistic
     /**
      * The total storage consumption of blobs, only be seen by the system admin.
      */
-    public function setTotalStorageConsumption(int $totalStorageConsumption): self
+    public function setTotalStorageConsumption(?int $totalStorageConsumption): self
     {
         $this->initialized['totalStorageConsumption'] = true;
         $this->totalStorageConsumption = $totalStorageConsumption;

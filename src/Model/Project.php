@@ -24,90 +24,90 @@ class Project
     /**
      * Project ID.
      *
-     * @var int
+     * @var int|null
      */
     protected $projectId;
     /**
      * The owner ID of the project always means the creator of the project.
      *
-     * @var int
+     * @var int|null
      */
     protected $ownerId;
     /**
      * The name of the project.
      *
-     * @var string
+     * @var string|null
      */
     protected $name;
     /**
      * The ID of referenced registry when the project is a proxy cache project.
      *
-     * @var int
+     * @var int|null
      */
     protected $registryId;
     /**
      * The creation time of the project.
      *
-     * @var \DateTimeInterface
+     * @var \DateTimeInterface|null
      */
     protected $creationTime;
     /**
      * The update time of the project.
      *
-     * @var \DateTimeInterface
+     * @var \DateTimeInterface|null
      */
     protected $updateTime;
     /**
      * A deletion mark of the project.
      *
-     * @var bool
+     * @var bool|null
      */
     protected $deleted;
     /**
      * The owner name of the project.
      *
-     * @var string
+     * @var string|null
      */
     protected $ownerName;
     /**
      * Correspond to the UI about whether the project's publicity is  updatable (for UI).
      *
-     * @var bool
+     * @var bool|null
      */
     protected $togglable;
     /**
      * The role ID with highest permission of the current user who triggered the API (for UI).  This attribute is deprecated and will be removed in future versions.
      *
-     * @var int
+     * @var int|null
      */
     protected $currentUserRoleId;
     /**
      * The list of role ID of the current user who triggered the API (for UI).
      *
-     * @var list<int>
+     * @var list<int>|null
      */
     protected $currentUserRoleIds;
     /**
      * The number of the repositories under this project.
      *
-     * @var int
+     * @var int|null
      */
     protected $repoCount;
     /**
-     * @var ProjectMetadata
+     * @var ProjectMetadata|null
      */
     protected $metadata;
     /**
      * The CVE Allowlist for system or project.
      *
-     * @var CVEAllowlist
+     * @var CVEAllowlist|null
      */
     protected $cveAllowlist;
 
     /**
      * Project ID.
      */
-    public function getProjectId(): int
+    public function getProjectId(): ?int
     {
         return $this->projectId;
     }
@@ -115,7 +115,7 @@ class Project
     /**
      * Project ID.
      */
-    public function setProjectId(int $projectId): self
+    public function setProjectId(?int $projectId): self
     {
         $this->initialized['projectId'] = true;
         $this->projectId = $projectId;
@@ -126,7 +126,7 @@ class Project
     /**
      * The owner ID of the project always means the creator of the project.
      */
-    public function getOwnerId(): int
+    public function getOwnerId(): ?int
     {
         return $this->ownerId;
     }
@@ -134,7 +134,7 @@ class Project
     /**
      * The owner ID of the project always means the creator of the project.
      */
-    public function setOwnerId(int $ownerId): self
+    public function setOwnerId(?int $ownerId): self
     {
         $this->initialized['ownerId'] = true;
         $this->ownerId = $ownerId;
@@ -145,7 +145,7 @@ class Project
     /**
      * The name of the project.
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -153,7 +153,7 @@ class Project
     /**
      * The name of the project.
      */
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->initialized['name'] = true;
         $this->name = $name;
@@ -164,7 +164,7 @@ class Project
     /**
      * The ID of referenced registry when the project is a proxy cache project.
      */
-    public function getRegistryId(): int
+    public function getRegistryId(): ?int
     {
         return $this->registryId;
     }
@@ -172,7 +172,7 @@ class Project
     /**
      * The ID of referenced registry when the project is a proxy cache project.
      */
-    public function setRegistryId(int $registryId): self
+    public function setRegistryId(?int $registryId): self
     {
         $this->initialized['registryId'] = true;
         $this->registryId = $registryId;
@@ -183,7 +183,7 @@ class Project
     /**
      * The creation time of the project.
      */
-    public function getCreationTime(): \DateTimeInterface
+    public function getCreationTime(): ?\DateTimeInterface
     {
         return $this->creationTime;
     }
@@ -191,7 +191,7 @@ class Project
     /**
      * The creation time of the project.
      */
-    public function setCreationTime(\DateTimeInterface $creationTime): self
+    public function setCreationTime(?\DateTimeInterface $creationTime): self
     {
         $this->initialized['creationTime'] = true;
         $this->creationTime = $creationTime;
@@ -202,7 +202,7 @@ class Project
     /**
      * The update time of the project.
      */
-    public function getUpdateTime(): \DateTimeInterface
+    public function getUpdateTime(): ?\DateTimeInterface
     {
         return $this->updateTime;
     }
@@ -210,7 +210,7 @@ class Project
     /**
      * The update time of the project.
      */
-    public function setUpdateTime(\DateTimeInterface $updateTime): self
+    public function setUpdateTime(?\DateTimeInterface $updateTime): self
     {
         $this->initialized['updateTime'] = true;
         $this->updateTime = $updateTime;
@@ -221,7 +221,7 @@ class Project
     /**
      * A deletion mark of the project.
      */
-    public function getDeleted(): bool
+    public function getDeleted(): ?bool
     {
         return $this->deleted;
     }
@@ -229,7 +229,7 @@ class Project
     /**
      * A deletion mark of the project.
      */
-    public function setDeleted(bool $deleted): self
+    public function setDeleted(?bool $deleted): self
     {
         $this->initialized['deleted'] = true;
         $this->deleted = $deleted;
@@ -240,7 +240,7 @@ class Project
     /**
      * The owner name of the project.
      */
-    public function getOwnerName(): string
+    public function getOwnerName(): ?string
     {
         return $this->ownerName;
     }
@@ -248,7 +248,7 @@ class Project
     /**
      * The owner name of the project.
      */
-    public function setOwnerName(string $ownerName): self
+    public function setOwnerName(?string $ownerName): self
     {
         $this->initialized['ownerName'] = true;
         $this->ownerName = $ownerName;
@@ -259,7 +259,7 @@ class Project
     /**
      * Correspond to the UI about whether the project's publicity is  updatable (for UI).
      */
-    public function getTogglable(): bool
+    public function getTogglable(): ?bool
     {
         return $this->togglable;
     }
@@ -267,7 +267,7 @@ class Project
     /**
      * Correspond to the UI about whether the project's publicity is  updatable (for UI).
      */
-    public function setTogglable(bool $togglable): self
+    public function setTogglable(?bool $togglable): self
     {
         $this->initialized['togglable'] = true;
         $this->togglable = $togglable;
@@ -278,7 +278,7 @@ class Project
     /**
      * The role ID with highest permission of the current user who triggered the API (for UI).  This attribute is deprecated and will be removed in future versions.
      */
-    public function getCurrentUserRoleId(): int
+    public function getCurrentUserRoleId(): ?int
     {
         return $this->currentUserRoleId;
     }
@@ -286,7 +286,7 @@ class Project
     /**
      * The role ID with highest permission of the current user who triggered the API (for UI).  This attribute is deprecated and will be removed in future versions.
      */
-    public function setCurrentUserRoleId(int $currentUserRoleId): self
+    public function setCurrentUserRoleId(?int $currentUserRoleId): self
     {
         $this->initialized['currentUserRoleId'] = true;
         $this->currentUserRoleId = $currentUserRoleId;
@@ -297,9 +297,9 @@ class Project
     /**
      * The list of role ID of the current user who triggered the API (for UI).
      *
-     * @return list<int>
+     * @return list<int>|null
      */
-    public function getCurrentUserRoleIds(): array
+    public function getCurrentUserRoleIds(): ?array
     {
         return $this->currentUserRoleIds;
     }
@@ -307,9 +307,9 @@ class Project
     /**
      * The list of role ID of the current user who triggered the API (for UI).
      *
-     * @param list<int> $currentUserRoleIds
+     * @param list<int>|null $currentUserRoleIds
      */
-    public function setCurrentUserRoleIds(array $currentUserRoleIds): self
+    public function setCurrentUserRoleIds(?array $currentUserRoleIds): self
     {
         $this->initialized['currentUserRoleIds'] = true;
         $this->currentUserRoleIds = $currentUserRoleIds;
@@ -320,7 +320,7 @@ class Project
     /**
      * The number of the repositories under this project.
      */
-    public function getRepoCount(): int
+    public function getRepoCount(): ?int
     {
         return $this->repoCount;
     }
@@ -328,7 +328,7 @@ class Project
     /**
      * The number of the repositories under this project.
      */
-    public function setRepoCount(int $repoCount): self
+    public function setRepoCount(?int $repoCount): self
     {
         $this->initialized['repoCount'] = true;
         $this->repoCount = $repoCount;
@@ -336,12 +336,12 @@ class Project
         return $this;
     }
 
-    public function getMetadata(): ProjectMetadata
+    public function getMetadata(): ?ProjectMetadata
     {
         return $this->metadata;
     }
 
-    public function setMetadata(ProjectMetadata $metadata): self
+    public function setMetadata(?ProjectMetadata $metadata): self
     {
         $this->initialized['metadata'] = true;
         $this->metadata = $metadata;
@@ -352,7 +352,7 @@ class Project
     /**
      * The CVE Allowlist for system or project.
      */
-    public function getCveAllowlist(): CVEAllowlist
+    public function getCveAllowlist(): ?CVEAllowlist
     {
         return $this->cveAllowlist;
     }
@@ -360,7 +360,7 @@ class Project
     /**
      * The CVE Allowlist for system or project.
      */
-    public function setCveAllowlist(CVEAllowlist $cveAllowlist): self
+    public function setCveAllowlist(?CVEAllowlist $cveAllowlist): self
     {
         $this->initialized['cveAllowlist'] = true;
         $this->cveAllowlist = $cveAllowlist;

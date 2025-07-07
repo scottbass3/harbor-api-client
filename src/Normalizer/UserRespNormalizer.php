@@ -55,35 +55,55 @@ class UserRespNormalizer implements DenormalizerInterface, NormalizerInterface, 
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('email', $data)) {
+        if (\array_key_exists('email', $data) && $data['email'] !== null) {
             $object->setEmail($data['email']);
+        } elseif (\array_key_exists('email', $data) && $data['email'] === null) {
+            $object->setEmail(null);
         }
-        if (\array_key_exists('realname', $data)) {
+        if (\array_key_exists('realname', $data) && $data['realname'] !== null) {
             $object->setRealname($data['realname']);
+        } elseif (\array_key_exists('realname', $data) && $data['realname'] === null) {
+            $object->setRealname(null);
         }
-        if (\array_key_exists('comment', $data)) {
+        if (\array_key_exists('comment', $data) && $data['comment'] !== null) {
             $object->setComment($data['comment']);
+        } elseif (\array_key_exists('comment', $data) && $data['comment'] === null) {
+            $object->setComment(null);
         }
-        if (\array_key_exists('user_id', $data)) {
+        if (\array_key_exists('user_id', $data) && $data['user_id'] !== null) {
             $object->setUserId($data['user_id']);
+        } elseif (\array_key_exists('user_id', $data) && $data['user_id'] === null) {
+            $object->setUserId(null);
         }
-        if (\array_key_exists('username', $data)) {
+        if (\array_key_exists('username', $data) && $data['username'] !== null) {
             $object->setUsername($data['username']);
+        } elseif (\array_key_exists('username', $data) && $data['username'] === null) {
+            $object->setUsername(null);
         }
-        if (\array_key_exists('sysadmin_flag', $data)) {
+        if (\array_key_exists('sysadmin_flag', $data) && $data['sysadmin_flag'] !== null) {
             $object->setSysadminFlag($data['sysadmin_flag']);
+        } elseif (\array_key_exists('sysadmin_flag', $data) && $data['sysadmin_flag'] === null) {
+            $object->setSysadminFlag(null);
         }
-        if (\array_key_exists('admin_role_in_auth', $data)) {
+        if (\array_key_exists('admin_role_in_auth', $data) && $data['admin_role_in_auth'] !== null) {
             $object->setAdminRoleInAuth($data['admin_role_in_auth']);
+        } elseif (\array_key_exists('admin_role_in_auth', $data) && $data['admin_role_in_auth'] === null) {
+            $object->setAdminRoleInAuth(null);
         }
-        if (\array_key_exists('oidc_user_meta', $data)) {
+        if (\array_key_exists('oidc_user_meta', $data) && $data['oidc_user_meta'] !== null) {
             $object->setOidcUserMeta($this->denormalizer->denormalize($data['oidc_user_meta'], \Flownative\Harbor\Api\Model\OIDCUserInfo::class, 'json', $context));
+        } elseif (\array_key_exists('oidc_user_meta', $data) && $data['oidc_user_meta'] === null) {
+            $object->setOidcUserMeta(null);
         }
-        if (\array_key_exists('creation_time', $data)) {
+        if (\array_key_exists('creation_time', $data) && $data['creation_time'] !== null) {
             $object->setCreationTime(\DateTime::createFromFormat('Y-m-d\TH:i:s.vp', $data['creation_time']));
+        } elseif (\array_key_exists('creation_time', $data) && $data['creation_time'] === null) {
+            $object->setCreationTime(null);
         }
-        if (\array_key_exists('update_time', $data)) {
+        if (\array_key_exists('update_time', $data) && $data['update_time'] !== null) {
             $object->setUpdateTime(\DateTime::createFromFormat('Y-m-d\TH:i:s.vp', $data['update_time']));
+        } elseif (\array_key_exists('update_time', $data) && $data['update_time'] === null) {
+            $object->setUpdateTime(null);
         }
 
         return $object;

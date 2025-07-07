@@ -24,14 +24,14 @@ class RoleRequest
     /**
      * The role id 1 for projectAdmin, 2 for developer, 3 for guest, 4 for maintainer.
      *
-     * @var int
+     * @var int|null
      */
     protected $roleId;
 
     /**
      * The role id 1 for projectAdmin, 2 for developer, 3 for guest, 4 for maintainer.
      */
-    public function getRoleId(): int
+    public function getRoleId(): ?int
     {
         return $this->roleId;
     }
@@ -39,7 +39,7 @@ class RoleRequest
     /**
      * The role id 1 for projectAdmin, 2 for developer, 3 for guest, 4 for maintainer.
      */
-    public function setRoleId(int $roleId): self
+    public function setRoleId(?int $roleId): self
     {
         $this->initialized['roleId'] = true;
         $this->roleId = $roleId;

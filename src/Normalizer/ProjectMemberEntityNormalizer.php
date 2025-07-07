@@ -49,26 +49,40 @@ class ProjectMemberEntityNormalizer implements DenormalizerInterface, Normalizer
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('id', $data)) {
+        if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
+        } elseif (\array_key_exists('id', $data) && $data['id'] === null) {
+            $object->setId(null);
         }
-        if (\array_key_exists('project_id', $data)) {
+        if (\array_key_exists('project_id', $data) && $data['project_id'] !== null) {
             $object->setProjectId($data['project_id']);
+        } elseif (\array_key_exists('project_id', $data) && $data['project_id'] === null) {
+            $object->setProjectId(null);
         }
-        if (\array_key_exists('entity_name', $data)) {
+        if (\array_key_exists('entity_name', $data) && $data['entity_name'] !== null) {
             $object->setEntityName($data['entity_name']);
+        } elseif (\array_key_exists('entity_name', $data) && $data['entity_name'] === null) {
+            $object->setEntityName(null);
         }
-        if (\array_key_exists('role_name', $data)) {
+        if (\array_key_exists('role_name', $data) && $data['role_name'] !== null) {
             $object->setRoleName($data['role_name']);
+        } elseif (\array_key_exists('role_name', $data) && $data['role_name'] === null) {
+            $object->setRoleName(null);
         }
-        if (\array_key_exists('role_id', $data)) {
+        if (\array_key_exists('role_id', $data) && $data['role_id'] !== null) {
             $object->setRoleId($data['role_id']);
+        } elseif (\array_key_exists('role_id', $data) && $data['role_id'] === null) {
+            $object->setRoleId(null);
         }
-        if (\array_key_exists('entity_id', $data)) {
+        if (\array_key_exists('entity_id', $data) && $data['entity_id'] !== null) {
             $object->setEntityId($data['entity_id']);
+        } elseif (\array_key_exists('entity_id', $data) && $data['entity_id'] === null) {
+            $object->setEntityId(null);
         }
-        if (\array_key_exists('entity_type', $data)) {
+        if (\array_key_exists('entity_type', $data) && $data['entity_type'] !== null) {
             $object->setEntityType($data['entity_type']);
+        } elseif (\array_key_exists('entity_type', $data) && $data['entity_type'] === null) {
+            $object->setEntityType(null);
         }
 
         return $object;

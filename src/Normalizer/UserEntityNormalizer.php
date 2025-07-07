@@ -49,11 +49,15 @@ class UserEntityNormalizer implements DenormalizerInterface, NormalizerInterface
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('user_id', $data)) {
+        if (\array_key_exists('user_id', $data) && $data['user_id'] !== null) {
             $object->setUserId($data['user_id']);
+        } elseif (\array_key_exists('user_id', $data) && $data['user_id'] === null) {
+            $object->setUserId(null);
         }
-        if (\array_key_exists('username', $data)) {
+        if (\array_key_exists('username', $data) && $data['username'] !== null) {
             $object->setUsername($data['username']);
+        } elseif (\array_key_exists('username', $data) && $data['username'] === null) {
+            $object->setUsername(null);
         }
 
         return $object;

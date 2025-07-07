@@ -49,26 +49,40 @@ class StatisticNormalizer implements DenormalizerInterface, NormalizerInterface,
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('private_project_count', $data)) {
+        if (\array_key_exists('private_project_count', $data) && $data['private_project_count'] !== null) {
             $object->setPrivateProjectCount($data['private_project_count']);
+        } elseif (\array_key_exists('private_project_count', $data) && $data['private_project_count'] === null) {
+            $object->setPrivateProjectCount(null);
         }
-        if (\array_key_exists('private_repo_count', $data)) {
+        if (\array_key_exists('private_repo_count', $data) && $data['private_repo_count'] !== null) {
             $object->setPrivateRepoCount($data['private_repo_count']);
+        } elseif (\array_key_exists('private_repo_count', $data) && $data['private_repo_count'] === null) {
+            $object->setPrivateRepoCount(null);
         }
-        if (\array_key_exists('public_project_count', $data)) {
+        if (\array_key_exists('public_project_count', $data) && $data['public_project_count'] !== null) {
             $object->setPublicProjectCount($data['public_project_count']);
+        } elseif (\array_key_exists('public_project_count', $data) && $data['public_project_count'] === null) {
+            $object->setPublicProjectCount(null);
         }
-        if (\array_key_exists('public_repo_count', $data)) {
+        if (\array_key_exists('public_repo_count', $data) && $data['public_repo_count'] !== null) {
             $object->setPublicRepoCount($data['public_repo_count']);
+        } elseif (\array_key_exists('public_repo_count', $data) && $data['public_repo_count'] === null) {
+            $object->setPublicRepoCount(null);
         }
-        if (\array_key_exists('total_project_count', $data)) {
+        if (\array_key_exists('total_project_count', $data) && $data['total_project_count'] !== null) {
             $object->setTotalProjectCount($data['total_project_count']);
+        } elseif (\array_key_exists('total_project_count', $data) && $data['total_project_count'] === null) {
+            $object->setTotalProjectCount(null);
         }
-        if (\array_key_exists('total_repo_count', $data)) {
+        if (\array_key_exists('total_repo_count', $data) && $data['total_repo_count'] !== null) {
             $object->setTotalRepoCount($data['total_repo_count']);
+        } elseif (\array_key_exists('total_repo_count', $data) && $data['total_repo_count'] === null) {
+            $object->setTotalRepoCount(null);
         }
-        if (\array_key_exists('total_storage_consumption', $data)) {
+        if (\array_key_exists('total_storage_consumption', $data) && $data['total_storage_consumption'] !== null) {
             $object->setTotalStorageConsumption($data['total_storage_consumption']);
+        } elseif (\array_key_exists('total_storage_consumption', $data) && $data['total_storage_consumption'] === null) {
+            $object->setTotalStorageConsumption(null);
         }
 
         return $object;

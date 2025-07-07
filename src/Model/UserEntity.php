@@ -24,20 +24,20 @@ class UserEntity
     /**
      * The ID of the user.
      *
-     * @var int
+     * @var int|null
      */
     protected $userId;
     /**
      * The name of the user.
      *
-     * @var string
+     * @var string|null
      */
     protected $username;
 
     /**
      * The ID of the user.
      */
-    public function getUserId(): int
+    public function getUserId(): ?int
     {
         return $this->userId;
     }
@@ -45,7 +45,7 @@ class UserEntity
     /**
      * The ID of the user.
      */
-    public function setUserId(int $userId): self
+    public function setUserId(?int $userId): self
     {
         $this->initialized['userId'] = true;
         $this->userId = $userId;
@@ -56,7 +56,7 @@ class UserEntity
     /**
      * The name of the user.
      */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return $this->username;
     }
@@ -64,7 +64,7 @@ class UserEntity
     /**
      * The name of the user.
      */
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->initialized['username'] = true;
         $this->username = $username;

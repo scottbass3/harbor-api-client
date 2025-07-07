@@ -49,8 +49,10 @@ class CVEAllowlistItemNormalizer implements DenormalizerInterface, NormalizerInt
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('cve_id', $data)) {
+        if (\array_key_exists('cve_id', $data) && $data['cve_id'] !== null) {
             $object->setCveId($data['cve_id']);
+        } elseif (\array_key_exists('cve_id', $data) && $data['cve_id'] === null) {
+            $object->setCveId(null);
         }
 
         return $object;

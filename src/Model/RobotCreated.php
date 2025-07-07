@@ -24,38 +24,38 @@ class RobotCreated
     /**
      * The ID of the robot.
      *
-     * @var int
+     * @var int|null
      */
     protected $id;
     /**
      * The name of the robot.
      *
-     * @var string
+     * @var string|null
      */
     protected $name;
     /**
      * The secret of the robot.
      *
-     * @var string
+     * @var string|null
      */
     protected $secret;
     /**
      * The creation time of the robot.
      *
-     * @var \DateTimeInterface
+     * @var \DateTimeInterface|null
      */
     protected $creationTime;
     /**
      * The expiration date of the robot.
      *
-     * @var int
+     * @var int|null
      */
     protected $expiresAt;
 
     /**
      * The ID of the robot.
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -63,7 +63,7 @@ class RobotCreated
     /**
      * The ID of the robot.
      */
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->initialized['id'] = true;
         $this->id = $id;
@@ -74,7 +74,7 @@ class RobotCreated
     /**
      * The name of the robot.
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -82,7 +82,7 @@ class RobotCreated
     /**
      * The name of the robot.
      */
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->initialized['name'] = true;
         $this->name = $name;
@@ -93,7 +93,7 @@ class RobotCreated
     /**
      * The secret of the robot.
      */
-    public function getSecret(): string
+    public function getSecret(): ?string
     {
         return $this->secret;
     }
@@ -101,7 +101,7 @@ class RobotCreated
     /**
      * The secret of the robot.
      */
-    public function setSecret(string $secret): self
+    public function setSecret(?string $secret): self
     {
         $this->initialized['secret'] = true;
         $this->secret = $secret;
@@ -112,7 +112,7 @@ class RobotCreated
     /**
      * The creation time of the robot.
      */
-    public function getCreationTime(): \DateTimeInterface
+    public function getCreationTime(): ?\DateTimeInterface
     {
         return $this->creationTime;
     }
@@ -120,7 +120,7 @@ class RobotCreated
     /**
      * The creation time of the robot.
      */
-    public function setCreationTime(\DateTimeInterface $creationTime): self
+    public function setCreationTime(?\DateTimeInterface $creationTime): self
     {
         $this->initialized['creationTime'] = true;
         $this->creationTime = $creationTime;
@@ -131,7 +131,7 @@ class RobotCreated
     /**
      * The expiration date of the robot.
      */
-    public function getExpiresAt(): int
+    public function getExpiresAt(): ?int
     {
         return $this->expiresAt;
     }
@@ -139,7 +139,7 @@ class RobotCreated
     /**
      * The expiration date of the robot.
      */
-    public function setExpiresAt(int $expiresAt): self
+    public function setExpiresAt(?int $expiresAt): self
     {
         $this->initialized['expiresAt'] = true;
         $this->expiresAt = $expiresAt;

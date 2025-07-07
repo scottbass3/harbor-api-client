@@ -49,8 +49,10 @@ class ProjectMetadataNormalizer implements DenormalizerInterface, NormalizerInte
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('public', $data)) {
+        if (\array_key_exists('public', $data) && $data['public'] !== null) {
             $object->setPublic($data['public']);
+        } elseif (\array_key_exists('public', $data) && $data['public'] === null) {
+            $object->setPublic(null);
         }
         if (\array_key_exists('enable_content_trust', $data) && $data['enable_content_trust'] !== null) {
             $object->setEnableContentTrust($data['enable_content_trust']);

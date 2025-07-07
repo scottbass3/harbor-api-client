@@ -22,24 +22,24 @@ class UserProfile
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * @var string
+     * @var string|null
      */
     protected $email;
     /**
-     * @var string
+     * @var string|null
      */
     protected $realname;
     /**
-     * @var string
+     * @var string|null
      */
     protected $comment;
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->initialized['email'] = true;
         $this->email = $email;
@@ -47,12 +47,12 @@ class UserProfile
         return $this;
     }
 
-    public function getRealname(): string
+    public function getRealname(): ?string
     {
         return $this->realname;
     }
 
-    public function setRealname(string $realname): self
+    public function setRealname(?string $realname): self
     {
         $this->initialized['realname'] = true;
         $this->realname = $realname;
@@ -60,12 +60,12 @@ class UserProfile
         return $this;
     }
 
-    public function getComment(): string
+    public function getComment(): ?string
     {
         return $this->comment;
     }
 
-    public function setComment(string $comment): self
+    public function setComment(?string $comment): self
     {
         $this->initialized['comment'] = true;
         $this->comment = $comment;

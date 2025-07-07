@@ -49,14 +49,20 @@ class AccessNormalizer implements DenormalizerInterface, NormalizerInterface, De
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('resource', $data)) {
+        if (\array_key_exists('resource', $data) && $data['resource'] !== null) {
             $object->setResource($data['resource']);
+        } elseif (\array_key_exists('resource', $data) && $data['resource'] === null) {
+            $object->setResource(null);
         }
-        if (\array_key_exists('action', $data)) {
+        if (\array_key_exists('action', $data) && $data['action'] !== null) {
             $object->setAction($data['action']);
+        } elseif (\array_key_exists('action', $data) && $data['action'] === null) {
+            $object->setAction(null);
         }
-        if (\array_key_exists('effect', $data)) {
+        if (\array_key_exists('effect', $data) && $data['effect'] !== null) {
             $object->setEffect($data['effect']);
+        } elseif (\array_key_exists('effect', $data) && $data['effect'] === null) {
+            $object->setEffect(null);
         }
 
         return $object;

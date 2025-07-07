@@ -52,19 +52,25 @@ class ProjectReqNormalizer implements DenormalizerInterface, NormalizerInterface
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('project_name', $data)) {
+        if (\array_key_exists('project_name', $data) && $data['project_name'] !== null) {
             $object->setProjectName($data['project_name']);
+        } elseif (\array_key_exists('project_name', $data) && $data['project_name'] === null) {
+            $object->setProjectName(null);
         }
         if (\array_key_exists('public', $data) && $data['public'] !== null) {
             $object->setPublic($data['public']);
         } elseif (\array_key_exists('public', $data) && $data['public'] === null) {
             $object->setPublic(null);
         }
-        if (\array_key_exists('metadata', $data)) {
+        if (\array_key_exists('metadata', $data) && $data['metadata'] !== null) {
             $object->setMetadata($this->denormalizer->denormalize($data['metadata'], \Flownative\Harbor\Api\Model\ProjectMetadata::class, 'json', $context));
+        } elseif (\array_key_exists('metadata', $data) && $data['metadata'] === null) {
+            $object->setMetadata(null);
         }
-        if (\array_key_exists('cve_allowlist', $data)) {
+        if (\array_key_exists('cve_allowlist', $data) && $data['cve_allowlist'] !== null) {
             $object->setCveAllowlist($this->denormalizer->denormalize($data['cve_allowlist'], \Flownative\Harbor\Api\Model\CVEAllowlist::class, 'json', $context));
+        } elseif (\array_key_exists('cve_allowlist', $data) && $data['cve_allowlist'] === null) {
+            $object->setCveAllowlist(null);
         }
         if (\array_key_exists('storage_limit', $data) && $data['storage_limit'] !== null) {
             $object->setStorageLimit($data['storage_limit']);

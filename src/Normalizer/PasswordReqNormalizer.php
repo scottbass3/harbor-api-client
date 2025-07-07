@@ -49,11 +49,15 @@ class PasswordReqNormalizer implements DenormalizerInterface, NormalizerInterfac
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('old_password', $data)) {
+        if (\array_key_exists('old_password', $data) && $data['old_password'] !== null) {
             $object->setOldPassword($data['old_password']);
+        } elseif (\array_key_exists('old_password', $data) && $data['old_password'] === null) {
+            $object->setOldPassword(null);
         }
-        if (\array_key_exists('new_password', $data)) {
+        if (\array_key_exists('new_password', $data) && $data['new_password'] !== null) {
             $object->setNewPassword($data['new_password']);
+        } elseif (\array_key_exists('new_password', $data) && $data['new_password'] === null) {
+            $object->setNewPassword(null);
         }
 
         return $object;

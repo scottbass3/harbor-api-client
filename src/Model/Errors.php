@@ -22,22 +22,22 @@ class Errors
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * @var list<Error>
+     * @var list<Error>|null
      */
     protected $errors;
 
     /**
-     * @return list<Error>
+     * @return list<Error>|null
      */
-    public function getErrors(): array
+    public function getErrors(): ?array
     {
         return $this->errors;
     }
 
     /**
-     * @param list<Error> $errors
+     * @param list<Error>|null $errors
      */
-    public function setErrors(array $errors): self
+    public function setErrors(?array $errors): self
     {
         $this->initialized['errors'] = true;
         $this->errors = $errors;

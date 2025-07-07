@@ -24,24 +24,24 @@ class RobotPermission
     /**
      * The kind of the permission.
      *
-     * @var string
+     * @var string|null
      */
     protected $kind;
     /**
      * The namespace of the permission.
      *
-     * @var string
+     * @var string|null
      */
     protected $namespace;
     /**
-     * @var list<Access>
+     * @var list<Access>|null
      */
     protected $access;
 
     /**
      * The kind of the permission.
      */
-    public function getKind(): string
+    public function getKind(): ?string
     {
         return $this->kind;
     }
@@ -49,7 +49,7 @@ class RobotPermission
     /**
      * The kind of the permission.
      */
-    public function setKind(string $kind): self
+    public function setKind(?string $kind): self
     {
         $this->initialized['kind'] = true;
         $this->kind = $kind;
@@ -60,7 +60,7 @@ class RobotPermission
     /**
      * The namespace of the permission.
      */
-    public function getNamespace(): string
+    public function getNamespace(): ?string
     {
         return $this->namespace;
     }
@@ -68,7 +68,7 @@ class RobotPermission
     /**
      * The namespace of the permission.
      */
-    public function setNamespace(string $namespace): self
+    public function setNamespace(?string $namespace): self
     {
         $this->initialized['namespace'] = true;
         $this->namespace = $namespace;
@@ -77,17 +77,17 @@ class RobotPermission
     }
 
     /**
-     * @return list<Access>
+     * @return list<Access>|null
      */
-    public function getAccess(): array
+    public function getAccess(): ?array
     {
         return $this->access;
     }
 
     /**
-     * @param list<Access> $access
+     * @param list<Access>|null $access
      */
-    public function setAccess(array $access): self
+    public function setAccess(?array $access): self
     {
         $this->initialized['access'] = true;
         $this->access = $access;

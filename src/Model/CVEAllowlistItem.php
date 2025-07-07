@@ -24,14 +24,14 @@ class CVEAllowlistItem
     /**
      * The ID of the CVE, such as "CVE-2019-10164".
      *
-     * @var string
+     * @var string|null
      */
     protected $cveId;
 
     /**
      * The ID of the CVE, such as "CVE-2019-10164".
      */
-    public function getCveId(): string
+    public function getCveId(): ?string
     {
         return $this->cveId;
     }
@@ -39,7 +39,7 @@ class CVEAllowlistItem
     /**
      * The ID of the CVE, such as "CVE-2019-10164".
      */
-    public function setCveId(string $cveId): self
+    public function setCveId(?string $cveId): self
     {
         $this->initialized['cveId'] = true;
         $this->cveId = $cveId;

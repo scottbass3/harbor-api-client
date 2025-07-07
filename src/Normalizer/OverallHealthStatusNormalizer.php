@@ -49,15 +49,19 @@ class OverallHealthStatusNormalizer implements DenormalizerInterface, Normalizer
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('status', $data)) {
+        if (\array_key_exists('status', $data) && $data['status'] !== null) {
             $object->setStatus($data['status']);
+        } elseif (\array_key_exists('status', $data) && $data['status'] === null) {
+            $object->setStatus(null);
         }
-        if (\array_key_exists('components', $data)) {
+        if (\array_key_exists('components', $data) && $data['components'] !== null) {
             $values = [];
             foreach ($data['components'] as $value) {
                 $values[] = $this->denormalizer->denormalize($value, \Flownative\Harbor\Api\Model\ComponentHealthStatus::class, 'json', $context);
             }
             $object->setComponents($values);
+        } elseif (\array_key_exists('components', $data) && $data['components'] === null) {
+            $object->setComponents(null);
         }
 
         return $object;

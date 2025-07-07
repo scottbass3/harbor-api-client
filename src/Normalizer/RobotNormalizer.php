@@ -55,45 +55,69 @@ class RobotNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('id', $data)) {
+        if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
+        } elseif (\array_key_exists('id', $data) && $data['id'] === null) {
+            $object->setId(null);
         }
-        if (\array_key_exists('name', $data)) {
+        if (\array_key_exists('name', $data) && $data['name'] !== null) {
             $object->setName($data['name']);
+        } elseif (\array_key_exists('name', $data) && $data['name'] === null) {
+            $object->setName(null);
         }
-        if (\array_key_exists('description', $data)) {
+        if (\array_key_exists('description', $data) && $data['description'] !== null) {
             $object->setDescription($data['description']);
+        } elseif (\array_key_exists('description', $data) && $data['description'] === null) {
+            $object->setDescription(null);
         }
-        if (\array_key_exists('secret', $data)) {
+        if (\array_key_exists('secret', $data) && $data['secret'] !== null) {
             $object->setSecret($data['secret']);
+        } elseif (\array_key_exists('secret', $data) && $data['secret'] === null) {
+            $object->setSecret(null);
         }
-        if (\array_key_exists('level', $data)) {
+        if (\array_key_exists('level', $data) && $data['level'] !== null) {
             $object->setLevel($data['level']);
+        } elseif (\array_key_exists('level', $data) && $data['level'] === null) {
+            $object->setLevel(null);
         }
-        if (\array_key_exists('duration', $data)) {
+        if (\array_key_exists('duration', $data) && $data['duration'] !== null) {
             $object->setDuration($data['duration']);
+        } elseif (\array_key_exists('duration', $data) && $data['duration'] === null) {
+            $object->setDuration(null);
         }
-        if (\array_key_exists('editable', $data)) {
+        if (\array_key_exists('editable', $data) && $data['editable'] !== null) {
             $object->setEditable($data['editable']);
+        } elseif (\array_key_exists('editable', $data) && $data['editable'] === null) {
+            $object->setEditable(null);
         }
-        if (\array_key_exists('disable', $data)) {
+        if (\array_key_exists('disable', $data) && $data['disable'] !== null) {
             $object->setDisable($data['disable']);
+        } elseif (\array_key_exists('disable', $data) && $data['disable'] === null) {
+            $object->setDisable(null);
         }
-        if (\array_key_exists('expires_at', $data)) {
+        if (\array_key_exists('expires_at', $data) && $data['expires_at'] !== null) {
             $object->setExpiresAt($data['expires_at']);
+        } elseif (\array_key_exists('expires_at', $data) && $data['expires_at'] === null) {
+            $object->setExpiresAt(null);
         }
-        if (\array_key_exists('permissions', $data)) {
+        if (\array_key_exists('permissions', $data) && $data['permissions'] !== null) {
             $values = [];
             foreach ($data['permissions'] as $value) {
                 $values[] = $this->denormalizer->denormalize($value, \Flownative\Harbor\Api\Model\RobotPermission::class, 'json', $context);
             }
             $object->setPermissions($values);
+        } elseif (\array_key_exists('permissions', $data) && $data['permissions'] === null) {
+            $object->setPermissions(null);
         }
-        if (\array_key_exists('creation_time', $data)) {
+        if (\array_key_exists('creation_time', $data) && $data['creation_time'] !== null) {
             $object->setCreationTime(\DateTime::createFromFormat('Y-m-d\TH:i:s.vp', $data['creation_time']));
+        } elseif (\array_key_exists('creation_time', $data) && $data['creation_time'] === null) {
+            $object->setCreationTime(null);
         }
-        if (\array_key_exists('update_time', $data)) {
+        if (\array_key_exists('update_time', $data) && $data['update_time'] !== null) {
             $object->setUpdateTime(\DateTime::createFromFormat('Y-m-d\TH:i:s.vp', $data['update_time']));
+        } elseif (\array_key_exists('update_time', $data) && $data['update_time'] === null) {
+            $object->setUpdateTime(null);
         }
 
         return $object;

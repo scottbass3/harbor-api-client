@@ -24,26 +24,26 @@ class ComponentHealthStatus
     /**
      * The component name.
      *
-     * @var string
+     * @var string|null
      */
     protected $name;
     /**
      * The health status of component. Is either "healthy" or "unhealthy".
      *
-     * @var string
+     * @var string|null
      */
     protected $status;
     /**
      * (optional) The error message when the status is "unhealthy".
      *
-     * @var string
+     * @var string|null
      */
     protected $error;
 
     /**
      * The component name.
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -51,7 +51,7 @@ class ComponentHealthStatus
     /**
      * The component name.
      */
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->initialized['name'] = true;
         $this->name = $name;
@@ -62,7 +62,7 @@ class ComponentHealthStatus
     /**
      * The health status of component. Is either "healthy" or "unhealthy".
      */
-    public function getStatus(): string
+    public function getStatus(): ?string
     {
         return $this->status;
     }
@@ -70,7 +70,7 @@ class ComponentHealthStatus
     /**
      * The health status of component. Is either "healthy" or "unhealthy".
      */
-    public function setStatus(string $status): self
+    public function setStatus(?string $status): self
     {
         $this->initialized['status'] = true;
         $this->status = $status;
@@ -81,7 +81,7 @@ class ComponentHealthStatus
     /**
      * (optional) The error message when the status is "unhealthy".
      */
-    public function getError(): string
+    public function getError(): ?string
     {
         return $this->error;
     }
@@ -89,7 +89,7 @@ class ComponentHealthStatus
     /**
      * (optional) The error message when the status is "unhealthy".
      */
-    public function setError(string $error): self
+    public function setError(?string $error): self
     {
         $this->initialized['error'] = true;
         $this->error = $error;

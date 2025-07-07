@@ -49,14 +49,20 @@ class ProjectMemberNormalizer implements DenormalizerInterface, NormalizerInterf
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('role_id', $data)) {
+        if (\array_key_exists('role_id', $data) && $data['role_id'] !== null) {
             $object->setRoleId($data['role_id']);
+        } elseif (\array_key_exists('role_id', $data) && $data['role_id'] === null) {
+            $object->setRoleId(null);
         }
-        if (\array_key_exists('member_user', $data)) {
+        if (\array_key_exists('member_user', $data) && $data['member_user'] !== null) {
             $object->setMemberUser($this->denormalizer->denormalize($data['member_user'], \Flownative\Harbor\Api\Model\UserEntity::class, 'json', $context));
+        } elseif (\array_key_exists('member_user', $data) && $data['member_user'] === null) {
+            $object->setMemberUser(null);
         }
-        if (\array_key_exists('member_group', $data)) {
+        if (\array_key_exists('member_group', $data) && $data['member_group'] !== null) {
             $object->setMemberGroup($this->denormalizer->denormalize($data['member_group'], \Flownative\Harbor\Api\Model\UserGroup::class, 'json', $context));
+        } elseif (\array_key_exists('member_group', $data) && $data['member_group'] === null) {
+            $object->setMemberGroup(null);
         }
 
         return $object;

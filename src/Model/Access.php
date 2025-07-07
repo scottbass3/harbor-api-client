@@ -24,26 +24,26 @@ class Access
     /**
      * The resource of the access. Possible resources are *, artifact, artifact-addition, artifact-label, audit-log, catalog, configuration, distribution, garbage-collection, helm-chart, helm-chart-version, helm-chart-version-label, immutable-tag, label, ldap-user, log, member, metadata, notification-policy, preheat-instance, preheat-policy, project, quota, registry, replication, replication-adapter, replication-policy, repository, robot, scan, scan-all, scanner, system-volumes, tag, tag-retention, user, user-group or "" (for self-reference).
      *
-     * @var string
+     * @var string|null
      */
     protected $resource;
     /**
      * The action of the access. Possible actions are *, pull, push, create, read, update, delete, list, operate, scanner-pull and stop.
      *
-     * @var string
+     * @var string|null
      */
     protected $action;
     /**
      * The effect of the access.
      *
-     * @var string
+     * @var string|null
      */
     protected $effect;
 
     /**
      * The resource of the access. Possible resources are *, artifact, artifact-addition, artifact-label, audit-log, catalog, configuration, distribution, garbage-collection, helm-chart, helm-chart-version, helm-chart-version-label, immutable-tag, label, ldap-user, log, member, metadata, notification-policy, preheat-instance, preheat-policy, project, quota, registry, replication, replication-adapter, replication-policy, repository, robot, scan, scan-all, scanner, system-volumes, tag, tag-retention, user, user-group or "" (for self-reference).
      */
-    public function getResource(): string
+    public function getResource(): ?string
     {
         return $this->resource;
     }
@@ -51,7 +51,7 @@ class Access
     /**
      * The resource of the access. Possible resources are *, artifact, artifact-addition, artifact-label, audit-log, catalog, configuration, distribution, garbage-collection, helm-chart, helm-chart-version, helm-chart-version-label, immutable-tag, label, ldap-user, log, member, metadata, notification-policy, preheat-instance, preheat-policy, project, quota, registry, replication, replication-adapter, replication-policy, repository, robot, scan, scan-all, scanner, system-volumes, tag, tag-retention, user, user-group or "" (for self-reference).
      */
-    public function setResource(string $resource): self
+    public function setResource(?string $resource): self
     {
         $this->initialized['resource'] = true;
         $this->resource = $resource;
@@ -62,7 +62,7 @@ class Access
     /**
      * The action of the access. Possible actions are *, pull, push, create, read, update, delete, list, operate, scanner-pull and stop.
      */
-    public function getAction(): string
+    public function getAction(): ?string
     {
         return $this->action;
     }
@@ -70,7 +70,7 @@ class Access
     /**
      * The action of the access. Possible actions are *, pull, push, create, read, update, delete, list, operate, scanner-pull and stop.
      */
-    public function setAction(string $action): self
+    public function setAction(?string $action): self
     {
         $this->initialized['action'] = true;
         $this->action = $action;
@@ -81,7 +81,7 @@ class Access
     /**
      * The effect of the access.
      */
-    public function getEffect(): string
+    public function getEffect(): ?string
     {
         return $this->effect;
     }
@@ -89,7 +89,7 @@ class Access
     /**
      * The effect of the access.
      */
-    public function setEffect(string $effect): self
+    public function setEffect(?string $effect): self
     {
         $this->initialized['effect'] = true;
         $this->effect = $effect;

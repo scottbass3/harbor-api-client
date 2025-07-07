@@ -24,32 +24,32 @@ class UserGroup
     /**
      * The ID of the user group.
      *
-     * @var int
+     * @var int|null
      */
     protected $id;
     /**
      * The name of the user group.
      *
-     * @var string
+     * @var string|null
      */
     protected $groupName;
     /**
      * The group type, 1 for LDAP group, 2 for HTTP group, 3 for OIDC group.
      *
-     * @var int
+     * @var int|null
      */
     protected $groupType;
     /**
      * The DN of the LDAP group if group type is 1 (LDAP group).
      *
-     * @var string
+     * @var string|null
      */
     protected $ldapGroupDn;
 
     /**
      * The ID of the user group.
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -57,7 +57,7 @@ class UserGroup
     /**
      * The ID of the user group.
      */
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->initialized['id'] = true;
         $this->id = $id;
@@ -68,7 +68,7 @@ class UserGroup
     /**
      * The name of the user group.
      */
-    public function getGroupName(): string
+    public function getGroupName(): ?string
     {
         return $this->groupName;
     }
@@ -76,7 +76,7 @@ class UserGroup
     /**
      * The name of the user group.
      */
-    public function setGroupName(string $groupName): self
+    public function setGroupName(?string $groupName): self
     {
         $this->initialized['groupName'] = true;
         $this->groupName = $groupName;
@@ -87,7 +87,7 @@ class UserGroup
     /**
      * The group type, 1 for LDAP group, 2 for HTTP group, 3 for OIDC group.
      */
-    public function getGroupType(): int
+    public function getGroupType(): ?int
     {
         return $this->groupType;
     }
@@ -95,7 +95,7 @@ class UserGroup
     /**
      * The group type, 1 for LDAP group, 2 for HTTP group, 3 for OIDC group.
      */
-    public function setGroupType(int $groupType): self
+    public function setGroupType(?int $groupType): self
     {
         $this->initialized['groupType'] = true;
         $this->groupType = $groupType;
@@ -106,7 +106,7 @@ class UserGroup
     /**
      * The DN of the LDAP group if group type is 1 (LDAP group).
      */
-    public function getLdapGroupDn(): string
+    public function getLdapGroupDn(): ?string
     {
         return $this->ldapGroupDn;
     }
@@ -114,7 +114,7 @@ class UserGroup
     /**
      * The DN of the LDAP group if group type is 1 (LDAP group).
      */
-    public function setLdapGroupDn(string $ldapGroupDn): self
+    public function setLdapGroupDn(?string $ldapGroupDn): self
     {
         $this->initialized['ldapGroupDn'] = true;
         $this->ldapGroupDn = $ldapGroupDn;

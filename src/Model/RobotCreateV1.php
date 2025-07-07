@@ -24,32 +24,32 @@ class RobotCreateV1
     /**
      * The name of robot account.
      *
-     * @var string
+     * @var string|null
      */
     protected $name;
     /**
      * The description of robot account.
      *
-     * @var string
+     * @var string|null
      */
     protected $description;
     /**
      * The expiration time on or after which the JWT MUST NOT be accepted for processing.
      *
-     * @var int
+     * @var int|null
      */
     protected $expiresAt;
     /**
      * The permission of robot account.
      *
-     * @var list<Access>
+     * @var list<Access>|null
      */
     protected $access;
 
     /**
      * The name of robot account.
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -57,7 +57,7 @@ class RobotCreateV1
     /**
      * The name of robot account.
      */
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->initialized['name'] = true;
         $this->name = $name;
@@ -68,7 +68,7 @@ class RobotCreateV1
     /**
      * The description of robot account.
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -76,7 +76,7 @@ class RobotCreateV1
     /**
      * The description of robot account.
      */
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->initialized['description'] = true;
         $this->description = $description;
@@ -87,7 +87,7 @@ class RobotCreateV1
     /**
      * The expiration time on or after which the JWT MUST NOT be accepted for processing.
      */
-    public function getExpiresAt(): int
+    public function getExpiresAt(): ?int
     {
         return $this->expiresAt;
     }
@@ -95,7 +95,7 @@ class RobotCreateV1
     /**
      * The expiration time on or after which the JWT MUST NOT be accepted for processing.
      */
-    public function setExpiresAt(int $expiresAt): self
+    public function setExpiresAt(?int $expiresAt): self
     {
         $this->initialized['expiresAt'] = true;
         $this->expiresAt = $expiresAt;
@@ -106,9 +106,9 @@ class RobotCreateV1
     /**
      * The permission of robot account.
      *
-     * @return list<Access>
+     * @return list<Access>|null
      */
-    public function getAccess(): array
+    public function getAccess(): ?array
     {
         return $this->access;
     }
@@ -116,9 +116,9 @@ class RobotCreateV1
     /**
      * The permission of robot account.
      *
-     * @param list<Access> $access
+     * @param list<Access>|null $access
      */
-    public function setAccess(array $access): self
+    public function setAccess(?array $access): self
     {
         $this->initialized['access'] = true;
         $this->access = $access;

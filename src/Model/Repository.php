@@ -24,37 +24,37 @@ class Repository
     /**
      * The ID of the repository.
      *
-     * @var int
+     * @var int|null
      */
     protected $id;
     /**
      * The ID of the project that the repository belongs to.
      *
-     * @var int
+     * @var int|null
      */
     protected $projectId;
     /**
      * The name of the repository.
      *
-     * @var string
+     * @var string|null
      */
     protected $name;
     /**
      * The description of the repository.
      *
-     * @var string
+     * @var string|null
      */
     protected $description;
     /**
      * The count of the artifacts inside the repository.
      *
-     * @var int
+     * @var int|null
      */
     protected $artifactCount;
     /**
      * The count that the artifact inside the repository pulled.
      *
-     * @var int
+     * @var int|null
      */
     protected $pullCount;
     /**
@@ -66,14 +66,14 @@ class Repository
     /**
      * The update time of the repository.
      *
-     * @var \DateTimeInterface
+     * @var \DateTimeInterface|null
      */
     protected $updateTime;
 
     /**
      * The ID of the repository.
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -81,7 +81,7 @@ class Repository
     /**
      * The ID of the repository.
      */
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->initialized['id'] = true;
         $this->id = $id;
@@ -92,7 +92,7 @@ class Repository
     /**
      * The ID of the project that the repository belongs to.
      */
-    public function getProjectId(): int
+    public function getProjectId(): ?int
     {
         return $this->projectId;
     }
@@ -100,7 +100,7 @@ class Repository
     /**
      * The ID of the project that the repository belongs to.
      */
-    public function setProjectId(int $projectId): self
+    public function setProjectId(?int $projectId): self
     {
         $this->initialized['projectId'] = true;
         $this->projectId = $projectId;
@@ -111,7 +111,7 @@ class Repository
     /**
      * The name of the repository.
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -119,7 +119,7 @@ class Repository
     /**
      * The name of the repository.
      */
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->initialized['name'] = true;
         $this->name = $name;
@@ -130,7 +130,7 @@ class Repository
     /**
      * The description of the repository.
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -138,7 +138,7 @@ class Repository
     /**
      * The description of the repository.
      */
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->initialized['description'] = true;
         $this->description = $description;
@@ -149,7 +149,7 @@ class Repository
     /**
      * The count of the artifacts inside the repository.
      */
-    public function getArtifactCount(): int
+    public function getArtifactCount(): ?int
     {
         return $this->artifactCount;
     }
@@ -157,7 +157,7 @@ class Repository
     /**
      * The count of the artifacts inside the repository.
      */
-    public function setArtifactCount(int $artifactCount): self
+    public function setArtifactCount(?int $artifactCount): self
     {
         $this->initialized['artifactCount'] = true;
         $this->artifactCount = $artifactCount;
@@ -168,7 +168,7 @@ class Repository
     /**
      * The count that the artifact inside the repository pulled.
      */
-    public function getPullCount(): int
+    public function getPullCount(): ?int
     {
         return $this->pullCount;
     }
@@ -176,7 +176,7 @@ class Repository
     /**
      * The count that the artifact inside the repository pulled.
      */
-    public function setPullCount(int $pullCount): self
+    public function setPullCount(?int $pullCount): self
     {
         $this->initialized['pullCount'] = true;
         $this->pullCount = $pullCount;
@@ -206,7 +206,7 @@ class Repository
     /**
      * The update time of the repository.
      */
-    public function getUpdateTime(): \DateTimeInterface
+    public function getUpdateTime(): ?\DateTimeInterface
     {
         return $this->updateTime;
     }
@@ -214,7 +214,7 @@ class Repository
     /**
      * The update time of the repository.
      */
-    public function setUpdateTime(\DateTimeInterface $updateTime): self
+    public function setUpdateTime(?\DateTimeInterface $updateTime): self
     {
         $this->initialized['updateTime'] = true;
         $this->updateTime = $updateTime;

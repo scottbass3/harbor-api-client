@@ -49,8 +49,10 @@ class RoleRequestNormalizer implements DenormalizerInterface, NormalizerInterfac
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('role_id', $data)) {
+        if (\array_key_exists('role_id', $data) && $data['role_id'] !== null) {
             $object->setRoleId($data['role_id']);
+        } elseif (\array_key_exists('role_id', $data) && $data['role_id'] === null) {
+            $object->setRoleId(null);
         }
 
         return $object;

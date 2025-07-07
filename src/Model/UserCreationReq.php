@@ -22,32 +22,32 @@ class UserCreationReq
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * @var string
+     * @var string|null
      */
     protected $email;
     /**
-     * @var string
+     * @var string|null
      */
     protected $realname;
     /**
-     * @var string
+     * @var string|null
      */
     protected $comment;
     /**
-     * @var string
+     * @var string|null
      */
     protected $password;
     /**
-     * @var string
+     * @var string|null
      */
     protected $username;
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->initialized['email'] = true;
         $this->email = $email;
@@ -55,12 +55,12 @@ class UserCreationReq
         return $this;
     }
 
-    public function getRealname(): string
+    public function getRealname(): ?string
     {
         return $this->realname;
     }
 
-    public function setRealname(string $realname): self
+    public function setRealname(?string $realname): self
     {
         $this->initialized['realname'] = true;
         $this->realname = $realname;
@@ -68,12 +68,12 @@ class UserCreationReq
         return $this;
     }
 
-    public function getComment(): string
+    public function getComment(): ?string
     {
         return $this->comment;
     }
 
-    public function setComment(string $comment): self
+    public function setComment(?string $comment): self
     {
         $this->initialized['comment'] = true;
         $this->comment = $comment;
@@ -81,12 +81,12 @@ class UserCreationReq
         return $this;
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->initialized['password'] = true;
         $this->password = $password;
@@ -94,12 +94,12 @@ class UserCreationReq
         return $this;
     }
 
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->initialized['username'] = true;
         $this->username = $username;

@@ -24,18 +24,18 @@ class UserSearchRespItem
     /**
      * The ID of the user.
      *
-     * @var int
+     * @var int|null
      */
     protected $userId;
     /**
-     * @var string
+     * @var string|null
      */
     protected $username;
 
     /**
      * The ID of the user.
      */
-    public function getUserId(): int
+    public function getUserId(): ?int
     {
         return $this->userId;
     }
@@ -43,7 +43,7 @@ class UserSearchRespItem
     /**
      * The ID of the user.
      */
-    public function setUserId(int $userId): self
+    public function setUserId(?int $userId): self
     {
         $this->initialized['userId'] = true;
         $this->userId = $userId;
@@ -51,12 +51,12 @@ class UserSearchRespItem
         return $this;
     }
 
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->initialized['username'] = true;
         $this->username = $username;

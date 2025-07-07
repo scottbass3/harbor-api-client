@@ -49,17 +49,25 @@ class UserGroupNormalizer implements DenormalizerInterface, NormalizerInterface,
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('id', $data)) {
+        if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
+        } elseif (\array_key_exists('id', $data) && $data['id'] === null) {
+            $object->setId(null);
         }
-        if (\array_key_exists('group_name', $data)) {
+        if (\array_key_exists('group_name', $data) && $data['group_name'] !== null) {
             $object->setGroupName($data['group_name']);
+        } elseif (\array_key_exists('group_name', $data) && $data['group_name'] === null) {
+            $object->setGroupName(null);
         }
-        if (\array_key_exists('group_type', $data)) {
+        if (\array_key_exists('group_type', $data) && $data['group_type'] !== null) {
             $object->setGroupType($data['group_type']);
+        } elseif (\array_key_exists('group_type', $data) && $data['group_type'] === null) {
+            $object->setGroupType(null);
         }
-        if (\array_key_exists('ldap_group_dn', $data)) {
+        if (\array_key_exists('ldap_group_dn', $data) && $data['ldap_group_dn'] !== null) {
             $object->setLdapGroupDn($data['ldap_group_dn']);
+        } elseif (\array_key_exists('ldap_group_dn', $data) && $data['ldap_group_dn'] === null) {
+            $object->setLdapGroupDn(null);
         }
 
         return $object;

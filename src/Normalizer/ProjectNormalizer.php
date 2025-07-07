@@ -55,51 +55,79 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('project_id', $data)) {
+        if (\array_key_exists('project_id', $data) && $data['project_id'] !== null) {
             $object->setProjectId($data['project_id']);
+        } elseif (\array_key_exists('project_id', $data) && $data['project_id'] === null) {
+            $object->setProjectId(null);
         }
-        if (\array_key_exists('owner_id', $data)) {
+        if (\array_key_exists('owner_id', $data) && $data['owner_id'] !== null) {
             $object->setOwnerId($data['owner_id']);
+        } elseif (\array_key_exists('owner_id', $data) && $data['owner_id'] === null) {
+            $object->setOwnerId(null);
         }
-        if (\array_key_exists('name', $data)) {
+        if (\array_key_exists('name', $data) && $data['name'] !== null) {
             $object->setName($data['name']);
+        } elseif (\array_key_exists('name', $data) && $data['name'] === null) {
+            $object->setName(null);
         }
-        if (\array_key_exists('registry_id', $data)) {
+        if (\array_key_exists('registry_id', $data) && $data['registry_id'] !== null) {
             $object->setRegistryId($data['registry_id']);
+        } elseif (\array_key_exists('registry_id', $data) && $data['registry_id'] === null) {
+            $object->setRegistryId(null);
         }
-        if (\array_key_exists('creation_time', $data)) {
+        if (\array_key_exists('creation_time', $data) && $data['creation_time'] !== null) {
             $object->setCreationTime(\DateTime::createFromFormat('Y-m-d\TH:i:s.vp', $data['creation_time']));
+        } elseif (\array_key_exists('creation_time', $data) && $data['creation_time'] === null) {
+            $object->setCreationTime(null);
         }
-        if (\array_key_exists('update_time', $data)) {
+        if (\array_key_exists('update_time', $data) && $data['update_time'] !== null) {
             $object->setUpdateTime(\DateTime::createFromFormat('Y-m-d\TH:i:s.vp', $data['update_time']));
+        } elseif (\array_key_exists('update_time', $data) && $data['update_time'] === null) {
+            $object->setUpdateTime(null);
         }
-        if (\array_key_exists('deleted', $data)) {
+        if (\array_key_exists('deleted', $data) && $data['deleted'] !== null) {
             $object->setDeleted($data['deleted']);
+        } elseif (\array_key_exists('deleted', $data) && $data['deleted'] === null) {
+            $object->setDeleted(null);
         }
-        if (\array_key_exists('owner_name', $data)) {
+        if (\array_key_exists('owner_name', $data) && $data['owner_name'] !== null) {
             $object->setOwnerName($data['owner_name']);
+        } elseif (\array_key_exists('owner_name', $data) && $data['owner_name'] === null) {
+            $object->setOwnerName(null);
         }
-        if (\array_key_exists('togglable', $data)) {
+        if (\array_key_exists('togglable', $data) && $data['togglable'] !== null) {
             $object->setTogglable($data['togglable']);
+        } elseif (\array_key_exists('togglable', $data) && $data['togglable'] === null) {
+            $object->setTogglable(null);
         }
-        if (\array_key_exists('current_user_role_id', $data)) {
+        if (\array_key_exists('current_user_role_id', $data) && $data['current_user_role_id'] !== null) {
             $object->setCurrentUserRoleId($data['current_user_role_id']);
+        } elseif (\array_key_exists('current_user_role_id', $data) && $data['current_user_role_id'] === null) {
+            $object->setCurrentUserRoleId(null);
         }
-        if (\array_key_exists('current_user_role_ids', $data)) {
+        if (\array_key_exists('current_user_role_ids', $data) && $data['current_user_role_ids'] !== null) {
             $values = [];
             foreach ($data['current_user_role_ids'] as $value) {
                 $values[] = $value;
             }
             $object->setCurrentUserRoleIds($values);
+        } elseif (\array_key_exists('current_user_role_ids', $data) && $data['current_user_role_ids'] === null) {
+            $object->setCurrentUserRoleIds(null);
         }
-        if (\array_key_exists('repo_count', $data)) {
+        if (\array_key_exists('repo_count', $data) && $data['repo_count'] !== null) {
             $object->setRepoCount($data['repo_count']);
+        } elseif (\array_key_exists('repo_count', $data) && $data['repo_count'] === null) {
+            $object->setRepoCount(null);
         }
-        if (\array_key_exists('metadata', $data)) {
+        if (\array_key_exists('metadata', $data) && $data['metadata'] !== null) {
             $object->setMetadata($this->denormalizer->denormalize($data['metadata'], \Flownative\Harbor\Api\Model\ProjectMetadata::class, 'json', $context));
+        } elseif (\array_key_exists('metadata', $data) && $data['metadata'] === null) {
+            $object->setMetadata(null);
         }
-        if (\array_key_exists('cve_allowlist', $data)) {
+        if (\array_key_exists('cve_allowlist', $data) && $data['cve_allowlist'] !== null) {
             $object->setCveAllowlist($this->denormalizer->denormalize($data['cve_allowlist'], \Flownative\Harbor\Api\Model\CVEAllowlist::class, 'json', $context));
+        } elseif (\array_key_exists('cve_allowlist', $data) && $data['cve_allowlist'] === null) {
+            $object->setCveAllowlist(null);
         }
 
         return $object;

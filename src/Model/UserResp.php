@@ -22,58 +22,58 @@ class UserResp
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * @var string
+     * @var string|null
      */
     protected $email;
     /**
-     * @var string
+     * @var string|null
      */
     protected $realname;
     /**
-     * @var string
+     * @var string|null
      */
     protected $comment;
     /**
-     * @var int
+     * @var int|null
      */
     protected $userId;
     /**
-     * @var string
+     * @var string|null
      */
     protected $username;
     /**
-     * @var bool
+     * @var bool|null
      */
     protected $sysadminFlag;
     /**
      * indicate the admin privilege is grant by authenticator (LDAP), is always false unless it is the current login user.
      *
-     * @var bool
+     * @var bool|null
      */
     protected $adminRoleInAuth;
     /**
-     * @var OIDCUserInfo
+     * @var OIDCUserInfo|null
      */
     protected $oidcUserMeta;
     /**
      * The creation time of the user.
      *
-     * @var \DateTimeInterface
+     * @var \DateTimeInterface|null
      */
     protected $creationTime;
     /**
      * The update time of the user.
      *
-     * @var \DateTimeInterface
+     * @var \DateTimeInterface|null
      */
     protected $updateTime;
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->initialized['email'] = true;
         $this->email = $email;
@@ -81,12 +81,12 @@ class UserResp
         return $this;
     }
 
-    public function getRealname(): string
+    public function getRealname(): ?string
     {
         return $this->realname;
     }
 
-    public function setRealname(string $realname): self
+    public function setRealname(?string $realname): self
     {
         $this->initialized['realname'] = true;
         $this->realname = $realname;
@@ -94,12 +94,12 @@ class UserResp
         return $this;
     }
 
-    public function getComment(): string
+    public function getComment(): ?string
     {
         return $this->comment;
     }
 
-    public function setComment(string $comment): self
+    public function setComment(?string $comment): self
     {
         $this->initialized['comment'] = true;
         $this->comment = $comment;
@@ -107,12 +107,12 @@ class UserResp
         return $this;
     }
 
-    public function getUserId(): int
+    public function getUserId(): ?int
     {
         return $this->userId;
     }
 
-    public function setUserId(int $userId): self
+    public function setUserId(?int $userId): self
     {
         $this->initialized['userId'] = true;
         $this->userId = $userId;
@@ -120,12 +120,12 @@ class UserResp
         return $this;
     }
 
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->initialized['username'] = true;
         $this->username = $username;
@@ -133,12 +133,12 @@ class UserResp
         return $this;
     }
 
-    public function getSysadminFlag(): bool
+    public function getSysadminFlag(): ?bool
     {
         return $this->sysadminFlag;
     }
 
-    public function setSysadminFlag(bool $sysadminFlag): self
+    public function setSysadminFlag(?bool $sysadminFlag): self
     {
         $this->initialized['sysadminFlag'] = true;
         $this->sysadminFlag = $sysadminFlag;
@@ -149,7 +149,7 @@ class UserResp
     /**
      * indicate the admin privilege is grant by authenticator (LDAP), is always false unless it is the current login user.
      */
-    public function getAdminRoleInAuth(): bool
+    public function getAdminRoleInAuth(): ?bool
     {
         return $this->adminRoleInAuth;
     }
@@ -157,7 +157,7 @@ class UserResp
     /**
      * indicate the admin privilege is grant by authenticator (LDAP), is always false unless it is the current login user.
      */
-    public function setAdminRoleInAuth(bool $adminRoleInAuth): self
+    public function setAdminRoleInAuth(?bool $adminRoleInAuth): self
     {
         $this->initialized['adminRoleInAuth'] = true;
         $this->adminRoleInAuth = $adminRoleInAuth;
@@ -165,12 +165,12 @@ class UserResp
         return $this;
     }
 
-    public function getOidcUserMeta(): OIDCUserInfo
+    public function getOidcUserMeta(): ?OIDCUserInfo
     {
         return $this->oidcUserMeta;
     }
 
-    public function setOidcUserMeta(OIDCUserInfo $oidcUserMeta): self
+    public function setOidcUserMeta(?OIDCUserInfo $oidcUserMeta): self
     {
         $this->initialized['oidcUserMeta'] = true;
         $this->oidcUserMeta = $oidcUserMeta;
@@ -181,7 +181,7 @@ class UserResp
     /**
      * The creation time of the user.
      */
-    public function getCreationTime(): \DateTimeInterface
+    public function getCreationTime(): ?\DateTimeInterface
     {
         return $this->creationTime;
     }
@@ -189,7 +189,7 @@ class UserResp
     /**
      * The creation time of the user.
      */
-    public function setCreationTime(\DateTimeInterface $creationTime): self
+    public function setCreationTime(?\DateTimeInterface $creationTime): self
     {
         $this->initialized['creationTime'] = true;
         $this->creationTime = $creationTime;
@@ -200,7 +200,7 @@ class UserResp
     /**
      * The update time of the user.
      */
-    public function getUpdateTime(): \DateTimeInterface
+    public function getUpdateTime(): ?\DateTimeInterface
     {
         return $this->updateTime;
     }
@@ -208,7 +208,7 @@ class UserResp
     /**
      * The update time of the user.
      */
-    public function setUpdateTime(\DateTimeInterface $updateTime): self
+    public function setUpdateTime(?\DateTimeInterface $updateTime): self
     {
         $this->initialized['updateTime'] = true;
         $this->updateTime = $updateTime;

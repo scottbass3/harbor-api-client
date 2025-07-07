@@ -24,78 +24,78 @@ class Robot
     /**
      * The ID of the robot.
      *
-     * @var int
+     * @var int|null
      */
     protected $id;
     /**
      * The name of the robot.
      *
-     * @var string
+     * @var string|null
      */
     protected $name;
     /**
      * The description of the robot.
      *
-     * @var string
+     * @var string|null
      */
     protected $description;
     /**
      * The secret of the robot.
      *
-     * @var string
+     * @var string|null
      */
     protected $secret;
     /**
      * The level of the robot, project or system.
      *
-     * @var string
+     * @var string|null
      */
     protected $level;
     /**
      * The duration of the robot in days.
      *
-     * @var int
+     * @var int|null
      */
     protected $duration;
     /**
      * The editable status of the robot.
      *
-     * @var bool
+     * @var bool|null
      */
     protected $editable;
     /**
      * The disable status of the robot.
      *
-     * @var bool
+     * @var bool|null
      */
     protected $disable;
     /**
      * The expiration date of the robot.
      *
-     * @var int
+     * @var int|null
      */
     protected $expiresAt;
     /**
-     * @var list<RobotPermission>
+     * @var list<RobotPermission>|null
      */
     protected $permissions;
     /**
      * The creation time of the robot.
      *
-     * @var \DateTimeInterface
+     * @var \DateTimeInterface|null
      */
     protected $creationTime;
     /**
      * The update time of the robot.
      *
-     * @var \DateTimeInterface
+     * @var \DateTimeInterface|null
      */
     protected $updateTime;
 
     /**
      * The ID of the robot.
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -103,7 +103,7 @@ class Robot
     /**
      * The ID of the robot.
      */
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->initialized['id'] = true;
         $this->id = $id;
@@ -114,7 +114,7 @@ class Robot
     /**
      * The name of the robot.
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -122,7 +122,7 @@ class Robot
     /**
      * The name of the robot.
      */
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->initialized['name'] = true;
         $this->name = $name;
@@ -133,7 +133,7 @@ class Robot
     /**
      * The description of the robot.
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -141,7 +141,7 @@ class Robot
     /**
      * The description of the robot.
      */
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->initialized['description'] = true;
         $this->description = $description;
@@ -152,7 +152,7 @@ class Robot
     /**
      * The secret of the robot.
      */
-    public function getSecret(): string
+    public function getSecret(): ?string
     {
         return $this->secret;
     }
@@ -160,7 +160,7 @@ class Robot
     /**
      * The secret of the robot.
      */
-    public function setSecret(string $secret): self
+    public function setSecret(?string $secret): self
     {
         $this->initialized['secret'] = true;
         $this->secret = $secret;
@@ -171,7 +171,7 @@ class Robot
     /**
      * The level of the robot, project or system.
      */
-    public function getLevel(): string
+    public function getLevel(): ?string
     {
         return $this->level;
     }
@@ -179,7 +179,7 @@ class Robot
     /**
      * The level of the robot, project or system.
      */
-    public function setLevel(string $level): self
+    public function setLevel(?string $level): self
     {
         $this->initialized['level'] = true;
         $this->level = $level;
@@ -190,7 +190,7 @@ class Robot
     /**
      * The duration of the robot in days.
      */
-    public function getDuration(): int
+    public function getDuration(): ?int
     {
         return $this->duration;
     }
@@ -198,7 +198,7 @@ class Robot
     /**
      * The duration of the robot in days.
      */
-    public function setDuration(int $duration): self
+    public function setDuration(?int $duration): self
     {
         $this->initialized['duration'] = true;
         $this->duration = $duration;
@@ -209,7 +209,7 @@ class Robot
     /**
      * The editable status of the robot.
      */
-    public function getEditable(): bool
+    public function getEditable(): ?bool
     {
         return $this->editable;
     }
@@ -217,7 +217,7 @@ class Robot
     /**
      * The editable status of the robot.
      */
-    public function setEditable(bool $editable): self
+    public function setEditable(?bool $editable): self
     {
         $this->initialized['editable'] = true;
         $this->editable = $editable;
@@ -228,7 +228,7 @@ class Robot
     /**
      * The disable status of the robot.
      */
-    public function getDisable(): bool
+    public function getDisable(): ?bool
     {
         return $this->disable;
     }
@@ -236,7 +236,7 @@ class Robot
     /**
      * The disable status of the robot.
      */
-    public function setDisable(bool $disable): self
+    public function setDisable(?bool $disable): self
     {
         $this->initialized['disable'] = true;
         $this->disable = $disable;
@@ -247,7 +247,7 @@ class Robot
     /**
      * The expiration date of the robot.
      */
-    public function getExpiresAt(): int
+    public function getExpiresAt(): ?int
     {
         return $this->expiresAt;
     }
@@ -255,7 +255,7 @@ class Robot
     /**
      * The expiration date of the robot.
      */
-    public function setExpiresAt(int $expiresAt): self
+    public function setExpiresAt(?int $expiresAt): self
     {
         $this->initialized['expiresAt'] = true;
         $this->expiresAt = $expiresAt;
@@ -264,17 +264,17 @@ class Robot
     }
 
     /**
-     * @return list<RobotPermission>
+     * @return list<RobotPermission>|null
      */
-    public function getPermissions(): array
+    public function getPermissions(): ?array
     {
         return $this->permissions;
     }
 
     /**
-     * @param list<RobotPermission> $permissions
+     * @param list<RobotPermission>|null $permissions
      */
-    public function setPermissions(array $permissions): self
+    public function setPermissions(?array $permissions): self
     {
         $this->initialized['permissions'] = true;
         $this->permissions = $permissions;
@@ -285,7 +285,7 @@ class Robot
     /**
      * The creation time of the robot.
      */
-    public function getCreationTime(): \DateTimeInterface
+    public function getCreationTime(): ?\DateTimeInterface
     {
         return $this->creationTime;
     }
@@ -293,7 +293,7 @@ class Robot
     /**
      * The creation time of the robot.
      */
-    public function setCreationTime(\DateTimeInterface $creationTime): self
+    public function setCreationTime(?\DateTimeInterface $creationTime): self
     {
         $this->initialized['creationTime'] = true;
         $this->creationTime = $creationTime;
@@ -304,7 +304,7 @@ class Robot
     /**
      * The update time of the robot.
      */
-    public function getUpdateTime(): \DateTimeInterface
+    public function getUpdateTime(): ?\DateTimeInterface
     {
         return $this->updateTime;
     }
@@ -312,7 +312,7 @@ class Robot
     /**
      * The update time of the robot.
      */
-    public function setUpdateTime(\DateTimeInterface $updateTime): self
+    public function setUpdateTime(?\DateTimeInterface $updateTime): self
     {
         $this->initialized['updateTime'] = true;
         $this->updateTime = $updateTime;

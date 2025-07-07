@@ -5,7 +5,7 @@ return [
     'namespace' => 'Flownative\Harbor\Api',
     'directory' => __DIR__ . '/src/',
     'reference' => true,
-    'strict' => true,
+    'strict' => false,
     'use-fixer' => true,
     'date-prefer-interface' => true,
     'date-format' => 'Y-m-d\\TH:i:s.vp',

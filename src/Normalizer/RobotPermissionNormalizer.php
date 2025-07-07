@@ -49,18 +49,24 @@ class RobotPermissionNormalizer implements DenormalizerInterface, NormalizerInte
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('kind', $data)) {
+        if (\array_key_exists('kind', $data) && $data['kind'] !== null) {
             $object->setKind($data['kind']);
+        } elseif (\array_key_exists('kind', $data) && $data['kind'] === null) {
+            $object->setKind(null);
         }
-        if (\array_key_exists('namespace', $data)) {
+        if (\array_key_exists('namespace', $data) && $data['namespace'] !== null) {
             $object->setNamespace($data['namespace']);
+        } elseif (\array_key_exists('namespace', $data) && $data['namespace'] === null) {
+            $object->setNamespace(null);
         }
-        if (\array_key_exists('access', $data)) {
+        if (\array_key_exists('access', $data) && $data['access'] !== null) {
             $values = [];
             foreach ($data['access'] as $value) {
                 $values[] = $this->denormalizer->denormalize($value, \Flownative\Harbor\Api\Model\Access::class, 'json', $context);
             }
             $object->setAccess($values);
+        } elseif (\array_key_exists('access', $data) && $data['access'] === null) {
+            $object->setAccess(null);
         }
 
         return $object;
