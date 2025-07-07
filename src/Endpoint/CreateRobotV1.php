@@ -80,22 +80,22 @@ class CreateRobotV1 extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint i
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (201 === $status) {
-            return $serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\RobotCreated', 'json');
+            return $serializer->deserialize($body, 'Flownative\Harbor\Api\Model\RobotCreated', 'json');
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateRobotV1BadRequestException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\CreateRobotV1BadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateRobotV1UnauthorizedException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\CreateRobotV1UnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateRobotV1ForbiddenException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\CreateRobotV1ForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateRobotV1NotFoundException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\CreateRobotV1NotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateRobotV1InternalServerErrorException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\CreateRobotV1InternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }

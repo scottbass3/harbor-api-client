@@ -84,19 +84,19 @@ class GetProjectMetadata extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpo
             return json_decode($body);
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetProjectMetadataBadRequestException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\GetProjectMetadataBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetProjectMetadataUnauthorizedException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\GetProjectMetadataUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetProjectMetadataForbiddenException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\GetProjectMetadataForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetProjectMetadataNotFoundException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\GetProjectMetadataNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetProjectMetadataInternalServerErrorException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\GetProjectMetadataInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }

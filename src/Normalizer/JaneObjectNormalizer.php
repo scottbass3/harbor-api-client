@@ -12,7 +12,6 @@ namespace Flownative\Harbor\Api\Normalizer;
 
 use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
 use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -20,119 +19,143 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+    protected $normalizers = [
+        \Flownative\Harbor\Api\Model\Errors::class => ErrorsNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\Error::class => ErrorNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\Repository::class => RepositoryNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\ProjectReq::class => ProjectReqNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\Project::class => ProjectNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\ProjectMetadata::class => ProjectMetadataNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\CVEAllowlist::class => CVEAllowlistNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\CVEAllowlistItem::class => CVEAllowlistItemNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\Robot::class => RobotNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\RobotCreated::class => RobotCreatedNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\RobotPermission::class => RobotPermissionNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\Access::class => AccessNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\RobotCreateV1::class => RobotCreateV1Normalizer::class,
+
+        \Flownative\Harbor\Api\Model\UserGroup::class => UserGroupNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\ProjectMemberEntity::class => ProjectMemberEntityNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\ProjectMember::class => ProjectMemberNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\RoleRequest::class => RoleRequestNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\UserEntity::class => UserEntityNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\UserProfile::class => UserProfileNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\UserCreationReq::class => UserCreationReqNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\OIDCUserInfo::class => OIDCUserInfoNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\UserResp::class => UserRespNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\PasswordReq::class => PasswordReqNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\UserSearchRespItem::class => UserSearchRespItemNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\OverallHealthStatus::class => OverallHealthStatusNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\ComponentHealthStatus::class => ComponentHealthStatusNormalizer::class,
+
+        \Flownative\Harbor\Api\Model\Statistic::class => StatisticNormalizer::class,
+
+        \Jane\Component\JsonSchemaRuntime\Reference::class => \Flownative\Harbor\Api\Runtime\Normalizer\ReferenceNormalizer::class,
+    ];
+    protected $normalizersCache = [];
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-        protected $normalizers = ['Flownative\\Harbor\\Api\\Model\\Errors' => 'Flownative\\Harbor\\Api\\Normalizer\\ErrorsNormalizer', 'Flownative\\Harbor\\Api\\Model\\Error' => 'Flownative\\Harbor\\Api\\Normalizer\\ErrorNormalizer', 'Flownative\\Harbor\\Api\\Model\\Repository' => 'Flownative\\Harbor\\Api\\Normalizer\\RepositoryNormalizer', 'Flownative\\Harbor\\Api\\Model\\ProjectReq' => 'Flownative\\Harbor\\Api\\Normalizer\\ProjectReqNormalizer', 'Flownative\\Harbor\\Api\\Model\\Project' => 'Flownative\\Harbor\\Api\\Normalizer\\ProjectNormalizer', 'Flownative\\Harbor\\Api\\Model\\ProjectMetadata' => 'Flownative\\Harbor\\Api\\Normalizer\\ProjectMetadataNormalizer', 'Flownative\\Harbor\\Api\\Model\\CVEAllowlist' => 'Flownative\\Harbor\\Api\\Normalizer\\CVEAllowlistNormalizer', 'Flownative\\Harbor\\Api\\Model\\CVEAllowlistItem' => 'Flownative\\Harbor\\Api\\Normalizer\\CVEAllowlistItemNormalizer', 'Flownative\\Harbor\\Api\\Model\\Robot' => 'Flownative\\Harbor\\Api\\Normalizer\\RobotNormalizer', 'Flownative\\Harbor\\Api\\Model\\RobotCreated' => 'Flownative\\Harbor\\Api\\Normalizer\\RobotCreatedNormalizer', 'Flownative\\Harbor\\Api\\Model\\RobotPermission' => 'Flownative\\Harbor\\Api\\Normalizer\\RobotPermissionNormalizer', 'Flownative\\Harbor\\Api\\Model\\Access' => 'Flownative\\Harbor\\Api\\Normalizer\\AccessNormalizer', 'Flownative\\Harbor\\Api\\Model\\RobotCreateV1' => 'Flownative\\Harbor\\Api\\Normalizer\\RobotCreateV1Normalizer', 'Flownative\\Harbor\\Api\\Model\\UserGroup' => 'Flownative\\Harbor\\Api\\Normalizer\\UserGroupNormalizer', 'Flownative\\Harbor\\Api\\Model\\ProjectMemberEntity' => 'Flownative\\Harbor\\Api\\Normalizer\\ProjectMemberEntityNormalizer', 'Flownative\\Harbor\\Api\\Model\\ProjectMember' => 'Flownative\\Harbor\\Api\\Normalizer\\ProjectMemberNormalizer', 'Flownative\\Harbor\\Api\\Model\\RoleRequest' => 'Flownative\\Harbor\\Api\\Normalizer\\RoleRequestNormalizer', 'Flownative\\Harbor\\Api\\Model\\UserEntity' => 'Flownative\\Harbor\\Api\\Normalizer\\UserEntityNormalizer', 'Flownative\\Harbor\\Api\\Model\\UserProfile' => 'Flownative\\Harbor\\Api\\Normalizer\\UserProfileNormalizer', 'Flownative\\Harbor\\Api\\Model\\UserCreationReq' => 'Flownative\\Harbor\\Api\\Normalizer\\UserCreationReqNormalizer', 'Flownative\\Harbor\\Api\\Model\\OIDCUserInfo' => 'Flownative\\Harbor\\Api\\Normalizer\\OIDCUserInfoNormalizer', 'Flownative\\Harbor\\Api\\Model\\UserResp' => 'Flownative\\Harbor\\Api\\Normalizer\\UserRespNormalizer', 'Flownative\\Harbor\\Api\\Model\\PasswordReq' => 'Flownative\\Harbor\\Api\\Normalizer\\PasswordReqNormalizer', 'Flownative\\Harbor\\Api\\Model\\UserSearchRespItem' => 'Flownative\\Harbor\\Api\\Normalizer\\UserSearchRespItemNormalizer', 'Flownative\\Harbor\\Api\\Model\\OverallHealthStatus' => 'Flownative\\Harbor\\Api\\Normalizer\\OverallHealthStatusNormalizer', 'Flownative\\Harbor\\Api\\Model\\ComponentHealthStatus' => 'Flownative\\Harbor\\Api\\Normalizer\\ComponentHealthStatusNormalizer', 'Flownative\\Harbor\\Api\\Model\\Statistic' => 'Flownative\\Harbor\\Api\\Normalizer\\StatisticNormalizer', '\\Jane\\Component\\JsonSchemaRuntime\\Reference' => '\\Flownative\\Harbor\\Api\\Runtime\\Normalizer\\ReferenceNormalizer'];
-        protected $normalizersCache = [];
-
-        public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
-        {
-            return array_key_exists($type, $this->normalizers);
-        }
-
-        public function supportsNormalization($data, $format = null, array $context = []): bool
-        {
-            return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $normalizerClass = $this->normalizers[get_class($object)];
-            $normalizer = $this->getNormalizer($normalizerClass);
-
-            return $normalizer->normalize($object, $format, $context);
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            $denormalizerClass = $this->normalizers[$type];
-            $denormalizer = $this->getNormalizer($denormalizerClass);
-
-            return $denormalizer->denormalize($data, $type, $format, $context);
-        }
-
-        private function getNormalizer(string $normalizerClass)
-        {
-            return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
-        }
-
-        private function initNormalizer(string $normalizerClass)
-        {
-            $normalizer = new $normalizerClass();
-            $normalizer->setNormalizer($this->normalizer);
-            $normalizer->setDenormalizer($this->denormalizer);
-            $this->normalizersCache[$normalizerClass] = $normalizer;
-
-            return $normalizer;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return ['Flownative\\Harbor\\Api\\Model\\Errors' => false, 'Flownative\\Harbor\\Api\\Model\\Error' => false, 'Flownative\\Harbor\\Api\\Model\\Repository' => false, 'Flownative\\Harbor\\Api\\Model\\ProjectReq' => false, 'Flownative\\Harbor\\Api\\Model\\Project' => false, 'Flownative\\Harbor\\Api\\Model\\ProjectMetadata' => false, 'Flownative\\Harbor\\Api\\Model\\CVEAllowlist' => false, 'Flownative\\Harbor\\Api\\Model\\CVEAllowlistItem' => false, 'Flownative\\Harbor\\Api\\Model\\Robot' => false, 'Flownative\\Harbor\\Api\\Model\\RobotCreated' => false, 'Flownative\\Harbor\\Api\\Model\\RobotPermission' => false, 'Flownative\\Harbor\\Api\\Model\\Access' => false, 'Flownative\\Harbor\\Api\\Model\\RobotCreateV1' => false, 'Flownative\\Harbor\\Api\\Model\\UserGroup' => false, 'Flownative\\Harbor\\Api\\Model\\ProjectMemberEntity' => false, 'Flownative\\Harbor\\Api\\Model\\ProjectMember' => false, 'Flownative\\Harbor\\Api\\Model\\RoleRequest' => false, 'Flownative\\Harbor\\Api\\Model\\UserEntity' => false, 'Flownative\\Harbor\\Api\\Model\\UserProfile' => false, 'Flownative\\Harbor\\Api\\Model\\UserCreationReq' => false, 'Flownative\\Harbor\\Api\\Model\\OIDCUserInfo' => false, 'Flownative\\Harbor\\Api\\Model\\UserResp' => false, 'Flownative\\Harbor\\Api\\Model\\PasswordReq' => false, 'Flownative\\Harbor\\Api\\Model\\UserSearchRespItem' => false, 'Flownative\\Harbor\\Api\\Model\\OverallHealthStatus' => false, 'Flownative\\Harbor\\Api\\Model\\ComponentHealthStatus' => false, 'Flownative\\Harbor\\Api\\Model\\Statistic' => false, '\\Jane\\Component\\JsonSchemaRuntime\\Reference' => false];
-        }
+        return array_key_exists($type, $this->normalizers);
     }
-} else {
-    class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-        protected $normalizers = ['Flownative\\Harbor\\Api\\Model\\Errors' => 'Flownative\\Harbor\\Api\\Normalizer\\ErrorsNormalizer', 'Flownative\\Harbor\\Api\\Model\\Error' => 'Flownative\\Harbor\\Api\\Normalizer\\ErrorNormalizer', 'Flownative\\Harbor\\Api\\Model\\Repository' => 'Flownative\\Harbor\\Api\\Normalizer\\RepositoryNormalizer', 'Flownative\\Harbor\\Api\\Model\\ProjectReq' => 'Flownative\\Harbor\\Api\\Normalizer\\ProjectReqNormalizer', 'Flownative\\Harbor\\Api\\Model\\Project' => 'Flownative\\Harbor\\Api\\Normalizer\\ProjectNormalizer', 'Flownative\\Harbor\\Api\\Model\\ProjectMetadata' => 'Flownative\\Harbor\\Api\\Normalizer\\ProjectMetadataNormalizer', 'Flownative\\Harbor\\Api\\Model\\CVEAllowlist' => 'Flownative\\Harbor\\Api\\Normalizer\\CVEAllowlistNormalizer', 'Flownative\\Harbor\\Api\\Model\\CVEAllowlistItem' => 'Flownative\\Harbor\\Api\\Normalizer\\CVEAllowlistItemNormalizer', 'Flownative\\Harbor\\Api\\Model\\Robot' => 'Flownative\\Harbor\\Api\\Normalizer\\RobotNormalizer', 'Flownative\\Harbor\\Api\\Model\\RobotCreated' => 'Flownative\\Harbor\\Api\\Normalizer\\RobotCreatedNormalizer', 'Flownative\\Harbor\\Api\\Model\\RobotPermission' => 'Flownative\\Harbor\\Api\\Normalizer\\RobotPermissionNormalizer', 'Flownative\\Harbor\\Api\\Model\\Access' => 'Flownative\\Harbor\\Api\\Normalizer\\AccessNormalizer', 'Flownative\\Harbor\\Api\\Model\\RobotCreateV1' => 'Flownative\\Harbor\\Api\\Normalizer\\RobotCreateV1Normalizer', 'Flownative\\Harbor\\Api\\Model\\UserGroup' => 'Flownative\\Harbor\\Api\\Normalizer\\UserGroupNormalizer', 'Flownative\\Harbor\\Api\\Model\\ProjectMemberEntity' => 'Flownative\\Harbor\\Api\\Normalizer\\ProjectMemberEntityNormalizer', 'Flownative\\Harbor\\Api\\Model\\ProjectMember' => 'Flownative\\Harbor\\Api\\Normalizer\\ProjectMemberNormalizer', 'Flownative\\Harbor\\Api\\Model\\RoleRequest' => 'Flownative\\Harbor\\Api\\Normalizer\\RoleRequestNormalizer', 'Flownative\\Harbor\\Api\\Model\\UserEntity' => 'Flownative\\Harbor\\Api\\Normalizer\\UserEntityNormalizer', 'Flownative\\Harbor\\Api\\Model\\UserProfile' => 'Flownative\\Harbor\\Api\\Normalizer\\UserProfileNormalizer', 'Flownative\\Harbor\\Api\\Model\\UserCreationReq' => 'Flownative\\Harbor\\Api\\Normalizer\\UserCreationReqNormalizer', 'Flownative\\Harbor\\Api\\Model\\OIDCUserInfo' => 'Flownative\\Harbor\\Api\\Normalizer\\OIDCUserInfoNormalizer', 'Flownative\\Harbor\\Api\\Model\\UserResp' => 'Flownative\\Harbor\\Api\\Normalizer\\UserRespNormalizer', 'Flownative\\Harbor\\Api\\Model\\PasswordReq' => 'Flownative\\Harbor\\Api\\Normalizer\\PasswordReqNormalizer', 'Flownative\\Harbor\\Api\\Model\\UserSearchRespItem' => 'Flownative\\Harbor\\Api\\Normalizer\\UserSearchRespItemNormalizer', 'Flownative\\Harbor\\Api\\Model\\OverallHealthStatus' => 'Flownative\\Harbor\\Api\\Normalizer\\OverallHealthStatusNormalizer', 'Flownative\\Harbor\\Api\\Model\\ComponentHealthStatus' => 'Flownative\\Harbor\\Api\\Normalizer\\ComponentHealthStatusNormalizer', 'Flownative\\Harbor\\Api\\Model\\Statistic' => 'Flownative\\Harbor\\Api\\Normalizer\\StatisticNormalizer', '\\Jane\\Component\\JsonSchemaRuntime\\Reference' => '\\Flownative\\Harbor\\Api\\Runtime\\Normalizer\\ReferenceNormalizer'];
-        protected $normalizersCache = [];
+        return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
+    }
 
-        public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
-        {
-            return array_key_exists($type, $this->normalizers);
-        }
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $normalizerClass = $this->normalizers[get_class($data)];
+        $normalizer = $this->getNormalizer($normalizerClass);
 
-        public function supportsNormalization($data, $format = null, array $context = []): bool
-        {
-            return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
-        }
+        return $normalizer->normalize($data, $format, $context);
+    }
 
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $normalizerClass = $this->normalizers[get_class($object)];
-            $normalizer = $this->getNormalizer($normalizerClass);
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        $denormalizerClass = $this->normalizers[$type];
+        $denormalizer = $this->getNormalizer($denormalizerClass);
 
-            return $normalizer->normalize($object, $format, $context);
-        }
+        return $denormalizer->denormalize($data, $type, $format, $context);
+    }
 
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            $denormalizerClass = $this->normalizers[$type];
-            $denormalizer = $this->getNormalizer($denormalizerClass);
+    private function getNormalizer(string $normalizerClass)
+    {
+        return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
+    }
 
-            return $denormalizer->denormalize($data, $type, $format, $context);
-        }
+    private function initNormalizer(string $normalizerClass)
+    {
+        $normalizer = new $normalizerClass();
+        $normalizer->setNormalizer($this->normalizer);
+        $normalizer->setDenormalizer($this->denormalizer);
+        $this->normalizersCache[$normalizerClass] = $normalizer;
 
-        private function getNormalizer(string $normalizerClass)
-        {
-            return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
-        }
+        return $normalizer;
+    }
 
-        private function initNormalizer(string $normalizerClass)
-        {
-            $normalizer = new $normalizerClass();
-            $normalizer->setNormalizer($this->normalizer);
-            $normalizer->setDenormalizer($this->denormalizer);
-            $this->normalizersCache[$normalizerClass] = $normalizer;
-
-            return $normalizer;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return ['Flownative\\Harbor\\Api\\Model\\Errors' => false, 'Flownative\\Harbor\\Api\\Model\\Error' => false, 'Flownative\\Harbor\\Api\\Model\\Repository' => false, 'Flownative\\Harbor\\Api\\Model\\ProjectReq' => false, 'Flownative\\Harbor\\Api\\Model\\Project' => false, 'Flownative\\Harbor\\Api\\Model\\ProjectMetadata' => false, 'Flownative\\Harbor\\Api\\Model\\CVEAllowlist' => false, 'Flownative\\Harbor\\Api\\Model\\CVEAllowlistItem' => false, 'Flownative\\Harbor\\Api\\Model\\Robot' => false, 'Flownative\\Harbor\\Api\\Model\\RobotCreated' => false, 'Flownative\\Harbor\\Api\\Model\\RobotPermission' => false, 'Flownative\\Harbor\\Api\\Model\\Access' => false, 'Flownative\\Harbor\\Api\\Model\\RobotCreateV1' => false, 'Flownative\\Harbor\\Api\\Model\\UserGroup' => false, 'Flownative\\Harbor\\Api\\Model\\ProjectMemberEntity' => false, 'Flownative\\Harbor\\Api\\Model\\ProjectMember' => false, 'Flownative\\Harbor\\Api\\Model\\RoleRequest' => false, 'Flownative\\Harbor\\Api\\Model\\UserEntity' => false, 'Flownative\\Harbor\\Api\\Model\\UserProfile' => false, 'Flownative\\Harbor\\Api\\Model\\UserCreationReq' => false, 'Flownative\\Harbor\\Api\\Model\\OIDCUserInfo' => false, 'Flownative\\Harbor\\Api\\Model\\UserResp' => false, 'Flownative\\Harbor\\Api\\Model\\PasswordReq' => false, 'Flownative\\Harbor\\Api\\Model\\UserSearchRespItem' => false, 'Flownative\\Harbor\\Api\\Model\\OverallHealthStatus' => false, 'Flownative\\Harbor\\Api\\Model\\ComponentHealthStatus' => false, 'Flownative\\Harbor\\Api\\Model\\Statistic' => false, '\\Jane\\Component\\JsonSchemaRuntime\\Reference' => false];
-        }
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [
+            \Flownative\Harbor\Api\Model\Errors::class => false,
+            \Flownative\Harbor\Api\Model\Error::class => false,
+            \Flownative\Harbor\Api\Model\Repository::class => false,
+            \Flownative\Harbor\Api\Model\ProjectReq::class => false,
+            \Flownative\Harbor\Api\Model\Project::class => false,
+            \Flownative\Harbor\Api\Model\ProjectMetadata::class => false,
+            \Flownative\Harbor\Api\Model\CVEAllowlist::class => false,
+            \Flownative\Harbor\Api\Model\CVEAllowlistItem::class => false,
+            \Flownative\Harbor\Api\Model\Robot::class => false,
+            \Flownative\Harbor\Api\Model\RobotCreated::class => false,
+            \Flownative\Harbor\Api\Model\RobotPermission::class => false,
+            \Flownative\Harbor\Api\Model\Access::class => false,
+            \Flownative\Harbor\Api\Model\RobotCreateV1::class => false,
+            \Flownative\Harbor\Api\Model\UserGroup::class => false,
+            \Flownative\Harbor\Api\Model\ProjectMemberEntity::class => false,
+            \Flownative\Harbor\Api\Model\ProjectMember::class => false,
+            \Flownative\Harbor\Api\Model\RoleRequest::class => false,
+            \Flownative\Harbor\Api\Model\UserEntity::class => false,
+            \Flownative\Harbor\Api\Model\UserProfile::class => false,
+            \Flownative\Harbor\Api\Model\UserCreationReq::class => false,
+            \Flownative\Harbor\Api\Model\OIDCUserInfo::class => false,
+            \Flownative\Harbor\Api\Model\UserResp::class => false,
+            \Flownative\Harbor\Api\Model\PasswordReq::class => false,
+            \Flownative\Harbor\Api\Model\UserSearchRespItem::class => false,
+            \Flownative\Harbor\Api\Model\OverallHealthStatus::class => false,
+            \Flownative\Harbor\Api\Model\ComponentHealthStatus::class => false,
+            \Flownative\Harbor\Api\Model\Statistic::class => false,
+            \Jane\Component\JsonSchemaRuntime\Reference::class => false,
+        ];
     }
 }

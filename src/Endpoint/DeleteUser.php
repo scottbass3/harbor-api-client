@@ -78,16 +78,16 @@ class DeleteUser extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint impl
             return null;
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteUserUnauthorizedException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\DeleteUserUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteUserForbiddenException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\DeleteUserForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteUserNotFoundException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\DeleteUserNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteUserInternalServerErrorException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\DeleteUserInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }

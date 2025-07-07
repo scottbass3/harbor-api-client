@@ -13,7 +13,6 @@ namespace Flownative\Harbor\Api\Normalizer;
 use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
 use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,127 +20,62 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ErrorsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ErrorsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === 'Flownative\\Harbor\\Api\\Model\\Errors';
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === 'Flownative\\Harbor\\Api\\Model\\Errors';
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Flownative\Harbor\Api\Model\Errors();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('errors', $data)) {
-                $values = [];
-                foreach ($data['errors'] as $value) {
-                    $values[] = $this->denormalizer->denormalize($value, 'Flownative\\Harbor\\Api\\Model\\Error', 'json', $context);
-                }
-                $object->setErrors($values);
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            if ($object->isInitialized('errors') && null !== $object->getErrors()) {
-                $values = [];
-                foreach ($object->getErrors() as $value) {
-                    $values[] = $this->normalizer->normalize($value, 'json', $context);
-                }
-                $data['errors'] = $values;
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return ['Flownative\\Harbor\\Api\\Model\\Errors' => false];
-        }
+        return $type === \Flownative\Harbor\Api\Model\Errors::class;
     }
-} else {
-    class ErrorsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\Errors::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === 'Flownative\\Harbor\\Api\\Model\\Errors';
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === 'Flownative\\Harbor\\Api\\Model\\Errors';
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Flownative\Harbor\Api\Model\Errors();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('errors', $data)) {
-                $values = [];
-                foreach ($data['errors'] as $value) {
-                    $values[] = $this->denormalizer->denormalize($value, 'Flownative\\Harbor\\Api\\Model\\Error', 'json', $context);
-                }
-                $object->setErrors($values);
-            }
-
+        $object = new \Flownative\Harbor\Api\Model\Errors();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            if ($object->isInitialized('errors') && null !== $object->getErrors()) {
-                $values = [];
-                foreach ($object->getErrors() as $value) {
-                    $values[] = $this->normalizer->normalize($value, 'json', $context);
-                }
-                $data['errors'] = $values;
+        if (\array_key_exists('errors', $data)) {
+            $values = [];
+            foreach ($data['errors'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \Flownative\Harbor\Api\Model\Error::class, 'json', $context);
             }
-
-            return $data;
+            $object->setErrors($values);
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return ['Flownative\\Harbor\\Api\\Model\\Errors' => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('errors') && null !== $data->getErrors()) {
+            $values = [];
+            foreach ($data->getErrors() as $value) {
+                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            }
+            $dataArray['errors'] = $values;
         }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Flownative\Harbor\Api\Model\Errors::class => false];
     }
 }

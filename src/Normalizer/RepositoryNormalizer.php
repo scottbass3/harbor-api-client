@@ -13,7 +13,6 @@ namespace Flownative\Harbor\Api\Normalizer;
 use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
 use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,199 +20,98 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class RepositoryNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class RepositoryNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === 'Flownative\\Harbor\\Api\\Model\\Repository';
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === 'Flownative\\Harbor\\Api\\Model\\Repository';
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Flownative\Harbor\Api\Model\Repository();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('id', $data)) {
-                $object->setId($data['id']);
-            }
-            if (\array_key_exists('project_id', $data)) {
-                $object->setProjectId($data['project_id']);
-            }
-            if (\array_key_exists('name', $data)) {
-                $object->setName($data['name']);
-            }
-            if (\array_key_exists('description', $data)) {
-                $object->setDescription($data['description']);
-            }
-            if (\array_key_exists('artifact_count', $data)) {
-                $object->setArtifactCount($data['artifact_count']);
-            }
-            if (\array_key_exists('pull_count', $data)) {
-                $object->setPullCount($data['pull_count']);
-            }
-            if (\array_key_exists('creation_time', $data) && $data['creation_time'] !== null) {
-                $object->setCreationTime(\DateTime::createFromFormat('Y-m-d\\TH:i:s.vp', $data['creation_time']));
-            } elseif (\array_key_exists('creation_time', $data) && $data['creation_time'] === null) {
-                $object->setCreationTime(null);
-            }
-            if (\array_key_exists('update_time', $data)) {
-                $object->setUpdateTime(\DateTime::createFromFormat('Y-m-d\\TH:i:s.vp', $data['update_time']));
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            if ($object->isInitialized('id') && null !== $object->getId()) {
-                $data['id'] = $object->getId();
-            }
-            if ($object->isInitialized('projectId') && null !== $object->getProjectId()) {
-                $data['project_id'] = $object->getProjectId();
-            }
-            if ($object->isInitialized('name') && null !== $object->getName()) {
-                $data['name'] = $object->getName();
-            }
-            if ($object->isInitialized('description') && null !== $object->getDescription()) {
-                $data['description'] = $object->getDescription();
-            }
-            if ($object->isInitialized('artifactCount') && null !== $object->getArtifactCount()) {
-                $data['artifact_count'] = $object->getArtifactCount();
-            }
-            if ($object->isInitialized('pullCount') && null !== $object->getPullCount()) {
-                $data['pull_count'] = $object->getPullCount();
-            }
-            if ($object->isInitialized('creationTime') && null !== $object->getCreationTime()) {
-                $data['creation_time'] = $object->getCreationTime()->format('Y-m-d\\TH:i:s.vp');
-            }
-            if ($object->isInitialized('updateTime') && null !== $object->getUpdateTime()) {
-                $data['update_time'] = $object->getUpdateTime()->format('Y-m-d\\TH:i:s.vp');
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return ['Flownative\\Harbor\\Api\\Model\\Repository' => false];
-        }
+        return $type === \Flownative\Harbor\Api\Model\Repository::class;
     }
-} else {
-    class RepositoryNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\Repository::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === 'Flownative\\Harbor\\Api\\Model\\Repository';
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === 'Flownative\\Harbor\\Api\\Model\\Repository';
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Flownative\Harbor\Api\Model\Repository();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('id', $data)) {
-                $object->setId($data['id']);
-            }
-            if (\array_key_exists('project_id', $data)) {
-                $object->setProjectId($data['project_id']);
-            }
-            if (\array_key_exists('name', $data)) {
-                $object->setName($data['name']);
-            }
-            if (\array_key_exists('description', $data)) {
-                $object->setDescription($data['description']);
-            }
-            if (\array_key_exists('artifact_count', $data)) {
-                $object->setArtifactCount($data['artifact_count']);
-            }
-            if (\array_key_exists('pull_count', $data)) {
-                $object->setPullCount($data['pull_count']);
-            }
-            if (\array_key_exists('creation_time', $data) && $data['creation_time'] !== null) {
-                $object->setCreationTime(\DateTime::createFromFormat('Y-m-d\\TH:i:s.vp', $data['creation_time']));
-            } elseif (\array_key_exists('creation_time', $data) && $data['creation_time'] === null) {
-                $object->setCreationTime(null);
-            }
-            if (\array_key_exists('update_time', $data)) {
-                $object->setUpdateTime(\DateTime::createFromFormat('Y-m-d\\TH:i:s.vp', $data['update_time']));
-            }
-
+        $object = new \Flownative\Harbor\Api\Model\Repository();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            if ($object->isInitialized('id') && null !== $object->getId()) {
-                $data['id'] = $object->getId();
-            }
-            if ($object->isInitialized('projectId') && null !== $object->getProjectId()) {
-                $data['project_id'] = $object->getProjectId();
-            }
-            if ($object->isInitialized('name') && null !== $object->getName()) {
-                $data['name'] = $object->getName();
-            }
-            if ($object->isInitialized('description') && null !== $object->getDescription()) {
-                $data['description'] = $object->getDescription();
-            }
-            if ($object->isInitialized('artifactCount') && null !== $object->getArtifactCount()) {
-                $data['artifact_count'] = $object->getArtifactCount();
-            }
-            if ($object->isInitialized('pullCount') && null !== $object->getPullCount()) {
-                $data['pull_count'] = $object->getPullCount();
-            }
-            if ($object->isInitialized('creationTime') && null !== $object->getCreationTime()) {
-                $data['creation_time'] = $object->getCreationTime()->format('Y-m-d\\TH:i:s.vp');
-            }
-            if ($object->isInitialized('updateTime') && null !== $object->getUpdateTime()) {
-                $data['update_time'] = $object->getUpdateTime()->format('Y-m-d\\TH:i:s.vp');
-            }
-
-            return $data;
+        if (\array_key_exists('id', $data)) {
+            $object->setId($data['id']);
+        }
+        if (\array_key_exists('project_id', $data)) {
+            $object->setProjectId($data['project_id']);
+        }
+        if (\array_key_exists('name', $data)) {
+            $object->setName($data['name']);
+        }
+        if (\array_key_exists('description', $data)) {
+            $object->setDescription($data['description']);
+        }
+        if (\array_key_exists('artifact_count', $data)) {
+            $object->setArtifactCount($data['artifact_count']);
+        }
+        if (\array_key_exists('pull_count', $data)) {
+            $object->setPullCount($data['pull_count']);
+        }
+        if (\array_key_exists('creation_time', $data) && $data['creation_time'] !== null) {
+            $object->setCreationTime(\DateTime::createFromFormat('Y-m-d\TH:i:s.vp', $data['creation_time']));
+        } elseif (\array_key_exists('creation_time', $data) && $data['creation_time'] === null) {
+            $object->setCreationTime(null);
+        }
+        if (\array_key_exists('update_time', $data)) {
+            $object->setUpdateTime(\DateTime::createFromFormat('Y-m-d\TH:i:s.vp', $data['update_time']));
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return ['Flownative\\Harbor\\Api\\Model\\Repository' => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('id') && null !== $data->getId()) {
+            $dataArray['id'] = $data->getId();
         }
+        if ($data->isInitialized('projectId') && null !== $data->getProjectId()) {
+            $dataArray['project_id'] = $data->getProjectId();
+        }
+        if ($data->isInitialized('name') && null !== $data->getName()) {
+            $dataArray['name'] = $data->getName();
+        }
+        if ($data->isInitialized('description') && null !== $data->getDescription()) {
+            $dataArray['description'] = $data->getDescription();
+        }
+        if ($data->isInitialized('artifactCount') && null !== $data->getArtifactCount()) {
+            $dataArray['artifact_count'] = $data->getArtifactCount();
+        }
+        if ($data->isInitialized('pullCount') && null !== $data->getPullCount()) {
+            $dataArray['pull_count'] = $data->getPullCount();
+        }
+        if ($data->isInitialized('creationTime') && null !== $data->getCreationTime()) {
+            $dataArray['creation_time'] = $data->getCreationTime()?->format('Y-m-d\TH:i:s.vp');
+        }
+        if ($data->isInitialized('updateTime') && null !== $data->getUpdateTime()) {
+            $dataArray['update_time'] = $data->getUpdateTime()->format('Y-m-d\TH:i:s.vp');
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Flownative\Harbor\Api\Model\Repository::class => false];
     }
 }

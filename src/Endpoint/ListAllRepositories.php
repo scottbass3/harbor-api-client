@@ -93,13 +93,13 @@ class ListAllRepositories extends \Flownative\Harbor\Api\Runtime\Client\BaseEndp
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Repository[]', 'json');
+            return $serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Repository[]', 'json');
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListAllRepositoriesBadRequestException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\ListAllRepositoriesBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListAllRepositoriesInternalServerErrorException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\ListAllRepositoriesInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }

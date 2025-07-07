@@ -13,7 +13,6 @@ namespace Flownative\Harbor\Api\Normalizer;
 use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
 use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,223 +20,110 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ProjectMetadataNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ProjectMetadataNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === 'Flownative\\Harbor\\Api\\Model\\ProjectMetadata';
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === 'Flownative\\Harbor\\Api\\Model\\ProjectMetadata';
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Flownative\Harbor\Api\Model\ProjectMetadata();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('public', $data)) {
-                $object->setPublic($data['public']);
-            }
-            if (\array_key_exists('enable_content_trust', $data) && $data['enable_content_trust'] !== null) {
-                $object->setEnableContentTrust($data['enable_content_trust']);
-            } elseif (\array_key_exists('enable_content_trust', $data) && $data['enable_content_trust'] === null) {
-                $object->setEnableContentTrust(null);
-            }
-            if (\array_key_exists('enable_content_trust_cosign', $data) && $data['enable_content_trust_cosign'] !== null) {
-                $object->setEnableContentTrustCosign($data['enable_content_trust_cosign']);
-            } elseif (\array_key_exists('enable_content_trust_cosign', $data) && $data['enable_content_trust_cosign'] === null) {
-                $object->setEnableContentTrustCosign(null);
-            }
-            if (\array_key_exists('prevent_vul', $data) && $data['prevent_vul'] !== null) {
-                $object->setPreventVul($data['prevent_vul']);
-            } elseif (\array_key_exists('prevent_vul', $data) && $data['prevent_vul'] === null) {
-                $object->setPreventVul(null);
-            }
-            if (\array_key_exists('severity', $data) && $data['severity'] !== null) {
-                $object->setSeverity($data['severity']);
-            } elseif (\array_key_exists('severity', $data) && $data['severity'] === null) {
-                $object->setSeverity(null);
-            }
-            if (\array_key_exists('auto_scan', $data) && $data['auto_scan'] !== null) {
-                $object->setAutoScan($data['auto_scan']);
-            } elseif (\array_key_exists('auto_scan', $data) && $data['auto_scan'] === null) {
-                $object->setAutoScan(null);
-            }
-            if (\array_key_exists('reuse_sys_cve_allowlist', $data) && $data['reuse_sys_cve_allowlist'] !== null) {
-                $object->setReuseSysCveAllowlist($data['reuse_sys_cve_allowlist']);
-            } elseif (\array_key_exists('reuse_sys_cve_allowlist', $data) && $data['reuse_sys_cve_allowlist'] === null) {
-                $object->setReuseSysCveAllowlist(null);
-            }
-            if (\array_key_exists('retention_id', $data) && $data['retention_id'] !== null) {
-                $object->setRetentionId($data['retention_id']);
-            } elseif (\array_key_exists('retention_id', $data) && $data['retention_id'] === null) {
-                $object->setRetentionId(null);
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            if ($object->isInitialized('public') && null !== $object->getPublic()) {
-                $data['public'] = $object->getPublic();
-            }
-            if ($object->isInitialized('enableContentTrust') && null !== $object->getEnableContentTrust()) {
-                $data['enable_content_trust'] = $object->getEnableContentTrust();
-            }
-            if ($object->isInitialized('enableContentTrustCosign') && null !== $object->getEnableContentTrustCosign()) {
-                $data['enable_content_trust_cosign'] = $object->getEnableContentTrustCosign();
-            }
-            if ($object->isInitialized('preventVul') && null !== $object->getPreventVul()) {
-                $data['prevent_vul'] = $object->getPreventVul();
-            }
-            if ($object->isInitialized('severity') && null !== $object->getSeverity()) {
-                $data['severity'] = $object->getSeverity();
-            }
-            if ($object->isInitialized('autoScan') && null !== $object->getAutoScan()) {
-                $data['auto_scan'] = $object->getAutoScan();
-            }
-            if ($object->isInitialized('reuseSysCveAllowlist') && null !== $object->getReuseSysCveAllowlist()) {
-                $data['reuse_sys_cve_allowlist'] = $object->getReuseSysCveAllowlist();
-            }
-            if ($object->isInitialized('retentionId') && null !== $object->getRetentionId()) {
-                $data['retention_id'] = $object->getRetentionId();
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return ['Flownative\\Harbor\\Api\\Model\\ProjectMetadata' => false];
-        }
+        return $type === \Flownative\Harbor\Api\Model\ProjectMetadata::class;
     }
-} else {
-    class ProjectMetadataNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\ProjectMetadata::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === 'Flownative\\Harbor\\Api\\Model\\ProjectMetadata';
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === 'Flownative\\Harbor\\Api\\Model\\ProjectMetadata';
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Flownative\Harbor\Api\Model\ProjectMetadata();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('public', $data)) {
-                $object->setPublic($data['public']);
-            }
-            if (\array_key_exists('enable_content_trust', $data) && $data['enable_content_trust'] !== null) {
-                $object->setEnableContentTrust($data['enable_content_trust']);
-            } elseif (\array_key_exists('enable_content_trust', $data) && $data['enable_content_trust'] === null) {
-                $object->setEnableContentTrust(null);
-            }
-            if (\array_key_exists('enable_content_trust_cosign', $data) && $data['enable_content_trust_cosign'] !== null) {
-                $object->setEnableContentTrustCosign($data['enable_content_trust_cosign']);
-            } elseif (\array_key_exists('enable_content_trust_cosign', $data) && $data['enable_content_trust_cosign'] === null) {
-                $object->setEnableContentTrustCosign(null);
-            }
-            if (\array_key_exists('prevent_vul', $data) && $data['prevent_vul'] !== null) {
-                $object->setPreventVul($data['prevent_vul']);
-            } elseif (\array_key_exists('prevent_vul', $data) && $data['prevent_vul'] === null) {
-                $object->setPreventVul(null);
-            }
-            if (\array_key_exists('severity', $data) && $data['severity'] !== null) {
-                $object->setSeverity($data['severity']);
-            } elseif (\array_key_exists('severity', $data) && $data['severity'] === null) {
-                $object->setSeverity(null);
-            }
-            if (\array_key_exists('auto_scan', $data) && $data['auto_scan'] !== null) {
-                $object->setAutoScan($data['auto_scan']);
-            } elseif (\array_key_exists('auto_scan', $data) && $data['auto_scan'] === null) {
-                $object->setAutoScan(null);
-            }
-            if (\array_key_exists('reuse_sys_cve_allowlist', $data) && $data['reuse_sys_cve_allowlist'] !== null) {
-                $object->setReuseSysCveAllowlist($data['reuse_sys_cve_allowlist']);
-            } elseif (\array_key_exists('reuse_sys_cve_allowlist', $data) && $data['reuse_sys_cve_allowlist'] === null) {
-                $object->setReuseSysCveAllowlist(null);
-            }
-            if (\array_key_exists('retention_id', $data) && $data['retention_id'] !== null) {
-                $object->setRetentionId($data['retention_id']);
-            } elseif (\array_key_exists('retention_id', $data) && $data['retention_id'] === null) {
-                $object->setRetentionId(null);
-            }
-
+        $object = new \Flownative\Harbor\Api\Model\ProjectMetadata();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            if ($object->isInitialized('public') && null !== $object->getPublic()) {
-                $data['public'] = $object->getPublic();
-            }
-            if ($object->isInitialized('enableContentTrust') && null !== $object->getEnableContentTrust()) {
-                $data['enable_content_trust'] = $object->getEnableContentTrust();
-            }
-            if ($object->isInitialized('enableContentTrustCosign') && null !== $object->getEnableContentTrustCosign()) {
-                $data['enable_content_trust_cosign'] = $object->getEnableContentTrustCosign();
-            }
-            if ($object->isInitialized('preventVul') && null !== $object->getPreventVul()) {
-                $data['prevent_vul'] = $object->getPreventVul();
-            }
-            if ($object->isInitialized('severity') && null !== $object->getSeverity()) {
-                $data['severity'] = $object->getSeverity();
-            }
-            if ($object->isInitialized('autoScan') && null !== $object->getAutoScan()) {
-                $data['auto_scan'] = $object->getAutoScan();
-            }
-            if ($object->isInitialized('reuseSysCveAllowlist') && null !== $object->getReuseSysCveAllowlist()) {
-                $data['reuse_sys_cve_allowlist'] = $object->getReuseSysCveAllowlist();
-            }
-            if ($object->isInitialized('retentionId') && null !== $object->getRetentionId()) {
-                $data['retention_id'] = $object->getRetentionId();
-            }
-
-            return $data;
+        if (\array_key_exists('public', $data)) {
+            $object->setPublic($data['public']);
+        }
+        if (\array_key_exists('enable_content_trust', $data) && $data['enable_content_trust'] !== null) {
+            $object->setEnableContentTrust($data['enable_content_trust']);
+        } elseif (\array_key_exists('enable_content_trust', $data) && $data['enable_content_trust'] === null) {
+            $object->setEnableContentTrust(null);
+        }
+        if (\array_key_exists('enable_content_trust_cosign', $data) && $data['enable_content_trust_cosign'] !== null) {
+            $object->setEnableContentTrustCosign($data['enable_content_trust_cosign']);
+        } elseif (\array_key_exists('enable_content_trust_cosign', $data) && $data['enable_content_trust_cosign'] === null) {
+            $object->setEnableContentTrustCosign(null);
+        }
+        if (\array_key_exists('prevent_vul', $data) && $data['prevent_vul'] !== null) {
+            $object->setPreventVul($data['prevent_vul']);
+        } elseif (\array_key_exists('prevent_vul', $data) && $data['prevent_vul'] === null) {
+            $object->setPreventVul(null);
+        }
+        if (\array_key_exists('severity', $data) && $data['severity'] !== null) {
+            $object->setSeverity($data['severity']);
+        } elseif (\array_key_exists('severity', $data) && $data['severity'] === null) {
+            $object->setSeverity(null);
+        }
+        if (\array_key_exists('auto_scan', $data) && $data['auto_scan'] !== null) {
+            $object->setAutoScan($data['auto_scan']);
+        } elseif (\array_key_exists('auto_scan', $data) && $data['auto_scan'] === null) {
+            $object->setAutoScan(null);
+        }
+        if (\array_key_exists('reuse_sys_cve_allowlist', $data) && $data['reuse_sys_cve_allowlist'] !== null) {
+            $object->setReuseSysCveAllowlist($data['reuse_sys_cve_allowlist']);
+        } elseif (\array_key_exists('reuse_sys_cve_allowlist', $data) && $data['reuse_sys_cve_allowlist'] === null) {
+            $object->setReuseSysCveAllowlist(null);
+        }
+        if (\array_key_exists('retention_id', $data) && $data['retention_id'] !== null) {
+            $object->setRetentionId($data['retention_id']);
+        } elseif (\array_key_exists('retention_id', $data) && $data['retention_id'] === null) {
+            $object->setRetentionId(null);
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return ['Flownative\\Harbor\\Api\\Model\\ProjectMetadata' => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('public') && null !== $data->getPublic()) {
+            $dataArray['public'] = $data->getPublic();
         }
+        if ($data->isInitialized('enableContentTrust') && null !== $data->getEnableContentTrust()) {
+            $dataArray['enable_content_trust'] = $data->getEnableContentTrust();
+        }
+        if ($data->isInitialized('enableContentTrustCosign') && null !== $data->getEnableContentTrustCosign()) {
+            $dataArray['enable_content_trust_cosign'] = $data->getEnableContentTrustCosign();
+        }
+        if ($data->isInitialized('preventVul') && null !== $data->getPreventVul()) {
+            $dataArray['prevent_vul'] = $data->getPreventVul();
+        }
+        if ($data->isInitialized('severity') && null !== $data->getSeverity()) {
+            $dataArray['severity'] = $data->getSeverity();
+        }
+        if ($data->isInitialized('autoScan') && null !== $data->getAutoScan()) {
+            $dataArray['auto_scan'] = $data->getAutoScan();
+        }
+        if ($data->isInitialized('reuseSysCveAllowlist') && null !== $data->getReuseSysCveAllowlist()) {
+            $dataArray['reuse_sys_cve_allowlist'] = $data->getReuseSysCveAllowlist();
+        }
+        if ($data->isInitialized('retentionId') && null !== $data->getRetentionId()) {
+            $dataArray['retention_id'] = $data->getRetentionId();
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Flownative\Harbor\Api\Model\ProjectMetadata::class => false];
     }
 }

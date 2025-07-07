@@ -13,7 +13,6 @@ namespace Flownative\Harbor\Api\Normalizer;
 use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
 use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,151 +20,74 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class RobotPermissionNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class RobotPermissionNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === 'Flownative\\Harbor\\Api\\Model\\RobotPermission';
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === 'Flownative\\Harbor\\Api\\Model\\RobotPermission';
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Flownative\Harbor\Api\Model\RobotPermission();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('kind', $data)) {
-                $object->setKind($data['kind']);
-            }
-            if (\array_key_exists('namespace', $data)) {
-                $object->setNamespace($data['namespace']);
-            }
-            if (\array_key_exists('access', $data)) {
-                $values = [];
-                foreach ($data['access'] as $value) {
-                    $values[] = $this->denormalizer->denormalize($value, 'Flownative\\Harbor\\Api\\Model\\Access', 'json', $context);
-                }
-                $object->setAccess($values);
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            if ($object->isInitialized('kind') && null !== $object->getKind()) {
-                $data['kind'] = $object->getKind();
-            }
-            if ($object->isInitialized('namespace') && null !== $object->getNamespace()) {
-                $data['namespace'] = $object->getNamespace();
-            }
-            if ($object->isInitialized('access') && null !== $object->getAccess()) {
-                $values = [];
-                foreach ($object->getAccess() as $value) {
-                    $values[] = $this->normalizer->normalize($value, 'json', $context);
-                }
-                $data['access'] = $values;
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return ['Flownative\\Harbor\\Api\\Model\\RobotPermission' => false];
-        }
+        return $type === \Flownative\Harbor\Api\Model\RobotPermission::class;
     }
-} else {
-    class RobotPermissionNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\RobotPermission::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === 'Flownative\\Harbor\\Api\\Model\\RobotPermission';
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === 'Flownative\\Harbor\\Api\\Model\\RobotPermission';
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Flownative\Harbor\Api\Model\RobotPermission();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('kind', $data)) {
-                $object->setKind($data['kind']);
-            }
-            if (\array_key_exists('namespace', $data)) {
-                $object->setNamespace($data['namespace']);
-            }
-            if (\array_key_exists('access', $data)) {
-                $values = [];
-                foreach ($data['access'] as $value) {
-                    $values[] = $this->denormalizer->denormalize($value, 'Flownative\\Harbor\\Api\\Model\\Access', 'json', $context);
-                }
-                $object->setAccess($values);
-            }
-
+        $object = new \Flownative\Harbor\Api\Model\RobotPermission();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            if ($object->isInitialized('kind') && null !== $object->getKind()) {
-                $data['kind'] = $object->getKind();
+        if (\array_key_exists('kind', $data)) {
+            $object->setKind($data['kind']);
+        }
+        if (\array_key_exists('namespace', $data)) {
+            $object->setNamespace($data['namespace']);
+        }
+        if (\array_key_exists('access', $data)) {
+            $values = [];
+            foreach ($data['access'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \Flownative\Harbor\Api\Model\Access::class, 'json', $context);
             }
-            if ($object->isInitialized('namespace') && null !== $object->getNamespace()) {
-                $data['namespace'] = $object->getNamespace();
-            }
-            if ($object->isInitialized('access') && null !== $object->getAccess()) {
-                $values = [];
-                foreach ($object->getAccess() as $value) {
-                    $values[] = $this->normalizer->normalize($value, 'json', $context);
-                }
-                $data['access'] = $values;
-            }
-
-            return $data;
+            $object->setAccess($values);
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return ['Flownative\\Harbor\\Api\\Model\\RobotPermission' => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('kind') && null !== $data->getKind()) {
+            $dataArray['kind'] = $data->getKind();
         }
+        if ($data->isInitialized('namespace') && null !== $data->getNamespace()) {
+            $dataArray['namespace'] = $data->getNamespace();
+        }
+        if ($data->isInitialized('access') && null !== $data->getAccess()) {
+            $values = [];
+            foreach ($data->getAccess() as $value) {
+                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            }
+            $dataArray['access'] = $values;
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Flownative\Harbor\Api\Model\RobotPermission::class => false];
     }
 }

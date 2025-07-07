@@ -75,7 +75,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Flownative\Harbor\Api\Model\Project[]|\Psr\Http\Message\ResponseInterface
+     * @return Model\Project[]|\Psr\Http\Message\ResponseInterface
      *
      * @throws Exception\ListProjectsUnauthorizedException
      * @throws Exception\ListProjectsInternalServerErrorException
@@ -232,7 +232,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Flownative\Harbor\Api\Model\ProjectMemberEntity[]|\Psr\Http\Message\ResponseInterface
+     * @return Model\ProjectMemberEntity[]|\Psr\Http\Message\ResponseInterface
      *
      * @throws Exception\ListProjectMembersBadRequestException
      * @throws Exception\ListProjectMembersUnauthorizedException
@@ -448,7 +448,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Flownative\Harbor\Api\Model\Repository[]|\Psr\Http\Message\ResponseInterface
+     * @return Model\Repository[]|\Psr\Http\Message\ResponseInterface
      *
      * @throws Exception\ListAllRepositoriesBadRequestException
      * @throws Exception\ListAllRepositoriesInternalServerErrorException
@@ -478,7 +478,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Flownative\Harbor\Api\Model\Repository[]|\Psr\Http\Message\ResponseInterface
+     * @return Model\Repository[]|\Psr\Http\Message\ResponseInterface
      *
      * @throws Exception\ListRepositoriesBadRequestException
      * @throws Exception\ListRepositoriesUnauthorizedException
@@ -591,7 +591,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Flownative\Harbor\Api\Model\Robot[]|\Psr\Http\Message\ResponseInterface
+     * @return Model\Robot[]|\Psr\Http\Message\ResponseInterface
      *
      * @throws Exception\ListRobotV1BadRequestException
      * @throws Exception\ListRobotV1NotFoundException
@@ -728,7 +728,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Flownative\Harbor\Api\Model\UserResp[]|\Psr\Http\Message\ResponseInterface
+     * @return Model\UserResp[]|\Psr\Http\Message\ResponseInterface
      *
      * @throws Exception\ListUsersUnauthorizedException
      * @throws Exception\ListUsersForbiddenException
@@ -782,7 +782,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Flownative\Harbor\Api\Model\UserSearchRespItem[]|\Psr\Http\Message\ResponseInterface
+     * @return Model\UserSearchRespItem[]|\Psr\Http\Message\ResponseInterface
      *
      * @throws Exception\SearchUsersUnauthorizedException
      * @throws Exception\SearchUsersInternalServerErrorException

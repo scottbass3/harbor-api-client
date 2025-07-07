@@ -13,7 +13,6 @@ namespace Flownative\Harbor\Api\Normalizer;
 use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
 use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,183 +20,93 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ProjectReqNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ProjectReqNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === 'Flownative\\Harbor\\Api\\Model\\ProjectReq';
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === 'Flownative\\Harbor\\Api\\Model\\ProjectReq';
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Flownative\Harbor\Api\Model\ProjectReq();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('project_name', $data)) {
-                $object->setProjectName($data['project_name']);
-            }
-            if (\array_key_exists('public', $data) && $data['public'] !== null) {
-                $object->setPublic($data['public']);
-            } elseif (\array_key_exists('public', $data) && $data['public'] === null) {
-                $object->setPublic(null);
-            }
-            if (\array_key_exists('metadata', $data)) {
-                $object->setMetadata($this->denormalizer->denormalize($data['metadata'], 'Flownative\\Harbor\\Api\\Model\\ProjectMetadata', 'json', $context));
-            }
-            if (\array_key_exists('cve_allowlist', $data)) {
-                $object->setCveAllowlist($this->denormalizer->denormalize($data['cve_allowlist'], 'Flownative\\Harbor\\Api\\Model\\CVEAllowlist', 'json', $context));
-            }
-            if (\array_key_exists('storage_limit', $data) && $data['storage_limit'] !== null) {
-                $object->setStorageLimit($data['storage_limit']);
-            } elseif (\array_key_exists('storage_limit', $data) && $data['storage_limit'] === null) {
-                $object->setStorageLimit(null);
-            }
-            if (\array_key_exists('registry_id', $data) && $data['registry_id'] !== null) {
-                $object->setRegistryId($data['registry_id']);
-            } elseif (\array_key_exists('registry_id', $data) && $data['registry_id'] === null) {
-                $object->setRegistryId(null);
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            if ($object->isInitialized('projectName') && null !== $object->getProjectName()) {
-                $data['project_name'] = $object->getProjectName();
-            }
-            if ($object->isInitialized('public') && null !== $object->getPublic()) {
-                $data['public'] = $object->getPublic();
-            }
-            if ($object->isInitialized('metadata') && null !== $object->getMetadata()) {
-                $data['metadata'] = $this->normalizer->normalize($object->getMetadata(), 'json', $context);
-            }
-            if ($object->isInitialized('cveAllowlist') && null !== $object->getCveAllowlist()) {
-                $data['cve_allowlist'] = $this->normalizer->normalize($object->getCveAllowlist(), 'json', $context);
-            }
-            if ($object->isInitialized('storageLimit') && null !== $object->getStorageLimit()) {
-                $data['storage_limit'] = $object->getStorageLimit();
-            }
-            if ($object->isInitialized('registryId') && null !== $object->getRegistryId()) {
-                $data['registry_id'] = $object->getRegistryId();
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return ['Flownative\\Harbor\\Api\\Model\\ProjectReq' => false];
-        }
+        return $type === \Flownative\Harbor\Api\Model\ProjectReq::class;
     }
-} else {
-    class ProjectReqNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\ProjectReq::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === 'Flownative\\Harbor\\Api\\Model\\ProjectReq';
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === 'Flownative\\Harbor\\Api\\Model\\ProjectReq';
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Flownative\Harbor\Api\Model\ProjectReq();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('project_name', $data)) {
-                $object->setProjectName($data['project_name']);
-            }
-            if (\array_key_exists('public', $data) && $data['public'] !== null) {
-                $object->setPublic($data['public']);
-            } elseif (\array_key_exists('public', $data) && $data['public'] === null) {
-                $object->setPublic(null);
-            }
-            if (\array_key_exists('metadata', $data)) {
-                $object->setMetadata($this->denormalizer->denormalize($data['metadata'], 'Flownative\\Harbor\\Api\\Model\\ProjectMetadata', 'json', $context));
-            }
-            if (\array_key_exists('cve_allowlist', $data)) {
-                $object->setCveAllowlist($this->denormalizer->denormalize($data['cve_allowlist'], 'Flownative\\Harbor\\Api\\Model\\CVEAllowlist', 'json', $context));
-            }
-            if (\array_key_exists('storage_limit', $data) && $data['storage_limit'] !== null) {
-                $object->setStorageLimit($data['storage_limit']);
-            } elseif (\array_key_exists('storage_limit', $data) && $data['storage_limit'] === null) {
-                $object->setStorageLimit(null);
-            }
-            if (\array_key_exists('registry_id', $data) && $data['registry_id'] !== null) {
-                $object->setRegistryId($data['registry_id']);
-            } elseif (\array_key_exists('registry_id', $data) && $data['registry_id'] === null) {
-                $object->setRegistryId(null);
-            }
-
+        $object = new \Flownative\Harbor\Api\Model\ProjectReq();
+        if (\array_key_exists('public', $data) && \is_int($data['public'])) {
+            $data['public'] = (bool) $data['public'];
+        }
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            if ($object->isInitialized('projectName') && null !== $object->getProjectName()) {
-                $data['project_name'] = $object->getProjectName();
-            }
-            if ($object->isInitialized('public') && null !== $object->getPublic()) {
-                $data['public'] = $object->getPublic();
-            }
-            if ($object->isInitialized('metadata') && null !== $object->getMetadata()) {
-                $data['metadata'] = $this->normalizer->normalize($object->getMetadata(), 'json', $context);
-            }
-            if ($object->isInitialized('cveAllowlist') && null !== $object->getCveAllowlist()) {
-                $data['cve_allowlist'] = $this->normalizer->normalize($object->getCveAllowlist(), 'json', $context);
-            }
-            if ($object->isInitialized('storageLimit') && null !== $object->getStorageLimit()) {
-                $data['storage_limit'] = $object->getStorageLimit();
-            }
-            if ($object->isInitialized('registryId') && null !== $object->getRegistryId()) {
-                $data['registry_id'] = $object->getRegistryId();
-            }
-
-            return $data;
+        if (\array_key_exists('project_name', $data)) {
+            $object->setProjectName($data['project_name']);
+        }
+        if (\array_key_exists('public', $data) && $data['public'] !== null) {
+            $object->setPublic($data['public']);
+        } elseif (\array_key_exists('public', $data) && $data['public'] === null) {
+            $object->setPublic(null);
+        }
+        if (\array_key_exists('metadata', $data)) {
+            $object->setMetadata($this->denormalizer->denormalize($data['metadata'], \Flownative\Harbor\Api\Model\ProjectMetadata::class, 'json', $context));
+        }
+        if (\array_key_exists('cve_allowlist', $data)) {
+            $object->setCveAllowlist($this->denormalizer->denormalize($data['cve_allowlist'], \Flownative\Harbor\Api\Model\CVEAllowlist::class, 'json', $context));
+        }
+        if (\array_key_exists('storage_limit', $data) && $data['storage_limit'] !== null) {
+            $object->setStorageLimit($data['storage_limit']);
+        } elseif (\array_key_exists('storage_limit', $data) && $data['storage_limit'] === null) {
+            $object->setStorageLimit(null);
+        }
+        if (\array_key_exists('registry_id', $data) && $data['registry_id'] !== null) {
+            $object->setRegistryId($data['registry_id']);
+        } elseif (\array_key_exists('registry_id', $data) && $data['registry_id'] === null) {
+            $object->setRegistryId(null);
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return ['Flownative\\Harbor\\Api\\Model\\ProjectReq' => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('projectName') && null !== $data->getProjectName()) {
+            $dataArray['project_name'] = $data->getProjectName();
         }
+        if ($data->isInitialized('public') && null !== $data->getPublic()) {
+            $dataArray['public'] = $data->getPublic();
+        }
+        if ($data->isInitialized('metadata') && null !== $data->getMetadata()) {
+            $dataArray['metadata'] = $this->normalizer->normalize($data->getMetadata(), 'json', $context);
+        }
+        if ($data->isInitialized('cveAllowlist') && null !== $data->getCveAllowlist()) {
+            $dataArray['cve_allowlist'] = $this->normalizer->normalize($data->getCveAllowlist(), 'json', $context);
+        }
+        if ($data->isInitialized('storageLimit') && null !== $data->getStorageLimit()) {
+            $dataArray['storage_limit'] = $data->getStorageLimit();
+        }
+        if ($data->isInitialized('registryId') && null !== $data->getRegistryId()) {
+            $dataArray['registry_id'] = $data->getRegistryId();
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Flownative\Harbor\Api\Model\ProjectReq::class => false];
     }
 }

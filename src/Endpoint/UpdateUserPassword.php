@@ -82,13 +82,13 @@ class UpdateUserPassword extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpo
             throw new \Flownative\Harbor\Api\Exception\UpdateUserPasswordBadRequestException($response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateUserPasswordUnauthorizedException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\UpdateUserPasswordUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
             throw new \Flownative\Harbor\Api\Exception\UpdateUserPasswordForbiddenException($response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateUserPasswordInternalServerErrorException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\UpdateUserPasswordInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }

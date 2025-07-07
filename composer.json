@@ -10,11 +10,11 @@
     },
     "prefer-stable": true,
     "require": {
-        "php": "^8.2",
-        "jane-php/open-api-runtime": "7.6.*"
+        "php": "^8.3",
+        "jane-php/open-api-runtime": "7.9.*"
     },
     "require-dev": {
-        "jane-php/open-api-2": "7.6.*",
+        "jane-php/open-api-2": "7.9.*",
         "friendsofphp/php-cs-fixer": "^3.59"
     },
     "config": {

@@ -13,7 +13,6 @@ namespace Flownative\Harbor\Api\Normalizer;
 use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
 use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,259 +20,134 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class RobotNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class RobotNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === 'Flownative\\Harbor\\Api\\Model\\Robot';
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === 'Flownative\\Harbor\\Api\\Model\\Robot';
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Flownative\Harbor\Api\Model\Robot();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('id', $data)) {
-                $object->setId($data['id']);
-            }
-            if (\array_key_exists('name', $data)) {
-                $object->setName($data['name']);
-            }
-            if (\array_key_exists('description', $data)) {
-                $object->setDescription($data['description']);
-            }
-            if (\array_key_exists('secret', $data)) {
-                $object->setSecret($data['secret']);
-            }
-            if (\array_key_exists('level', $data)) {
-                $object->setLevel($data['level']);
-            }
-            if (\array_key_exists('duration', $data)) {
-                $object->setDuration($data['duration']);
-            }
-            if (\array_key_exists('editable', $data)) {
-                $object->setEditable($data['editable']);
-            }
-            if (\array_key_exists('disable', $data)) {
-                $object->setDisable($data['disable']);
-            }
-            if (\array_key_exists('expires_at', $data)) {
-                $object->setExpiresAt($data['expires_at']);
-            }
-            if (\array_key_exists('permissions', $data)) {
-                $values = [];
-                foreach ($data['permissions'] as $value) {
-                    $values[] = $this->denormalizer->denormalize($value, 'Flownative\\Harbor\\Api\\Model\\RobotPermission', 'json', $context);
-                }
-                $object->setPermissions($values);
-            }
-            if (\array_key_exists('creation_time', $data)) {
-                $object->setCreationTime(\DateTime::createFromFormat('Y-m-d\\TH:i:s.vp', $data['creation_time']));
-            }
-            if (\array_key_exists('update_time', $data)) {
-                $object->setUpdateTime(\DateTime::createFromFormat('Y-m-d\\TH:i:s.vp', $data['update_time']));
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            if ($object->isInitialized('id') && null !== $object->getId()) {
-                $data['id'] = $object->getId();
-            }
-            if ($object->isInitialized('name') && null !== $object->getName()) {
-                $data['name'] = $object->getName();
-            }
-            if ($object->isInitialized('description') && null !== $object->getDescription()) {
-                $data['description'] = $object->getDescription();
-            }
-            if ($object->isInitialized('secret') && null !== $object->getSecret()) {
-                $data['secret'] = $object->getSecret();
-            }
-            if ($object->isInitialized('level') && null !== $object->getLevel()) {
-                $data['level'] = $object->getLevel();
-            }
-            if ($object->isInitialized('duration') && null !== $object->getDuration()) {
-                $data['duration'] = $object->getDuration();
-            }
-            if ($object->isInitialized('editable') && null !== $object->getEditable()) {
-                $data['editable'] = $object->getEditable();
-            }
-            if ($object->isInitialized('disable') && null !== $object->getDisable()) {
-                $data['disable'] = $object->getDisable();
-            }
-            if ($object->isInitialized('expiresAt') && null !== $object->getExpiresAt()) {
-                $data['expires_at'] = $object->getExpiresAt();
-            }
-            if ($object->isInitialized('permissions') && null !== $object->getPermissions()) {
-                $values = [];
-                foreach ($object->getPermissions() as $value) {
-                    $values[] = $this->normalizer->normalize($value, 'json', $context);
-                }
-                $data['permissions'] = $values;
-            }
-            if ($object->isInitialized('creationTime') && null !== $object->getCreationTime()) {
-                $data['creation_time'] = $object->getCreationTime()->format('Y-m-d\\TH:i:s.vp');
-            }
-            if ($object->isInitialized('updateTime') && null !== $object->getUpdateTime()) {
-                $data['update_time'] = $object->getUpdateTime()->format('Y-m-d\\TH:i:s.vp');
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return ['Flownative\\Harbor\\Api\\Model\\Robot' => false];
-        }
+        return $type === \Flownative\Harbor\Api\Model\Robot::class;
     }
-} else {
-    class RobotNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\Robot::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === 'Flownative\\Harbor\\Api\\Model\\Robot';
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === 'Flownative\\Harbor\\Api\\Model\\Robot';
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Flownative\Harbor\Api\Model\Robot();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('id', $data)) {
-                $object->setId($data['id']);
-            }
-            if (\array_key_exists('name', $data)) {
-                $object->setName($data['name']);
-            }
-            if (\array_key_exists('description', $data)) {
-                $object->setDescription($data['description']);
-            }
-            if (\array_key_exists('secret', $data)) {
-                $object->setSecret($data['secret']);
-            }
-            if (\array_key_exists('level', $data)) {
-                $object->setLevel($data['level']);
-            }
-            if (\array_key_exists('duration', $data)) {
-                $object->setDuration($data['duration']);
-            }
-            if (\array_key_exists('editable', $data)) {
-                $object->setEditable($data['editable']);
-            }
-            if (\array_key_exists('disable', $data)) {
-                $object->setDisable($data['disable']);
-            }
-            if (\array_key_exists('expires_at', $data)) {
-                $object->setExpiresAt($data['expires_at']);
-            }
-            if (\array_key_exists('permissions', $data)) {
-                $values = [];
-                foreach ($data['permissions'] as $value) {
-                    $values[] = $this->denormalizer->denormalize($value, 'Flownative\\Harbor\\Api\\Model\\RobotPermission', 'json', $context);
-                }
-                $object->setPermissions($values);
-            }
-            if (\array_key_exists('creation_time', $data)) {
-                $object->setCreationTime(\DateTime::createFromFormat('Y-m-d\\TH:i:s.vp', $data['creation_time']));
-            }
-            if (\array_key_exists('update_time', $data)) {
-                $object->setUpdateTime(\DateTime::createFromFormat('Y-m-d\\TH:i:s.vp', $data['update_time']));
-            }
-
+        $object = new \Flownative\Harbor\Api\Model\Robot();
+        if (\array_key_exists('editable', $data) && \is_int($data['editable'])) {
+            $data['editable'] = (bool) $data['editable'];
+        }
+        if (\array_key_exists('disable', $data) && \is_int($data['disable'])) {
+            $data['disable'] = (bool) $data['disable'];
+        }
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            if ($object->isInitialized('id') && null !== $object->getId()) {
-                $data['id'] = $object->getId();
+        if (\array_key_exists('id', $data)) {
+            $object->setId($data['id']);
+        }
+        if (\array_key_exists('name', $data)) {
+            $object->setName($data['name']);
+        }
+        if (\array_key_exists('description', $data)) {
+            $object->setDescription($data['description']);
+        }
+        if (\array_key_exists('secret', $data)) {
+            $object->setSecret($data['secret']);
+        }
+        if (\array_key_exists('level', $data)) {
+            $object->setLevel($data['level']);
+        }
+        if (\array_key_exists('duration', $data)) {
+            $object->setDuration($data['duration']);
+        }
+        if (\array_key_exists('editable', $data)) {
+            $object->setEditable($data['editable']);
+        }
+        if (\array_key_exists('disable', $data)) {
+            $object->setDisable($data['disable']);
+        }
+        if (\array_key_exists('expires_at', $data)) {
+            $object->setExpiresAt($data['expires_at']);
+        }
+        if (\array_key_exists('permissions', $data)) {
+            $values = [];
+            foreach ($data['permissions'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \Flownative\Harbor\Api\Model\RobotPermission::class, 'json', $context);
             }
-            if ($object->isInitialized('name') && null !== $object->getName()) {
-                $data['name'] = $object->getName();
-            }
-            if ($object->isInitialized('description') && null !== $object->getDescription()) {
-                $data['description'] = $object->getDescription();
-            }
-            if ($object->isInitialized('secret') && null !== $object->getSecret()) {
-                $data['secret'] = $object->getSecret();
-            }
-            if ($object->isInitialized('level') && null !== $object->getLevel()) {
-                $data['level'] = $object->getLevel();
-            }
-            if ($object->isInitialized('duration') && null !== $object->getDuration()) {
-                $data['duration'] = $object->getDuration();
-            }
-            if ($object->isInitialized('editable') && null !== $object->getEditable()) {
-                $data['editable'] = $object->getEditable();
-            }
-            if ($object->isInitialized('disable') && null !== $object->getDisable()) {
-                $data['disable'] = $object->getDisable();
-            }
-            if ($object->isInitialized('expiresAt') && null !== $object->getExpiresAt()) {
-                $data['expires_at'] = $object->getExpiresAt();
-            }
-            if ($object->isInitialized('permissions') && null !== $object->getPermissions()) {
-                $values = [];
-                foreach ($object->getPermissions() as $value) {
-                    $values[] = $this->normalizer->normalize($value, 'json', $context);
-                }
-                $data['permissions'] = $values;
-            }
-            if ($object->isInitialized('creationTime') && null !== $object->getCreationTime()) {
-                $data['creation_time'] = $object->getCreationTime()->format('Y-m-d\\TH:i:s.vp');
-            }
-            if ($object->isInitialized('updateTime') && null !== $object->getUpdateTime()) {
-                $data['update_time'] = $object->getUpdateTime()->format('Y-m-d\\TH:i:s.vp');
-            }
-
-            return $data;
+            $object->setPermissions($values);
+        }
+        if (\array_key_exists('creation_time', $data)) {
+            $object->setCreationTime(\DateTime::createFromFormat('Y-m-d\TH:i:s.vp', $data['creation_time']));
+        }
+        if (\array_key_exists('update_time', $data)) {
+            $object->setUpdateTime(\DateTime::createFromFormat('Y-m-d\TH:i:s.vp', $data['update_time']));
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return ['Flownative\\Harbor\\Api\\Model\\Robot' => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('id') && null !== $data->getId()) {
+            $dataArray['id'] = $data->getId();
         }
+        if ($data->isInitialized('name') && null !== $data->getName()) {
+            $dataArray['name'] = $data->getName();
+        }
+        if ($data->isInitialized('description') && null !== $data->getDescription()) {
+            $dataArray['description'] = $data->getDescription();
+        }
+        if ($data->isInitialized('secret') && null !== $data->getSecret()) {
+            $dataArray['secret'] = $data->getSecret();
+        }
+        if ($data->isInitialized('level') && null !== $data->getLevel()) {
+            $dataArray['level'] = $data->getLevel();
+        }
+        if ($data->isInitialized('duration') && null !== $data->getDuration()) {
+            $dataArray['duration'] = $data->getDuration();
+        }
+        if ($data->isInitialized('editable') && null !== $data->getEditable()) {
+            $dataArray['editable'] = $data->getEditable();
+        }
+        if ($data->isInitialized('disable') && null !== $data->getDisable()) {
+            $dataArray['disable'] = $data->getDisable();
+        }
+        if ($data->isInitialized('expiresAt') && null !== $data->getExpiresAt()) {
+            $dataArray['expires_at'] = $data->getExpiresAt();
+        }
+        if ($data->isInitialized('permissions') && null !== $data->getPermissions()) {
+            $values = [];
+            foreach ($data->getPermissions() as $value) {
+                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            }
+            $dataArray['permissions'] = $values;
+        }
+        if ($data->isInitialized('creationTime') && null !== $data->getCreationTime()) {
+            $dataArray['creation_time'] = $data->getCreationTime()->format('Y-m-d\TH:i:s.vp');
+        }
+        if ($data->isInitialized('updateTime') && null !== $data->getUpdateTime()) {
+            $dataArray['update_time'] = $data->getUpdateTime()->format('Y-m-d\TH:i:s.vp');
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Flownative\Harbor\Api\Model\Robot::class => false];
     }
 }

@@ -13,7 +13,6 @@ namespace Flownative\Harbor\Api\Normalizer;
 use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
 use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,147 +20,72 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class UserGroupNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class UserGroupNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === 'Flownative\\Harbor\\Api\\Model\\UserGroup';
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === 'Flownative\\Harbor\\Api\\Model\\UserGroup';
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Flownative\Harbor\Api\Model\UserGroup();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('id', $data)) {
-                $object->setId($data['id']);
-            }
-            if (\array_key_exists('group_name', $data)) {
-                $object->setGroupName($data['group_name']);
-            }
-            if (\array_key_exists('group_type', $data)) {
-                $object->setGroupType($data['group_type']);
-            }
-            if (\array_key_exists('ldap_group_dn', $data)) {
-                $object->setLdapGroupDn($data['ldap_group_dn']);
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            if ($object->isInitialized('id') && null !== $object->getId()) {
-                $data['id'] = $object->getId();
-            }
-            if ($object->isInitialized('groupName') && null !== $object->getGroupName()) {
-                $data['group_name'] = $object->getGroupName();
-            }
-            if ($object->isInitialized('groupType') && null !== $object->getGroupType()) {
-                $data['group_type'] = $object->getGroupType();
-            }
-            if ($object->isInitialized('ldapGroupDn') && null !== $object->getLdapGroupDn()) {
-                $data['ldap_group_dn'] = $object->getLdapGroupDn();
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return ['Flownative\\Harbor\\Api\\Model\\UserGroup' => false];
-        }
+        return $type === \Flownative\Harbor\Api\Model\UserGroup::class;
     }
-} else {
-    class UserGroupNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\UserGroup::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === 'Flownative\\Harbor\\Api\\Model\\UserGroup';
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === 'Flownative\\Harbor\\Api\\Model\\UserGroup';
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Flownative\Harbor\Api\Model\UserGroup();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('id', $data)) {
-                $object->setId($data['id']);
-            }
-            if (\array_key_exists('group_name', $data)) {
-                $object->setGroupName($data['group_name']);
-            }
-            if (\array_key_exists('group_type', $data)) {
-                $object->setGroupType($data['group_type']);
-            }
-            if (\array_key_exists('ldap_group_dn', $data)) {
-                $object->setLdapGroupDn($data['ldap_group_dn']);
-            }
-
+        $object = new \Flownative\Harbor\Api\Model\UserGroup();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            if ($object->isInitialized('id') && null !== $object->getId()) {
-                $data['id'] = $object->getId();
-            }
-            if ($object->isInitialized('groupName') && null !== $object->getGroupName()) {
-                $data['group_name'] = $object->getGroupName();
-            }
-            if ($object->isInitialized('groupType') && null !== $object->getGroupType()) {
-                $data['group_type'] = $object->getGroupType();
-            }
-            if ($object->isInitialized('ldapGroupDn') && null !== $object->getLdapGroupDn()) {
-                $data['ldap_group_dn'] = $object->getLdapGroupDn();
-            }
-
-            return $data;
+        if (\array_key_exists('id', $data)) {
+            $object->setId($data['id']);
+        }
+        if (\array_key_exists('group_name', $data)) {
+            $object->setGroupName($data['group_name']);
+        }
+        if (\array_key_exists('group_type', $data)) {
+            $object->setGroupType($data['group_type']);
+        }
+        if (\array_key_exists('ldap_group_dn', $data)) {
+            $object->setLdapGroupDn($data['ldap_group_dn']);
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return ['Flownative\\Harbor\\Api\\Model\\UserGroup' => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('id') && null !== $data->getId()) {
+            $dataArray['id'] = $data->getId();
         }
+        if ($data->isInitialized('groupName') && null !== $data->getGroupName()) {
+            $dataArray['group_name'] = $data->getGroupName();
+        }
+        if ($data->isInitialized('groupType') && null !== $data->getGroupType()) {
+            $dataArray['group_type'] = $data->getGroupType();
+        }
+        if ($data->isInitialized('ldapGroupDn') && null !== $data->getLdapGroupDn()) {
+            $dataArray['ldap_group_dn'] = $data->getLdapGroupDn();
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Flownative\Harbor\Api\Model\UserGroup::class => false];
     }
 }

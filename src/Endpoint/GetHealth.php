@@ -69,10 +69,10 @@ class GetHealth extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint imple
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\OverallHealthStatus', 'json');
+            return $serializer->deserialize($body, 'Flownative\Harbor\Api\Model\OverallHealthStatus', 'json');
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetHealthInternalServerErrorException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\GetHealthInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }

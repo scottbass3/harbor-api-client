@@ -91,13 +91,13 @@ class SearchUsers extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint imp
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\UserSearchRespItem[]', 'json');
+            return $serializer->deserialize($body, 'Flownative\Harbor\Api\Model\UserSearchRespItem[]', 'json');
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\SearchUsersUnauthorizedException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\SearchUsersUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\SearchUsersInternalServerErrorException($serializer->deserialize($body, 'Flownative\\Harbor\\Api\\Model\\Errors', 'json'), $response);
+            throw new \Flownative\Harbor\Api\Exception\SearchUsersInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
         }
         throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
