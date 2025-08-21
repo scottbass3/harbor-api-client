@@ -11,23 +11,4 @@ return [
     'date-format' => 'Y-m-d\\TH:i:s.vp',
     'clean-generated' => true,
     'throw-unexpected-status-code' => true,
-    'whitelisted-paths' => [
-        ['^\/health', ['GET']],
-        ['^\/statistics', ['GET']],
-        ['^\/users$', ['GET', 'POST']],
-        ['^\/users/search$', ['GET']],
-        ['^\/users/\{user_id\}$', ['GET', 'PUT', 'DELETE']],
-        ['^\/users/\{user_id\}/password$', ['PUT']],
-        ['^\/projects$', ['HEAD', 'GET', 'POST']],
-        ['^\/projects/\{project_name_or_id\}$', ['GET', 'PUT', 'DELETE']],
-        ['^\/projects/\{project_name_or_id\}/members$', ['GET', 'POST']],
-        ['^\/projects/\{project_name_or_id\}/members/\{mid\}$', ['GET', 'PUT', 'DELETE']],
-        ['^\/projects/\{project_name_or_id\}/metadatas', ['GET', 'POST']],
-        ['^\/projects/\{project_name_or_id\}/metadatas/\{meta_name\}$', ['GET', 'PUT', 'DELETE']],
-        ['^\/projects/\{project_name\}/repositories$', ['GET', 'POST']],
-        ['^\/projects/\{project_name\}/repositories/\{repository_name\}$', ['GET', 'PUT', 'DELETE']],
-        ['^\/projects/\{project_name_or_id\}/robots$', ['GET', 'POST']],
-        ['^\/projects/\{project_name_or_id\}/robots/\{robot_id\}$', ['GET', 'PUT', 'DELETE']],
-        ['^\/repositories$', ['HEAD', 'GET', 'POST']],
-    ]
 ];

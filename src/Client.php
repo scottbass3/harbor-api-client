@@ -33,6 +33,31 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * The Search endpoint returns information about the projects and repositories offered at public status or related to the current logged in user. The response includes the project and repository list in a proper display order.
+     *
+     * @param array $queryParameters {
+     *
+     * @var string $q Search parameter for project and repository name.
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Search|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\SearchInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function search(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\Search($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
      * Get the statistic information about the projects and repositories.
      *
      * @param array $headerParameters {
@@ -51,6 +76,179 @@ class Client extends Runtime\Client\Client
     public function getStatistic(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new Endpoint\GetStatistic($headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint ping the available ldap service for test related configuration parameters.
+     *
+     * @param Model\LdapConf $ldapconf         ldap configuration. support input ldap service configuration. If it is a empty request, will load current configuration from the system.
+     * @param array          $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\LdapPingResult|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\PingLdapBadRequestException
+     * @throws Exception\PingLdapUnauthorizedException
+     * @throws Exception\PingLdapForbiddenException
+     * @throws Exception\PingLdapInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function pingLdap(Model\LdapConf $ldapconf, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\PingLdap($ldapconf, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint searches the available ldap users based on related configuration parameters. Support searched by input ladp configuration, load configuration from the system and specific filter.
+     *
+     * @param array $queryParameters {
+     *
+     * @var string $username Registered user ID
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\LdapUser[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\SearchLdapUserBadRequestException
+     * @throws Exception\SearchLdapUserUnauthorizedException
+     * @throws Exception\SearchLdapUserForbiddenException
+     * @throws Exception\SearchLdapUserInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function searchLdapUser(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\SearchLdapUser($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint adds the selected available ldap users to harbor based on related configuration parameters from the system. System will try to guess the user email address and realname, add to harbor user information. If have errors when import user, will return the list of importing failed uid and the failed reason.
+     *
+     * @param Model\LdapImportUsers $uidList          The uid listed for importing. This list will check users validity of ldap service based on configuration from the system.
+     * @param array                 $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\ImportLdapUserBadRequestException
+     * @throws Exception\ImportLdapUserUnauthorizedException
+     * @throws Exception\ImportLdapUserForbiddenException
+     * @throws Exception\ImportLdapUserNotFoundException
+     * @throws Exception\ImportLdapUserInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function importLdapUser(Model\LdapImportUsers $uidList, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ImportLdapUser($uidList, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint searches the available ldap groups based on related configuration parameters. support to search by groupname or groupdn.
+     *
+     * @param array $queryParameters {
+     *
+     * @var string $groupname Ldap group name
+     * @var string $groupdn The LDAP group DN
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\UserGroup[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\SearchLdapGroupBadRequestException
+     * @throws Exception\SearchLdapGroupUnauthorizedException
+     * @throws Exception\SearchLdapGroupForbiddenException
+     * @throws Exception\SearchLdapGroupInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function searchLdapGroup(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\SearchLdapGroup($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is for retrieving system configurations that only provides for internal api call.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\GetInternalconfigUnauthorizedException
+     * @throws Exception\GetInternalconfigForbiddenException
+     * @throws Exception\GetInternalconfigInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getInternalconfig(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetInternalconfig($headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is for retrieving system configurations that only provides for admin user.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ConfigurationsResponse|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetConfigurationsUnauthorizedException
+     * @throws Exception\GetConfigurationsForbiddenException
+     * @throws Exception\GetConfigurationsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getConfigurations(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetConfigurations($headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is for modifying system configurations that only provides for admin user.
+     *
+     * @param Model\Configurations $configurations   the configuration map can contain a subset of the attributes of the schema, which are to be updated
+     * @param array                $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdateConfigurationsUnauthorizedException
+     * @throws Exception\UpdateConfigurationsForbiddenException
+     * @throws Exception\UpdateConfigurationsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updateConfigurations(Model\Configurations $configurations, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdateConfigurations($configurations, $headerParameters), $fetch);
     }
 
     /**
@@ -211,6 +409,57 @@ class Client extends Runtime\Client\Client
     public function updateProject(string $projectNameOrId, Model\ProjectReq $project, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new Endpoint\UpdateProject($projectNameOrId, $project, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the deletable status of the project.
+     *
+     * @param string $projectNameOrId  The name or id of the project
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ProjectDeletable|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetProjectDeletableUnauthorizedException
+     * @throws Exception\GetProjectDeletableForbiddenException
+     * @throws Exception\GetProjectDeletableNotFoundException
+     * @throws Exception\GetProjectDeletableInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getProjectDeletable(string $projectNameOrId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetProjectDeletable($projectNameOrId, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get summary of the project.
+     *
+     * @param string $projectNameOrId  The name or id of the project
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ProjectSummary|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetProjectSummaryBadRequestException
+     * @throws Exception\GetProjectSummaryUnauthorizedException
+     * @throws Exception\GetProjectSummaryForbiddenException
+     * @throws Exception\GetProjectSummaryNotFoundException
+     * @throws Exception\GetProjectSummaryInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getProjectSummary(string $projectNameOrId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetProjectSummary($projectNameOrId, $headerParameters), $fetch);
     }
 
     /**
@@ -404,6 +653,34 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * Delete the specific metadata for the specific project.
+     *
+     * @param string $projectNameOrId  The name or id of the project
+     * @param string $metaName         the name of metadata
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\DeleteProjectMetadataBadRequestException
+     * @throws Exception\DeleteProjectMetadataUnauthorizedException
+     * @throws Exception\DeleteProjectMetadataForbiddenException
+     * @throws Exception\DeleteProjectMetadataNotFoundException
+     * @throws Exception\DeleteProjectMetadataConflictException
+     * @throws Exception\DeleteProjectMetadataInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function deleteProjectMetadata(string $projectNameOrId, string $metaName, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\DeleteProjectMetadata($projectNameOrId, $metaName, $headerParameters), $fetch);
+    }
+
+    /**
      * Get the specific metadata of the specific project.
      *
      * @param string $projectNameOrId  The name or id of the project
@@ -428,6 +705,34 @@ class Client extends Runtime\Client\Client
     public function getProjectMetadata(string $projectNameOrId, string $metaName, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new Endpoint\GetProjectMetadata($projectNameOrId, $metaName, $headerParameters), $fetch);
+    }
+
+    /**
+     * Update the specific metadata for the specific project.
+     *
+     * @param string $projectNameOrId  The name or id of the project
+     * @param string $metaName         the name of metadata
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdateProjectMetadataBadRequestException
+     * @throws Exception\UpdateProjectMetadataUnauthorizedException
+     * @throws Exception\UpdateProjectMetadataForbiddenException
+     * @throws Exception\UpdateProjectMetadataNotFoundException
+     * @throws Exception\UpdateProjectMetadataConflictException
+     * @throws Exception\UpdateProjectMetadataInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updateProjectMetadata(string $projectNameOrId, string $metaName, \stdClass $metadata, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdateProjectMetadata($projectNameOrId, $metaName, $metadata, $headerParameters), $fetch);
     }
 
     /**
@@ -572,6 +877,1140 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * List artifacts under the specific project and repository. Except the basic properties, the other supported queries in "q" includes "tags=*" to list only tagged artifacts, "tags=nil" to list only untagged artifacts, "tags=~v" to list artifacts whose tag fuzzy matches "v", "tags=v" to list artifact whose tag exactly matches "v", "labels=(id1, id2)" to list artifacts that both labels with id1 and id2 are added to.
+     *
+     * @param string $projectName     The name of the project
+     * @param string $repositoryName  The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
+     * @param array  $queryParameters {
+     *
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var bool   $with_tag Specify whether the tags are included inside the returning artifacts
+     * @var bool   $with_label Specify whether the labels are included inside the returning artifacts
+     * @var bool   $with_scan_overview Specify whether the scan overview is included inside the returning artifacts
+     * @var bool   $with_signature Specify whether the signature is included inside the tags of the returning artifacts. Only works when setting "with_tag=true"
+     * @var bool   $with_immutable_status Specify whether the immutable status is included inside the tags of the returning artifacts. Only works when setting "with_immutable_status=true"
+     * @var bool   $with_accessory Specify whether the accessories are included of the returning artifacts. Only works when setting "with_accessory=true"
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var string $X-Accept-Vulnerabilities A comma-separated lists of MIME types for the scan report or scan summary. The first mime type will be used when the report found for it.
+     *             Currently the mime type supports 'application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0' and 'application/vnd.security.vulnerability.report; version=1.1'
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Artifact[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListArtifactsBadRequestException
+     * @throws Exception\ListArtifactsUnauthorizedException
+     * @throws Exception\ListArtifactsForbiddenException
+     * @throws Exception\ListArtifactsNotFoundException
+     * @throws Exception\ListArtifactsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listArtifacts(string $projectName, string $repositoryName, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListArtifacts($projectName, $repositoryName, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Copy the artifact specified in the "from" parameter to the repository.
+     *
+     * @param string $projectName     The name of the project
+     * @param string $repositoryName  The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
+     * @param array  $queryParameters {
+     *
+     * @var string $from The artifact from which the new artifact is copied from, the format should be "project/repository:tag" or "project/repository@digest".
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\CopyArtifactBadRequestException
+     * @throws Exception\CopyArtifactUnauthorizedException
+     * @throws Exception\CopyArtifactForbiddenException
+     * @throws Exception\CopyArtifactNotFoundException
+     * @throws Exception\CopyArtifactMethodNotAllowedException
+     * @throws Exception\CopyArtifactInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function copyArtifact(string $projectName, string $repositoryName, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\CopyArtifact($projectName, $repositoryName, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Delete the artifact specified by the reference under the project and repository. The reference can be digest or tag.
+     *
+     * @param string $projectName      The name of the project
+     * @param string $repositoryName   The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
+     * @param string $reference        The reference of the artifact, can be digest or tag
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\DeleteArtifactUnauthorizedException
+     * @throws Exception\DeleteArtifactForbiddenException
+     * @throws Exception\DeleteArtifactNotFoundException
+     * @throws Exception\DeleteArtifactInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function deleteArtifact(string $projectName, string $repositoryName, string $reference, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\DeleteArtifact($projectName, $repositoryName, $reference, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the artifact specified by the reference under the project and repository. The reference can be digest or tag.
+     *
+     * @param string $projectName     The name of the project
+     * @param string $repositoryName  The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
+     * @param string $reference       The reference of the artifact, can be digest or tag
+     * @param array  $queryParameters {
+     *
+     * @var int  $page The page number
+     * @var int  $page_size The size of per page
+     * @var bool $with_tag Specify whether the tags are inclued inside the returning artifacts
+     * @var bool $with_label Specify whether the labels are inclued inside the returning artifacts
+     * @var bool $with_scan_overview Specify whether the scan overview is inclued inside the returning artifacts
+     * @var bool $with_accessory specify whether the accessories are included of the returning artifacts
+     * @var bool $with_signature Specify whether the signature is inclued inside the returning artifacts
+     * @var bool $with_immutable_status Specify whether the immutable status is inclued inside the tags of the returning artifacts.
+     *           }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var string $X-Accept-Vulnerabilities A comma-separated lists of MIME types for the scan report or scan summary. The first mime type will be used when the report found for it.
+     *             Currently the mime type supports 'application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0' and 'application/vnd.security.vulnerability.report; version=1.1'
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Artifact|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetArtifactBadRequestException
+     * @throws Exception\GetArtifactUnauthorizedException
+     * @throws Exception\GetArtifactForbiddenException
+     * @throws Exception\GetArtifactNotFoundException
+     * @throws Exception\GetArtifactInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getArtifact(string $projectName, string $repositoryName, string $reference, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetArtifact($projectName, $repositoryName, $reference, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Scan the specified artifact.
+     *
+     * @param string $projectName      The name of the project
+     * @param string $repositoryName   The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
+     * @param string $reference        The reference of the artifact, can be digest or tag
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\ScanArtifactBadRequestException
+     * @throws Exception\ScanArtifactUnauthorizedException
+     * @throws Exception\ScanArtifactForbiddenException
+     * @throws Exception\ScanArtifactNotFoundException
+     * @throws Exception\ScanArtifactInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function scanArtifact(string $projectName, string $repositoryName, string $reference, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ScanArtifact($projectName, $repositoryName, $reference, $headerParameters), $fetch);
+    }
+
+    /**
+     * Cancelling a scan job for a particular artifact.
+     *
+     * @param string $projectName      The name of the project
+     * @param string $repositoryName   The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
+     * @param string $reference        The reference of the artifact, can be digest or tag
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\StopScanArtifactBadRequestException
+     * @throws Exception\StopScanArtifactUnauthorizedException
+     * @throws Exception\StopScanArtifactForbiddenException
+     * @throws Exception\StopScanArtifactNotFoundException
+     * @throws Exception\StopScanArtifactInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function stopScanArtifact(string $projectName, string $repositoryName, string $reference, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\StopScanArtifact($projectName, $repositoryName, $reference, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the log of the scan report.
+     *
+     * @param string $projectName      The name of the project
+     * @param string $repositoryName   The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
+     * @param string $reference        The reference of the artifact, can be digest or tag
+     * @param string $reportId         The report id to get the log
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\GetReportLogUnauthorizedException
+     * @throws Exception\GetReportLogForbiddenException
+     * @throws Exception\GetReportLogNotFoundException
+     * @throws Exception\GetReportLogInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getReportLog(string $projectName, string $repositoryName, string $reference, string $reportId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetReportLog($projectName, $repositoryName, $reference, $reportId, $headerParameters), $fetch);
+    }
+
+    /**
+     * List tags of the specific artifact.
+     *
+     * @param string $projectName     The name of the project
+     * @param string $repositoryName  The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
+     * @param string $reference       The reference of the artifact, can be digest or tag
+     * @param array  $queryParameters {
+     *
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var bool   $with_signature Specify whether the signature is included inside the returning tags
+     * @var bool   $with_immutable_status Specify whether the immutable status is included inside the returning tags
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Tag[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListTagsBadRequestException
+     * @throws Exception\ListTagsUnauthorizedException
+     * @throws Exception\ListTagsForbiddenException
+     * @throws Exception\ListTagsNotFoundException
+     * @throws Exception\ListTagsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listTags(string $projectName, string $repositoryName, string $reference, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListTags($projectName, $repositoryName, $reference, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Create a tag for the specified artifact.
+     *
+     * @param string    $projectName      The name of the project
+     * @param string    $repositoryName   The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
+     * @param string    $reference        The reference of the artifact, can be digest or tag
+     * @param Model\Tag $tag              the JSON object of tag
+     * @param array     $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\CreateTagBadRequestException
+     * @throws Exception\CreateTagUnauthorizedException
+     * @throws Exception\CreateTagForbiddenException
+     * @throws Exception\CreateTagNotFoundException
+     * @throws Exception\CreateTagMethodNotAllowedException
+     * @throws Exception\CreateTagConflictException
+     * @throws Exception\CreateTagInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function createTag(string $projectName, string $repositoryName, string $reference, Model\Tag $tag, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\CreateTag($projectName, $repositoryName, $reference, $tag, $headerParameters), $fetch);
+    }
+
+    /**
+     * Delete the tag of the specified artifact.
+     *
+     * @param string $projectName      The name of the project
+     * @param string $repositoryName   The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
+     * @param string $reference        The reference of the artifact, can be digest or tag
+     * @param string $tagName          The name of the tag
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\DeleteTagUnauthorizedException
+     * @throws Exception\DeleteTagForbiddenException
+     * @throws Exception\DeleteTagNotFoundException
+     * @throws Exception\DeleteTagInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function deleteTag(string $projectName, string $repositoryName, string $reference, string $tagName, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\DeleteTag($projectName, $repositoryName, $reference, $tagName, $headerParameters), $fetch);
+    }
+
+    /**
+     * List accessories of the specific artifact.
+     *
+     * @param string $projectName     The name of the project
+     * @param string $repositoryName  The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
+     * @param string $reference       The reference of the artifact, can be digest or tag
+     * @param array  $queryParameters {
+     *
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Accessory[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListAccessoriesBadRequestException
+     * @throws Exception\ListAccessoriesUnauthorizedException
+     * @throws Exception\ListAccessoriesForbiddenException
+     * @throws Exception\ListAccessoriesNotFoundException
+     * @throws Exception\ListAccessoriesInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listAccessories(string $projectName, string $repositoryName, string $reference, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListAccessories($projectName, $repositoryName, $reference, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the vulnerabilities addition of the artifact specified by the reference under the project and repository.
+     *
+     * @param string $projectName      The name of the project
+     * @param string $repositoryName   The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
+     * @param string $reference        The reference of the artifact, can be digest or tag
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var string $X-Accept-Vulnerabilities A comma-separated lists of MIME types for the scan report or scan summary. The first mime type will be used when the report found for it.
+     *             Currently the mime type supports 'application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0' and 'application/vnd.security.vulnerability.report; version=1.1'
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\GetVulnerabilitiesAdditionBadRequestException
+     * @throws Exception\GetVulnerabilitiesAdditionUnauthorizedException
+     * @throws Exception\GetVulnerabilitiesAdditionForbiddenException
+     * @throws Exception\GetVulnerabilitiesAdditionNotFoundException
+     * @throws Exception\GetVulnerabilitiesAdditionInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getVulnerabilitiesAddition(string $projectName, string $repositoryName, string $reference, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetVulnerabilitiesAddition($projectName, $repositoryName, $reference, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the addition of the artifact specified by the reference under the project and repository.
+     *
+     * @param string $projectName      The name of the project
+     * @param string $repositoryName   The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
+     * @param string $reference        The reference of the artifact, can be digest or tag
+     * @param string $addition         the type of addition
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\GetAdditionBadRequestException
+     * @throws Exception\GetAdditionUnauthorizedException
+     * @throws Exception\GetAdditionForbiddenException
+     * @throws Exception\GetAdditionNotFoundException
+     * @throws Exception\GetAdditionInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getAddition(string $projectName, string $repositoryName, string $reference, string $addition, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetAddition($projectName, $repositoryName, $reference, $addition, $headerParameters), $fetch);
+    }
+
+    /**
+     * Add label to the specified artiact.
+     *
+     * @param string      $projectName      The name of the project
+     * @param string      $repositoryName   The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
+     * @param string      $reference        The reference of the artifact, can be digest or tag
+     * @param Model\Label $label            The label that added to the artifact. Only the ID property is needed.
+     * @param array       $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\AddLabelBadRequestException
+     * @throws Exception\AddLabelUnauthorizedException
+     * @throws Exception\AddLabelForbiddenException
+     * @throws Exception\AddLabelNotFoundException
+     * @throws Exception\AddLabelConflictException
+     * @throws Exception\AddLabelInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function addLabel(string $projectName, string $repositoryName, string $reference, Model\Label $label, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\AddLabel($projectName, $repositoryName, $reference, $label, $headerParameters), $fetch);
+    }
+
+    /**
+     * Remove the label from the specified artiact.
+     *
+     * @param string $projectName      The name of the project
+     * @param string $repositoryName   The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
+     * @param string $reference        The reference of the artifact, can be digest or tag
+     * @param int    $labelId          the ID of the label that removed from the artifact
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\RemoveLabelUnauthorizedException
+     * @throws Exception\RemoveLabelForbiddenException
+     * @throws Exception\RemoveLabelNotFoundException
+     * @throws Exception\RemoveLabelConflictException
+     * @throws Exception\RemoveLabelInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function removeLabel(string $projectName, string $repositoryName, string $reference, int $labelId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\RemoveLabel($projectName, $repositoryName, $reference, $labelId, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the scanner registration of the specified project. If no scanner registration is configured for the specified project, the system default scanner registration will be returned.
+     *
+     * @param string $projectNameOrId  The name or id of the project
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ScannerRegistration|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetScannerOfProjectBadRequestException
+     * @throws Exception\GetScannerOfProjectUnauthorizedException
+     * @throws Exception\GetScannerOfProjectForbiddenException
+     * @throws Exception\GetScannerOfProjectNotFoundException
+     * @throws Exception\GetScannerOfProjectInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getScannerOfProject(string $projectNameOrId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetScannerOfProject($projectNameOrId, $headerParameters), $fetch);
+    }
+
+    /**
+     * Set one of the system configured scanner registration as the indepndent scanner of the specified project.
+     *
+     * @param string $projectNameOrId  The name or id of the project
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\SetScannerOfProjectBadRequestException
+     * @throws Exception\SetScannerOfProjectUnauthorizedException
+     * @throws Exception\SetScannerOfProjectForbiddenException
+     * @throws Exception\SetScannerOfProjectNotFoundException
+     * @throws Exception\SetScannerOfProjectInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function setScannerOfProject(string $projectNameOrId, Model\ProjectScanner $payload, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\SetScannerOfProject($projectNameOrId, $payload, $headerParameters), $fetch);
+    }
+
+    /**
+     * Retrieve the system configured scanner registrations as candidates of setting project level scanner.
+     *
+     * @param string $projectNameOrId The name or id of the project
+     * @param array  $queryParameters {
+     *
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ScannerRegistration[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListScannerCandidatesOfProjectBadRequestException
+     * @throws Exception\ListScannerCandidatesOfProjectUnauthorizedException
+     * @throws Exception\ListScannerCandidatesOfProjectForbiddenException
+     * @throws Exception\ListScannerCandidatesOfProjectInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listScannerCandidatesOfProject(string $projectNameOrId, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListScannerCandidatesOfProject($projectNameOrId, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint let user see the recent operation logs of the projects which he is member of.
+     *
+     * @param array $queryParameters {
+     *
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\AuditLog[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListAuditLogsBadRequestException
+     * @throws Exception\ListAuditLogsUnauthorizedException
+     * @throws Exception\ListAuditLogsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listAuditLogs(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListAuditLogs($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get recent logs of the projects.
+     *
+     * @param string $projectName     The name of the project
+     * @param array  $queryParameters {
+     *
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\AuditLog[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetLogsBadRequestException
+     * @throws Exception\GetLogsUnauthorizedException
+     * @throws Exception\GetLogsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getLogs(string $projectName, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetLogs($projectName, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * List P2P providers.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Metadata[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListProvidersBadRequestException
+     * @throws Exception\ListProvidersUnauthorizedException
+     * @throws Exception\ListProvidersForbiddenException
+     * @throws Exception\ListProvidersNotFoundException
+     * @throws Exception\ListProvidersInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listProviders(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListProviders($headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint checks status of a instance, the instance can be given by ID or Endpoint URL (together with credential).
+     *
+     * @param Model\Instance $instance         the JSON object of instance
+     * @param array          $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\PingInstancesBadRequestException
+     * @throws Exception\PingInstancesUnauthorizedException
+     * @throws Exception\PingInstancesNotFoundException
+     * @throws Exception\PingInstancesInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function pingInstances(Model\Instance $instance, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\PingInstances($instance, $headerParameters), $fetch);
+    }
+
+    /**
+     * List P2P provider instances.
+     *
+     * @param array $queryParameters {
+     *
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Instance[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListInstancesBadRequestException
+     * @throws Exception\ListInstancesUnauthorizedException
+     * @throws Exception\ListInstancesForbiddenException
+     * @throws Exception\ListInstancesNotFoundException
+     * @throws Exception\ListInstancesInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listInstances(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListInstances($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Create p2p provider instances.
+     *
+     * @param Model\Instance $instance         the JSON object of instance
+     * @param array          $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\CreateInstanceBadRequestException
+     * @throws Exception\CreateInstanceUnauthorizedException
+     * @throws Exception\CreateInstanceForbiddenException
+     * @throws Exception\CreateInstanceNotFoundException
+     * @throws Exception\CreateInstanceConflictException
+     * @throws Exception\CreateInstanceInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function createInstance(Model\Instance $instance, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\CreateInstance($instance, $headerParameters), $fetch);
+    }
+
+    /**
+     * Delete the specified P2P provider instance.
+     *
+     * @param string $preheatInstanceName Instance Name
+     * @param array  $headerParameters    {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\DeleteInstanceUnauthorizedException
+     * @throws Exception\DeleteInstanceForbiddenException
+     * @throws Exception\DeleteInstanceNotFoundException
+     * @throws Exception\DeleteInstanceInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function deleteInstance(string $preheatInstanceName, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\DeleteInstance($preheatInstanceName, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get a P2P provider instance.
+     *
+     * @param string $preheatInstanceName Instance Name
+     * @param array  $headerParameters    {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Instance|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetInstanceBadRequestException
+     * @throws Exception\GetInstanceUnauthorizedException
+     * @throws Exception\GetInstanceForbiddenException
+     * @throws Exception\GetInstanceNotFoundException
+     * @throws Exception\GetInstanceInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getInstance(string $preheatInstanceName, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetInstance($preheatInstanceName, $headerParameters), $fetch);
+    }
+
+    /**
+     * Update the specified P2P provider instance.
+     *
+     * @param string         $preheatInstanceName Instance Name
+     * @param Model\Instance $instance            The instance to update
+     * @param array          $headerParameters    {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdateInstanceBadRequestException
+     * @throws Exception\UpdateInstanceUnauthorizedException
+     * @throws Exception\UpdateInstanceForbiddenException
+     * @throws Exception\UpdateInstanceNotFoundException
+     * @throws Exception\UpdateInstanceInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updateInstance(string $preheatInstanceName, Model\Instance $instance, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdateInstance($preheatInstanceName, $instance, $headerParameters), $fetch);
+    }
+
+    /**
+     * List preheat policies.
+     *
+     * @param string $projectName     The name of the project
+     * @param array  $queryParameters {
+     *
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\PreheatPolicy[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListPoliciesBadRequestException
+     * @throws Exception\ListPoliciesUnauthorizedException
+     * @throws Exception\ListPoliciesForbiddenException
+     * @throws Exception\ListPoliciesInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listPolicies(string $projectName, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListPolicies($projectName, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Create a preheat policy under a project.
+     *
+     * @param string              $projectName      The name of the project
+     * @param Model\PreheatPolicy $policy           The policy schema info
+     * @param array               $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\CreatePolicyBadRequestException
+     * @throws Exception\CreatePolicyUnauthorizedException
+     * @throws Exception\CreatePolicyForbiddenException
+     * @throws Exception\CreatePolicyConflictException
+     * @throws Exception\CreatePolicyInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function createPolicy(string $projectName, Model\PreheatPolicy $policy, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\CreatePolicy($projectName, $policy, $headerParameters), $fetch);
+    }
+
+    /**
+     * Delete a preheat policy.
+     *
+     * @param string $projectName       The name of the project
+     * @param string $preheatPolicyName Preheat Policy Name
+     * @param array  $headerParameters  {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\DeletePolicyBadRequestException
+     * @throws Exception\DeletePolicyUnauthorizedException
+     * @throws Exception\DeletePolicyForbiddenException
+     * @throws Exception\DeletePolicyNotFoundException
+     * @throws Exception\DeletePolicyInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function deletePolicy(string $projectName, string $preheatPolicyName, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\DeletePolicy($projectName, $preheatPolicyName, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get a preheat policy.
+     *
+     * @param string $projectName       The name of the project
+     * @param string $preheatPolicyName Preheat Policy Name
+     * @param array  $headerParameters  {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\PreheatPolicy|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetPolicyBadRequestException
+     * @throws Exception\GetPolicyUnauthorizedException
+     * @throws Exception\GetPolicyForbiddenException
+     * @throws Exception\GetPolicyNotFoundException
+     * @throws Exception\GetPolicyInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getPolicy(string $projectName, string $preheatPolicyName, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetPolicy($projectName, $preheatPolicyName, $headerParameters), $fetch);
+    }
+
+    /**
+     * Manual preheat.
+     *
+     * @param string              $projectName       The name of the project
+     * @param string              $preheatPolicyName Preheat Policy Name
+     * @param Model\PreheatPolicy $policy            The policy schema info
+     * @param array               $headerParameters  {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\ManualPreheatBadRequestException
+     * @throws Exception\ManualPreheatUnauthorizedException
+     * @throws Exception\ManualPreheatForbiddenException
+     * @throws Exception\ManualPreheatNotFoundException
+     * @throws Exception\ManualPreheatInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function manualPreheat(string $projectName, string $preheatPolicyName, Model\PreheatPolicy $policy, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ManualPreheat($projectName, $preheatPolicyName, $policy, $headerParameters), $fetch);
+    }
+
+    /**
+     * Update preheat policy.
+     *
+     * @param string              $projectName       The name of the project
+     * @param string              $preheatPolicyName Preheat Policy Name
+     * @param Model\PreheatPolicy $policy            The policy schema info
+     * @param array               $headerParameters  {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdatePolicyBadRequestException
+     * @throws Exception\UpdatePolicyUnauthorizedException
+     * @throws Exception\UpdatePolicyForbiddenException
+     * @throws Exception\UpdatePolicyNotFoundException
+     * @throws Exception\UpdatePolicyConflictException
+     * @throws Exception\UpdatePolicyInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updatePolicy(string $projectName, string $preheatPolicyName, Model\PreheatPolicy $policy, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdatePolicy($projectName, $preheatPolicyName, $policy, $headerParameters), $fetch);
+    }
+
+    /**
+     * List executions for the given policy.
+     *
+     * @param string $projectName       The name of the project
+     * @param string $preheatPolicyName Preheat Policy Name
+     * @param array  $queryParameters   {
+     *
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Execution[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListExecutionsBadRequestException
+     * @throws Exception\ListExecutionsUnauthorizedException
+     * @throws Exception\ListExecutionsForbiddenException
+     * @throws Exception\ListExecutionsNotFoundException
+     * @throws Exception\ListExecutionsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listExecutions(string $projectName, string $preheatPolicyName, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListExecutions($projectName, $preheatPolicyName, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get a execution detail by id.
+     *
+     * @param string $projectName       The name of the project
+     * @param string $preheatPolicyName Preheat Policy Name
+     * @param int    $executionId       Execution ID
+     * @param array  $headerParameters  {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Execution|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetExecutionBadRequestException
+     * @throws Exception\GetExecutionUnauthorizedException
+     * @throws Exception\GetExecutionForbiddenException
+     * @throws Exception\GetExecutionNotFoundException
+     * @throws Exception\GetExecutionInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getExecution(string $projectName, string $preheatPolicyName, int $executionId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetExecution($projectName, $preheatPolicyName, $executionId, $headerParameters), $fetch);
+    }
+
+    /**
+     * Stop a execution.
+     *
+     * @param string          $projectName       The name of the project
+     * @param string          $preheatPolicyName Preheat Policy Name
+     * @param int             $executionId       Execution ID
+     * @param Model\Execution $execution         The data of execution
+     * @param array           $headerParameters  {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\StopExecutionBadRequestException
+     * @throws Exception\StopExecutionUnauthorizedException
+     * @throws Exception\StopExecutionForbiddenException
+     * @throws Exception\StopExecutionNotFoundException
+     * @throws Exception\StopExecutionInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function stopExecution(string $projectName, string $preheatPolicyName, int $executionId, Model\Execution $execution, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\StopExecution($projectName, $preheatPolicyName, $executionId, $execution, $headerParameters), $fetch);
+    }
+
+    /**
+     * List all the related tasks for the given execution.
+     *
+     * @param string $projectName       The name of the project
+     * @param string $preheatPolicyName Preheat Policy Name
+     * @param int    $executionId       Execution ID
+     * @param array  $queryParameters   {
+     *
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Task[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListTasksBadRequestException
+     * @throws Exception\ListTasksUnauthorizedException
+     * @throws Exception\ListTasksForbiddenException
+     * @throws Exception\ListTasksNotFoundException
+     * @throws Exception\ListTasksInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listTasks(string $projectName, string $preheatPolicyName, int $executionId, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListTasks($projectName, $preheatPolicyName, $executionId, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the log text stream of the specified task for the given execution.
+     *
+     * @param string $projectName       The name of the project
+     * @param string $preheatPolicyName Preheat Policy Name
+     * @param int    $executionId       Execution ID
+     * @param int    $taskId            Task ID
+     * @param array  $headerParameters  {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\GetPreheatLogBadRequestException
+     * @throws Exception\GetPreheatLogUnauthorizedException
+     * @throws Exception\GetPreheatLogForbiddenException
+     * @throws Exception\GetPreheatLogNotFoundException
+     * @throws Exception\GetPreheatLogInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getPreheatLog(string $projectName, string $preheatPolicyName, int $executionId, int $taskId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetPreheatLog($projectName, $preheatPolicyName, $executionId, $taskId, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get all providers at project level.
+     *
+     * @param string $projectName      The name of the project
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ProviderUnderProject[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListProvidersUnderProjectBadRequestException
+     * @throws Exception\ListProvidersUnderProjectUnauthorizedException
+     * @throws Exception\ListProvidersUnderProjectForbiddenException
+     * @throws Exception\ListProvidersUnderProjectNotFoundException
+     * @throws Exception\ListProvidersUnderProjectInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listProvidersUnderProject(string $projectName, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListProvidersUnderProject($projectName, $headerParameters), $fetch);
+    }
+
+    /**
      * Get all robot accounts of specified project.
      *
      * @param string $projectNameOrId The name or id of the project
@@ -713,6 +2152,2654 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * This endpoint returns the immutable tag rules of a project.
+     *
+     * @param string $projectNameOrId The name or id of the project
+     * @param array  $queryParameters {
+     *
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ImmutableRule[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListImmuRulesBadRequestException
+     * @throws Exception\ListImmuRulesUnauthorizedException
+     * @throws Exception\ListImmuRulesForbiddenException
+     * @throws Exception\ListImmuRulesInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listImmuRules(string $projectNameOrId, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListImmuRules($projectNameOrId, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint add an immutable tag rule to the project.
+     *
+     * @param string $projectNameOrId  The name or id of the project
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\CreateImmuRuleBadRequestException
+     * @throws Exception\CreateImmuRuleUnauthorizedException
+     * @throws Exception\CreateImmuRuleForbiddenException
+     * @throws Exception\CreateImmuRuleNotFoundException
+     * @throws Exception\CreateImmuRuleInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function createImmuRule(string $projectNameOrId, Model\ImmutableRule $immutableRule, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\CreateImmuRule($projectNameOrId, $immutableRule, $headerParameters), $fetch);
+    }
+
+    /**
+     * @param string $projectNameOrId  The name or id of the project
+     * @param int    $immutableRuleId  The ID of the immutable rule
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\DeleteImmuRuleBadRequestException
+     * @throws Exception\DeleteImmuRuleUnauthorizedException
+     * @throws Exception\DeleteImmuRuleForbiddenException
+     * @throws Exception\DeleteImmuRuleInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function deleteImmuRule(string $projectNameOrId, int $immutableRuleId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\DeleteImmuRule($projectNameOrId, $immutableRuleId, $headerParameters), $fetch);
+    }
+
+    /**
+     * @param string $projectNameOrId  The name or id of the project
+     * @param int    $immutableRuleId  The ID of the immutable rule
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdateImmuRuleBadRequestException
+     * @throws Exception\UpdateImmuRuleUnauthorizedException
+     * @throws Exception\UpdateImmuRuleForbiddenException
+     * @throws Exception\UpdateImmuRuleInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updateImmuRule(string $projectNameOrId, int $immutableRuleId, Model\ImmutableRule $immutableRule, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdateImmuRule($projectNameOrId, $immutableRuleId, $immutableRule, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint returns webhook policies of a project.
+     *
+     * @param string $projectNameOrId The name or id of the project
+     * @param array  $queryParameters {
+     *
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\WebhookPolicy[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListWebhookPoliciesOfProjectBadRequestException
+     * @throws Exception\ListWebhookPoliciesOfProjectUnauthorizedException
+     * @throws Exception\ListWebhookPoliciesOfProjectForbiddenException
+     * @throws Exception\ListWebhookPoliciesOfProjectInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listWebhookPoliciesOfProject(string $projectNameOrId, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListWebhookPoliciesOfProject($projectNameOrId, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint create a webhook policy if the project does not have one.
+     *
+     * @param string              $projectNameOrId  The name or id of the project
+     * @param Model\WebhookPolicy $policy           properties "targets" and "event_types" needed
+     * @param array               $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\CreateWebhookPolicyOfProjectBadRequestException
+     * @throws Exception\CreateWebhookPolicyOfProjectUnauthorizedException
+     * @throws Exception\CreateWebhookPolicyOfProjectForbiddenException
+     * @throws Exception\CreateWebhookPolicyOfProjectInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function createWebhookPolicyOfProject(string $projectNameOrId, Model\WebhookPolicy $policy, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\CreateWebhookPolicyOfProject($projectNameOrId, $policy, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is aimed to delete webhookpolicy of a project.
+     *
+     * @param string $projectNameOrId  The name or id of the project
+     * @param int    $webhookPolicyId  The ID of the webhook policy
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\DeleteWebhookPolicyOfProjectBadRequestException
+     * @throws Exception\DeleteWebhookPolicyOfProjectUnauthorizedException
+     * @throws Exception\DeleteWebhookPolicyOfProjectForbiddenException
+     * @throws Exception\DeleteWebhookPolicyOfProjectNotFoundException
+     * @throws Exception\DeleteWebhookPolicyOfProjectInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function deleteWebhookPolicyOfProject(string $projectNameOrId, int $webhookPolicyId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\DeleteWebhookPolicyOfProject($projectNameOrId, $webhookPolicyId, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint returns specified webhook policy of a project.
+     *
+     * @param string $projectNameOrId  The name or id of the project
+     * @param int    $webhookPolicyId  The ID of the webhook policy
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\WebhookPolicy|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetWebhookPolicyOfProjectBadRequestException
+     * @throws Exception\GetWebhookPolicyOfProjectUnauthorizedException
+     * @throws Exception\GetWebhookPolicyOfProjectForbiddenException
+     * @throws Exception\GetWebhookPolicyOfProjectNotFoundException
+     * @throws Exception\GetWebhookPolicyOfProjectInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getWebhookPolicyOfProject(string $projectNameOrId, int $webhookPolicyId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetWebhookPolicyOfProject($projectNameOrId, $webhookPolicyId, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is aimed to update the webhook policy of a project.
+     *
+     * @param string              $projectNameOrId  The name or id of the project
+     * @param int                 $webhookPolicyId  The ID of the webhook policy
+     * @param Model\WebhookPolicy $policy           all properties needed except "id", "project_id", "creation_time", "update_time"
+     * @param array               $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdateWebhookPolicyOfProjectBadRequestException
+     * @throws Exception\UpdateWebhookPolicyOfProjectUnauthorizedException
+     * @throws Exception\UpdateWebhookPolicyOfProjectForbiddenException
+     * @throws Exception\UpdateWebhookPolicyOfProjectNotFoundException
+     * @throws Exception\UpdateWebhookPolicyOfProjectInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updateWebhookPolicyOfProject(string $projectNameOrId, int $webhookPolicyId, Model\WebhookPolicy $policy, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdateWebhookPolicyOfProject($projectNameOrId, $webhookPolicyId, $policy, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint returns the executions of a specific webhook policy.
+     *
+     * @param string $projectNameOrId The name or id of the project
+     * @param int    $webhookPolicyId The ID of the webhook policy
+     * @param array  $queryParameters {
+     *
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Execution[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListExecutionsOfWebhookPolicyBadRequestException
+     * @throws Exception\ListExecutionsOfWebhookPolicyUnauthorizedException
+     * @throws Exception\ListExecutionsOfWebhookPolicyForbiddenException
+     * @throws Exception\ListExecutionsOfWebhookPolicyNotFoundException
+     * @throws Exception\ListExecutionsOfWebhookPolicyInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listExecutionsOfWebhookPolicy(string $projectNameOrId, int $webhookPolicyId, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListExecutionsOfWebhookPolicy($projectNameOrId, $webhookPolicyId, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint returns the tasks of a specific webhook execution.
+     *
+     * @param string $projectNameOrId The name or id of the project
+     * @param int    $webhookPolicyId The ID of the webhook policy
+     * @param int    $executionId     Execution ID
+     * @param array  $queryParameters {
+     *
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Task[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListTasksOfWebhookExecutionBadRequestException
+     * @throws Exception\ListTasksOfWebhookExecutionUnauthorizedException
+     * @throws Exception\ListTasksOfWebhookExecutionForbiddenException
+     * @throws Exception\ListTasksOfWebhookExecutionNotFoundException
+     * @throws Exception\ListTasksOfWebhookExecutionInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listTasksOfWebhookExecution(string $projectNameOrId, int $webhookPolicyId, int $executionId, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListTasksOfWebhookExecution($projectNameOrId, $webhookPolicyId, $executionId, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint returns the logs of a specific webhook task.
+     *
+     * @param string $projectNameOrId  The name or id of the project
+     * @param int    $webhookPolicyId  The ID of the webhook policy
+     * @param int    $executionId      Execution ID
+     * @param int    $taskId           Task ID
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\GetLogsOfWebhookTaskBadRequestException
+     * @throws Exception\GetLogsOfWebhookTaskUnauthorizedException
+     * @throws Exception\GetLogsOfWebhookTaskForbiddenException
+     * @throws Exception\GetLogsOfWebhookTaskNotFoundException
+     * @throws Exception\GetLogsOfWebhookTaskInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getLogsOfWebhookTask(string $projectNameOrId, int $webhookPolicyId, int $executionId, int $taskId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetLogsOfWebhookTask($projectNameOrId, $webhookPolicyId, $executionId, $taskId, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint returns last trigger information of project webhook policy.
+     *
+     * @param string $projectNameOrId  The name or id of the project
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\WebhookLastTrigger[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\LastTriggerBadRequestException
+     * @throws Exception\LastTriggerUnauthorizedException
+     * @throws Exception\LastTriggerForbiddenException
+     * @throws Exception\LastTriggerInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function lastTrigger(string $projectNameOrId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\LastTrigger($projectNameOrId, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint returns webhook jobs of a project.
+     *
+     * @param string $projectNameOrId The name or id of the project
+     * @param array  $queryParameters {
+     *
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var int    $policy_id the policy ID
+     * @var array  $status The status of webhook job.
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\WebhookJob[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListWebhookJobsBadRequestException
+     * @throws Exception\ListWebhookJobsUnauthorizedException
+     * @throws Exception\ListWebhookJobsForbiddenException
+     * @throws Exception\ListWebhookJobsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listWebhookJobs(string $projectNameOrId, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListWebhookJobs($projectNameOrId, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get supported event types and notify types.
+     *
+     * @param string $projectNameOrId  The name or id of the project
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\SupportedWebhookEventTypes|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetSupportedEventTypesUnauthorizedException
+     * @throws Exception\GetSupportedEventTypesForbiddenException
+     * @throws Exception\GetSupportedEventTypesInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getSupportedEventTypes(string $projectNameOrId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetSupportedEventTypes($projectNameOrId, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get all user groups information, it is open for system admin.
+     *
+     * @param array $queryParameters {
+     *
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var string $ldap_group_dn search with ldap group DN
+     * @var string $group_name group name need to search, fuzzy matches
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\UserGroup[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListUserGroupsUnauthorizedException
+     * @throws Exception\ListUserGroupsForbiddenException
+     * @throws Exception\ListUserGroupsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listUserGroups(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListUserGroups($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Create user group information.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\CreateUserGroupBadRequestException
+     * @throws Exception\CreateUserGroupUnauthorizedException
+     * @throws Exception\CreateUserGroupForbiddenException
+     * @throws Exception\CreateUserGroupConflictException
+     * @throws Exception\CreateUserGroupInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function createUserGroup(Model\UserGroup $usergroup, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\CreateUserGroup($usergroup, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is to search groups by group name.  It's open for all authenticated requests.
+     *
+     * @param array $queryParameters {
+     *
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var string $groupname Group name for filtering results.
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\UserGroupSearchItem[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\SearchUserGroupsUnauthorizedException
+     * @throws Exception\SearchUserGroupsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function searchUserGroups(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\SearchUserGroups($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Delete user group.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\DeleteUserGroupBadRequestException
+     * @throws Exception\DeleteUserGroupUnauthorizedException
+     * @throws Exception\DeleteUserGroupForbiddenException
+     * @throws Exception\DeleteUserGroupInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function deleteUserGroup(int $groupId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\DeleteUserGroup($groupId, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get user group information.
+     *
+     * @param int   $groupId          Group ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\UserGroup|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetUserGroupBadRequestException
+     * @throws Exception\GetUserGroupUnauthorizedException
+     * @throws Exception\GetUserGroupForbiddenException
+     * @throws Exception\GetUserGroupNotFoundException
+     * @throws Exception\GetUserGroupInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getUserGroup(int $groupId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetUserGroup($groupId, $headerParameters), $fetch);
+    }
+
+    /**
+     * Update user group information.
+     *
+     * @param int   $groupId          Group ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdateUserGroupBadRequestException
+     * @throws Exception\UpdateUserGroupUnauthorizedException
+     * @throws Exception\UpdateUserGroupForbiddenException
+     * @throws Exception\UpdateUserGroupNotFoundException
+     * @throws Exception\UpdateUserGroupInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updateUserGroup(int $groupId, Model\UserGroup $usergroup, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdateUserGroup($groupId, $usergroup, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the artifact icon with the specified digest. As the original icon image is resized and encoded before returning, the parameter "digest" in the path doesn't match the hash of the returned content.
+     *
+     * @param string $digest           The digest of the resource
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Icon|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetIconBadRequestException
+     * @throws Exception\GetIconNotFoundException
+     * @throws Exception\GetIconInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getIcon(string $digest, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetIcon($digest, $headerParameters), $fetch);
+    }
+
+    /**
+     * List the robot accounts with the specified level and project.
+     *
+     * @param array $queryParameters {
+     *
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Robot[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListRobotBadRequestException
+     * @throws Exception\ListRobotNotFoundException
+     * @throws Exception\ListRobotInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listRobot(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListRobot($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Create a robot account.
+     *
+     * @param Model\RobotCreate $robot            the JSON object of a robot account
+     * @param array             $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\RobotCreated|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\CreateRobotBadRequestException
+     * @throws Exception\CreateRobotUnauthorizedException
+     * @throws Exception\CreateRobotForbiddenException
+     * @throws Exception\CreateRobotNotFoundException
+     * @throws Exception\CreateRobotInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function createRobot(Model\RobotCreate $robot, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\CreateRobot($robot, $headerParameters), $fetch);
+    }
+
+    /**
+     * List quotas.
+     *
+     * @param array $queryParameters {
+     *
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var string $reference the reference type of quota
+     * @var string $reference_id the reference id of quota
+     * @var string $sort Sort method, valid values include:
+     *             'hard.resource_name', '-hard.resource_name', 'used.resource_name', '-used.resource_name'.
+     *             Here '-' stands for descending order, resource_name should be the real resource name of the quota.
+     *
+     * }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Quota[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListQuotasUnauthorizedException
+     * @throws Exception\ListQuotasForbiddenException
+     * @throws Exception\ListQuotasInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listQuotas(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListQuotas($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the specified quota.
+     *
+     * @param int   $id               Quota ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Quota|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetQuotaUnauthorizedException
+     * @throws Exception\GetQuotaForbiddenException
+     * @throws Exception\GetQuotaNotFoundException
+     * @throws Exception\GetQuotaInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getQuota(int $id, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetQuota($id, $headerParameters), $fetch);
+    }
+
+    /**
+     * Update hard limits of the specified quota.
+     *
+     * @param int                  $id               Quota ID
+     * @param Model\QuotaUpdateReq $hard             The new hard limits for the quota
+     * @param array                $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdateQuotaBadRequestException
+     * @throws Exception\UpdateQuotaUnauthorizedException
+     * @throws Exception\UpdateQuotaForbiddenException
+     * @throws Exception\UpdateQuotaNotFoundException
+     * @throws Exception\UpdateQuotaInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updateQuota(int $id, Model\QuotaUpdateReq $hard, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdateQuota($id, $hard, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint deletes specific robot account information by robot ID.
+     *
+     * @param int   $robotId          Robot ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\DeleteRobotBadRequestException
+     * @throws Exception\DeleteRobotUnauthorizedException
+     * @throws Exception\DeleteRobotForbiddenException
+     * @throws Exception\DeleteRobotNotFoundException
+     * @throws Exception\DeleteRobotInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function deleteRobot(int $robotId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\DeleteRobot($robotId, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint returns specific robot account information by robot ID.
+     *
+     * @param int   $robotId          Robot ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Robot|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetRobotByIDUnauthorizedException
+     * @throws Exception\GetRobotByIDForbiddenException
+     * @throws Exception\GetRobotByIDNotFoundException
+     * @throws Exception\GetRobotByIDInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getRobotByID(int $robotId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetRobotByID($robotId, $headerParameters), $fetch);
+    }
+
+    /**
+     * Refresh the robot secret.
+     *
+     * @param int            $robotId          Robot ID
+     * @param Model\RobotSec $robotSec         the JSON object of a robot account
+     * @param array          $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\RobotSec|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\RefreshSecBadRequestException
+     * @throws Exception\RefreshSecUnauthorizedException
+     * @throws Exception\RefreshSecForbiddenException
+     * @throws Exception\RefreshSecNotFoundException
+     * @throws Exception\RefreshSecInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function refreshSec(int $robotId, Model\RobotSec $robotSec, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\RefreshSec($robotId, $robotSec, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint updates specific robot account information by robot ID.
+     *
+     * @param int         $robotId          Robot ID
+     * @param Model\Robot $robot            the JSON object of a robot account
+     * @param array       $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdateRobotBadRequestException
+     * @throws Exception\UpdateRobotUnauthorizedException
+     * @throws Exception\UpdateRobotForbiddenException
+     * @throws Exception\UpdateRobotNotFoundException
+     * @throws Exception\UpdateRobotConflictException
+     * @throws Exception\UpdateRobotInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updateRobot(int $robotId, Model\Robot $robot, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdateRobot($robotId, $robot, $headerParameters), $fetch);
+    }
+
+    /**
+     * List replication policies.
+     *
+     * @param array $queryParameters {
+     *
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var string $name Deprecated, use "query" instead. The policy name.
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ReplicationPolicy[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListReplicationPoliciesUnauthorizedException
+     * @throws Exception\ListReplicationPoliciesForbiddenException
+     * @throws Exception\ListReplicationPoliciesInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listReplicationPolicies(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListReplicationPolicies($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Create a replication policy.
+     *
+     * @param Model\ReplicationPolicy $policy           The replication policy
+     * @param array                   $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\CreateReplicationPolicyBadRequestException
+     * @throws Exception\CreateReplicationPolicyUnauthorizedException
+     * @throws Exception\CreateReplicationPolicyForbiddenException
+     * @throws Exception\CreateReplicationPolicyConflictException
+     * @throws Exception\CreateReplicationPolicyInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function createReplicationPolicy(Model\ReplicationPolicy $policy, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\CreateReplicationPolicy($policy, $headerParameters), $fetch);
+    }
+
+    /**
+     * Delete the specific replication policy.
+     *
+     * @param int   $id               Replication policy ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\DeleteReplicationPolicyUnauthorizedException
+     * @throws Exception\DeleteReplicationPolicyForbiddenException
+     * @throws Exception\DeleteReplicationPolicyNotFoundException
+     * @throws Exception\DeleteReplicationPolicyPreconditionFailedException
+     * @throws Exception\DeleteReplicationPolicyInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function deleteReplicationPolicy(int $id, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\DeleteReplicationPolicy($id, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the specific replication policy.
+     *
+     * @param int   $id               Policy ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ReplicationPolicy|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetReplicationPolicyUnauthorizedException
+     * @throws Exception\GetReplicationPolicyForbiddenException
+     * @throws Exception\GetReplicationPolicyInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getReplicationPolicy(int $id, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetReplicationPolicy($id, $headerParameters), $fetch);
+    }
+
+    /**
+     * Update the replication policy.
+     *
+     * @param int                     $id               The policy ID
+     * @param Model\ReplicationPolicy $policy           The replication policy
+     * @param array                   $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdateReplicationPolicyUnauthorizedException
+     * @throws Exception\UpdateReplicationPolicyForbiddenException
+     * @throws Exception\UpdateReplicationPolicyNotFoundException
+     * @throws Exception\UpdateReplicationPolicyConflictException
+     * @throws Exception\UpdateReplicationPolicyInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updateReplicationPolicy(int $id, Model\ReplicationPolicy $policy, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdateReplicationPolicy($id, $policy, $headerParameters), $fetch);
+    }
+
+    /**
+     * List replication executions.
+     *
+     * @param array $queryParameters {
+     *
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var int    $policy_id the ID of the policy that the executions belong to
+     * @var string $status the execution status
+     * @var string $trigger The trigger mode.
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ReplicationExecution[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListReplicationExecutionsUnauthorizedException
+     * @throws Exception\ListReplicationExecutionsForbiddenException
+     * @throws Exception\ListReplicationExecutionsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listReplicationExecutions(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListReplicationExecutions($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Start one replication execution according to the policy.
+     *
+     * @param Model\StartReplicationExecution $execution        The ID of policy that the execution belongs to
+     * @param array                           $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\StartReplicationBadRequestException
+     * @throws Exception\StartReplicationUnauthorizedException
+     * @throws Exception\StartReplicationForbiddenException
+     * @throws Exception\StartReplicationInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function startReplication(Model\StartReplicationExecution $execution, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\StartReplication($execution, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the replication execution specified by ID.
+     *
+     * @param int   $id               the ID of the execution
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ReplicationExecution|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetReplicationExecutionUnauthorizedException
+     * @throws Exception\GetReplicationExecutionForbiddenException
+     * @throws Exception\GetReplicationExecutionNotFoundException
+     * @throws Exception\GetReplicationExecutionInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getReplicationExecution(int $id, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetReplicationExecution($id, $headerParameters), $fetch);
+    }
+
+    /**
+     * Stop the replication execution specified by ID.
+     *
+     * @param int   $id               the ID of the execution
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\StopReplicationUnauthorizedException
+     * @throws Exception\StopReplicationForbiddenException
+     * @throws Exception\StopReplicationNotFoundException
+     * @throws Exception\StopReplicationInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function stopReplication(int $id, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\StopReplication($id, $headerParameters), $fetch);
+    }
+
+    /**
+     * List replication tasks for a specific execution.
+     *
+     * @param int   $id              the ID of the execution that the tasks belongs to
+     * @param array $queryParameters {
+     *
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var string $status the task status
+     * @var string $resource_type The resource type.
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ReplicationTask[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListReplicationTasksUnauthorizedException
+     * @throws Exception\ListReplicationTasksForbiddenException
+     * @throws Exception\ListReplicationTasksInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listReplicationTasks(int $id, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListReplicationTasks($id, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the log of the specific replication task.
+     *
+     * @param int   $id               the ID of the execution that the tasks belongs to
+     * @param int   $taskId           the ID of the task
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\GetReplicationLogUnauthorizedException
+     * @throws Exception\GetReplicationLogForbiddenException
+     * @throws Exception\GetReplicationLogNotFoundException
+     * @throws Exception\GetReplicationLogInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getReplicationLog(int $id, int $taskId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetReplicationLog($id, $taskId, $headerParameters), $fetch);
+    }
+
+    /**
+     * List registry adapters.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\ListRegistryProviderTypesUnauthorizedException
+     * @throws Exception\ListRegistryProviderTypesForbiddenException
+     * @throws Exception\ListRegistryProviderTypesInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listRegistryProviderTypes(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListRegistryProviderTypes($headerParameters), $fetch);
+    }
+
+    /**
+     * List all registered registry provider information.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\ListRegistryProviderInfosUnauthorizedException
+     * @throws Exception\ListRegistryProviderInfosForbiddenException
+     * @throws Exception\ListRegistryProviderInfosInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listRegistryProviderInfos(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListRegistryProviderInfos($headerParameters), $fetch);
+    }
+
+    /**
+     * List the registries.
+     *
+     * @param array $queryParameters {
+     *
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var string $name Deprecated, use `q` instead.
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Registry[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListRegistriesUnauthorizedException
+     * @throws Exception\ListRegistriesForbiddenException
+     * @throws Exception\ListRegistriesInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listRegistries(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListRegistries($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Create a registry.
+     *
+     * @param Model\Registry $registry         The registry
+     * @param array          $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\CreateRegistryBadRequestException
+     * @throws Exception\CreateRegistryUnauthorizedException
+     * @throws Exception\CreateRegistryForbiddenException
+     * @throws Exception\CreateRegistryConflictException
+     * @throws Exception\CreateRegistryInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function createRegistry(Model\Registry $registry, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\CreateRegistry($registry, $headerParameters), $fetch);
+    }
+
+    /**
+     * Check status of a registry.
+     *
+     * @param Model\RegistryPing $registry         The registry
+     * @param array              $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\PingRegistryBadRequestException
+     * @throws Exception\PingRegistryUnauthorizedException
+     * @throws Exception\PingRegistryForbiddenException
+     * @throws Exception\PingRegistryNotFoundException
+     * @throws Exception\PingRegistryInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function pingRegistry(Model\RegistryPing $registry, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\PingRegistry($registry, $headerParameters), $fetch);
+    }
+
+    /**
+     * Delete the specific registry.
+     *
+     * @param int   $id               Registry ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\DeleteRegistryUnauthorizedException
+     * @throws Exception\DeleteRegistryForbiddenException
+     * @throws Exception\DeleteRegistryNotFoundException
+     * @throws Exception\DeleteRegistryPreconditionFailedException
+     * @throws Exception\DeleteRegistryInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function deleteRegistry(int $id, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\DeleteRegistry($id, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the specific registry.
+     *
+     * @param int   $id               Registry ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Registry|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetRegistryUnauthorizedException
+     * @throws Exception\GetRegistryForbiddenException
+     * @throws Exception\GetRegistryNotFoundException
+     * @throws Exception\GetRegistryInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getRegistry(int $id, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetRegistry($id, $headerParameters), $fetch);
+    }
+
+    /**
+     * Update the registry.
+     *
+     * @param int                  $id               The registry ID
+     * @param Model\RegistryUpdate $registry         The registry
+     * @param array                $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdateRegistryUnauthorizedException
+     * @throws Exception\UpdateRegistryForbiddenException
+     * @throws Exception\UpdateRegistryNotFoundException
+     * @throws Exception\UpdateRegistryConflictException
+     * @throws Exception\UpdateRegistryInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updateRegistry(int $id, Model\RegistryUpdate $registry, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdateRegistry($id, $registry, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the registry info.
+     *
+     * @param int   $id               Registry ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\RegistryInfo|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetRegistryInfoUnauthorizedException
+     * @throws Exception\GetRegistryInfoForbiddenException
+     * @throws Exception\GetRegistryInfoNotFoundException
+     * @throws Exception\GetRegistryInfoInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getRegistryInfo(int $id, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetRegistryInfo($id, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the metrics of the latest scan all process.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Stats|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetLatestScanAllMetricsUnauthorizedException
+     * @throws Exception\GetLatestScanAllMetricsForbiddenException
+     * @throws Exception\GetLatestScanAllMetricsPreconditionFailedException
+     * @throws Exception\GetLatestScanAllMetricsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getLatestScanAllMetrics(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetLatestScanAllMetrics($headerParameters), $fetch);
+    }
+
+    /**
+     * Get the metrics of the latest scheduled scan all process.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Stats|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetLatestScheduledScanAllMetricsUnauthorizedException
+     * @throws Exception\GetLatestScheduledScanAllMetricsForbiddenException
+     * @throws Exception\GetLatestScheduledScanAllMetricsPreconditionFailedException
+     * @throws Exception\GetLatestScheduledScanAllMetricsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getLatestScheduledScanAllMetrics(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetLatestScheduledScanAllMetrics($headerParameters), $fetch);
+    }
+
+    /**
+     * This API is for retrieving general system info, this can be called by anonymous request.  Some attributes will be omitted in the response when this API is called by anonymous request.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\GeneralInfo|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetSystemInfoInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getSystemInfo(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetSystemInfo($headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is for retrieving system volume info that only provides for admin user.  Note that the response only reflects the storage status of local disk.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\SystemInfo|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetVolumesUnauthorizedException
+     * @throws Exception\GetVolumesForbiddenException
+     * @throws Exception\GetVolumesNotFoundException
+     * @throws Exception\GetVolumesInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getVolumes(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetVolumes($headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is for downloading a default root certificate.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\GetCertNotFoundException
+     * @throws Exception\GetCertInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getCert(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetCert($headerParameters), $fetch);
+    }
+
+    /**
+     * Test the OIDC endpoint, the setting of the endpoint is provided in the request.  This API can only be called by system admin.
+     *
+     * @param Model\SystemOidcPingPostBody $endpoint         request body for OIDC endpoint to be tested
+     * @param array                        $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\PingOIDCBadRequestException
+     * @throws Exception\PingOIDCUnauthorizedException
+     * @throws Exception\PingOIDCForbiddenException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function pingOIDC(Model\SystemOidcPingPostBody $endpoint, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\PingOIDC($endpoint, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint let user get gc execution history.
+     *
+     * @param array $queryParameters {
+     *
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\GCHistory[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetGCHistoryUnauthorizedException
+     * @throws Exception\GetGCHistoryForbiddenException
+     * @throws Exception\GetGCHistoryInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getGCHistory(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetGCHistory($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint let user get gc status filtered by specific ID.
+     *
+     * @param int   $gcId             The ID of the gc log
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\GCHistory|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetGCUnauthorizedException
+     * @throws Exception\GetGCForbiddenException
+     * @throws Exception\GetGCNotFoundException
+     * @throws Exception\GetGCInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getGC(int $gcId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetGC($gcId, $headerParameters), $fetch);
+    }
+
+    /**
+     * Stop the GC execution specified by ID.
+     *
+     * @param int   $gcId             The ID of the gc log
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\StopGCUnauthorizedException
+     * @throws Exception\StopGCForbiddenException
+     * @throws Exception\StopGCNotFoundException
+     * @throws Exception\StopGCInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function stopGC(int $gcId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\StopGC($gcId, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint let user get gc job logs filtered by specific ID.
+     *
+     * @param int   $gcId             The ID of the gc log
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\GetGCLogBadRequestException
+     * @throws Exception\GetGCLogUnauthorizedException
+     * @throws Exception\GetGCLogForbiddenException
+     * @throws Exception\GetGCLogNotFoundException
+     * @throws Exception\GetGCLogInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getGCLog(int $gcId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetGCLog($gcId, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is for get schedule of gc job.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\GCHistory|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetGCScheduleUnauthorizedException
+     * @throws Exception\GetGCScheduleForbiddenException
+     * @throws Exception\GetGCScheduleInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getGCSchedule(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetGCSchedule($headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is for update gc schedule.
+     *
+     * @param Model\Schedule $schedule         updates of gc's schedule
+     * @param array          $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\CreateGCScheduleBadRequestException
+     * @throws Exception\CreateGCScheduleUnauthorizedException
+     * @throws Exception\CreateGCScheduleForbiddenException
+     * @throws Exception\CreateGCScheduleConflictException
+     * @throws Exception\CreateGCScheduleInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function createGCSchedule(Model\Schedule $schedule, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\CreateGCSchedule($schedule, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is for update gc schedule.
+     *
+     * @param Model\Schedule $schedule         updates of gc's schedule
+     * @param array          $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdateGCScheduleBadRequestException
+     * @throws Exception\UpdateGCScheduleUnauthorizedException
+     * @throws Exception\UpdateGCScheduleForbiddenException
+     * @throws Exception\UpdateGCScheduleInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updateGCSchedule(Model\Schedule $schedule, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdateGCSchedule($schedule, $headerParameters), $fetch);
+    }
+
+    /**
+     * get purge job execution history.
+     *
+     * @param array $queryParameters {
+     *
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ExecHistory[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetPurgeHistoryUnauthorizedException
+     * @throws Exception\GetPurgeHistoryForbiddenException
+     * @throws Exception\GetPurgeHistoryInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getPurgeHistory(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetPurgeHistory($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint let user get purge job status filtered by specific ID.
+     *
+     * @param int   $purgeId          The ID of the purge log
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ExecHistory|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetPurgeJobUnauthorizedException
+     * @throws Exception\GetPurgeJobForbiddenException
+     * @throws Exception\GetPurgeJobNotFoundException
+     * @throws Exception\GetPurgeJobInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getPurgeJob(int $purgeId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetPurgeJob($purgeId, $headerParameters), $fetch);
+    }
+
+    /**
+     * Stop the purge audit log execution specified by ID.
+     *
+     * @param int   $purgeId          The ID of the purge log
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\StopPurgeUnauthorizedException
+     * @throws Exception\StopPurgeForbiddenException
+     * @throws Exception\StopPurgeNotFoundException
+     * @throws Exception\StopPurgeInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function stopPurge(int $purgeId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\StopPurge($purgeId, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint let user get purge job logs filtered by specific ID.
+     *
+     * @param int   $purgeId          The ID of the purge log
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\GetPurgeJobLogBadRequestException
+     * @throws Exception\GetPurgeJobLogUnauthorizedException
+     * @throws Exception\GetPurgeJobLogForbiddenException
+     * @throws Exception\GetPurgeJobLogNotFoundException
+     * @throws Exception\GetPurgeJobLogInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getPurgeJobLog(int $purgeId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetPurgeJobLog($purgeId, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is for get schedule of purge job.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ExecHistory|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetPurgeScheduleUnauthorizedException
+     * @throws Exception\GetPurgeScheduleForbiddenException
+     * @throws Exception\GetPurgeScheduleInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getPurgeSchedule(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetPurgeSchedule($headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is for update purge job schedule.
+     *
+     * @param Model\Schedule $schedule         The purge job's schedule, it is a json object. |
+     *                                         The sample format is |
+     *                                         {"parameters":{"audit_retention_hour":168,"dry_run":true, "include_operations":"create,delete,pull"},"schedule":{"type":"Hourly","cron":"0 0 * * * *"}} |
+     *                                         the include_operation should be a comma separated string, e.g. create,delete,pull, if it is empty, no operation will be purged.
+     * @param array          $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\CreatePurgeScheduleBadRequestException
+     * @throws Exception\CreatePurgeScheduleUnauthorizedException
+     * @throws Exception\CreatePurgeScheduleForbiddenException
+     * @throws Exception\CreatePurgeScheduleInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function createPurgeSchedule(Model\Schedule $schedule, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\CreatePurgeSchedule($schedule, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is for update purge job schedule.
+     *
+     * @param Model\Schedule $schedule         The purge job's schedule, it is a json object. |
+     *                                         The sample format is |
+     *                                         {"parameters":{"audit_retention_hour":168,"dry_run":true, "include_operations":"create,delete,pull"},"schedule":{"type":"Hourly","cron":"0 0 * * * *"}} |
+     *                                         the include_operation should be a comma separated string, e.g. create,delete,pull, if it is empty, no operation will be purged.
+     * @param array          $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdatePurgeScheduleBadRequestException
+     * @throws Exception\UpdatePurgeScheduleUnauthorizedException
+     * @throws Exception\UpdatePurgeScheduleForbiddenException
+     * @throws Exception\UpdatePurgeScheduleInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updatePurgeSchedule(Model\Schedule $schedule, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdatePurgeSchedule($schedule, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the system level allowlist of CVE.  This API can be called by all authenticated users.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\CVEAllowlist|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetSystemCVEAllowlistUnauthorizedException
+     * @throws Exception\GetSystemCVEAllowlistInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getSystemCVEAllowlist(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetSystemCVEAllowlist($headerParameters), $fetch);
+    }
+
+    /**
+     * This API overwrites the system level allowlist of CVE with the list in request body.  Only system Admin has permission to call this API.
+     *
+     * @param Model\CVEAllowlist $allowlist        The allowlist with new content
+     * @param array              $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\PutSystemCVEAllowlistUnauthorizedException
+     * @throws Exception\PutSystemCVEAllowlistForbiddenException
+     * @throws Exception\PutSystemCVEAllowlistInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function putSystemCVEAllowlist(Model\CVEAllowlist $allowlist, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\PutSystemCVEAllowlist($allowlist, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is for getting a schedule for the scan all job, which scans all of images in Harbor.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Schedule|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetScanAllScheduleUnauthorizedException
+     * @throws Exception\GetScanAllScheduleForbiddenException
+     * @throws Exception\GetScanAllSchedulePreconditionFailedException
+     * @throws Exception\GetScanAllScheduleInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getScanAllSchedule(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetScanAllSchedule($headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is for creating a schedule or a manual trigger for the scan all job, which scans all of images in Harbor.
+     *
+     * @param Model\Schedule $schedule         create a schedule or a manual trigger for the scan all job
+     * @param array          $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\CreateScanAllScheduleBadRequestException
+     * @throws Exception\CreateScanAllScheduleUnauthorizedException
+     * @throws Exception\CreateScanAllScheduleForbiddenException
+     * @throws Exception\CreateScanAllScheduleConflictException
+     * @throws Exception\CreateScanAllSchedulePreconditionFailedException
+     * @throws Exception\CreateScanAllScheduleInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function createScanAllSchedule(Model\Schedule $schedule, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\CreateScanAllSchedule($schedule, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is for updating the schedule of scan all job, which scans all of images in Harbor.
+     *
+     * @param Model\Schedule $schedule         updates the schedule of scan all job, which scans all of images in Harbor
+     * @param array          $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdateScanAllScheduleBadRequestException
+     * @throws Exception\UpdateScanAllScheduleUnauthorizedException
+     * @throws Exception\UpdateScanAllScheduleForbiddenException
+     * @throws Exception\UpdateScanAllSchedulePreconditionFailedException
+     * @throws Exception\UpdateScanAllScheduleInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updateScanAllSchedule(Model\Schedule $schedule, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdateScanAllSchedule($schedule, $headerParameters), $fetch);
+    }
+
+    /**
+     * Stop scanAll job execution.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\StopScanAllBadRequestException
+     * @throws Exception\StopScanAllUnauthorizedException
+     * @throws Exception\StopScanAllForbiddenException
+     * @throws Exception\StopScanAllInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function stopScanAll(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\StopScanAll($headerParameters), $fetch);
+    }
+
+    /**
+     * Get worker pools.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\WorkerPool[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetWorkerPoolsUnauthorizedException
+     * @throws Exception\GetWorkerPoolsForbiddenException
+     * @throws Exception\GetWorkerPoolsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getWorkerPools(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetWorkerPools($headerParameters), $fetch);
+    }
+
+    /**
+     * Get workers in current pool.
+     *
+     * @param string $poolId           The name of the pool. 'all' stands for all pools
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Worker[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetWorkersUnauthorizedException
+     * @throws Exception\GetWorkersForbiddenException
+     * @throws Exception\GetWorkersNotFoundException
+     * @throws Exception\GetWorkersInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getWorkers(string $poolId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetWorkers($poolId, $headerParameters), $fetch);
+    }
+
+    /**
+     * Stop running job.
+     *
+     * @param string $jobId            the id of the job
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\StopRunningJobUnauthorizedException
+     * @throws Exception\StopRunningJobForbiddenException
+     * @throws Exception\StopRunningJobNotFoundException
+     * @throws Exception\StopRunningJobInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function stopRunningJob(string $jobId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\StopRunningJob($jobId, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get job log by job id, it is only used by administrator.
+     *
+     * @param string $jobId            the id of the job
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\ActionGetJobLogUnauthorizedException
+     * @throws Exception\ActionGetJobLogForbiddenException
+     * @throws Exception\ActionGetJobLogNotFoundException
+     * @throws Exception\ActionGetJobLogInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function actionGetJobLog(string $jobId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ActionGetJobLog($jobId, $headerParameters), $fetch);
+    }
+
+    /**
+     * list job queue.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\JobQueue[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListJobQueuesUnauthorizedException
+     * @throws Exception\ListJobQueuesForbiddenException
+     * @throws Exception\ListJobQueuesNotFoundException
+     * @throws Exception\ListJobQueuesInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listJobQueues(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListJobQueues($headerParameters), $fetch);
+    }
+
+    /**
+     * stop and clean, pause, resume pending jobs in the queue.
+     *
+     * @param string $jobType          The type of the job. 'all' stands for all job types
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\ActionPendingJobsUnauthorizedException
+     * @throws Exception\ActionPendingJobsForbiddenException
+     * @throws Exception\ActionPendingJobsNotFoundException
+     * @throws Exception\ActionPendingJobsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function actionPendingJobs(string $jobType, Model\ActionRequest $actionRequest, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ActionPendingJobs($jobType, $actionRequest, $headerParameters), $fetch);
+    }
+
+    /**
+     * List schedules.
+     *
+     * @param array $queryParameters {
+     *
+     * @var int $page The page number
+     * @var int $page_size The size of per page
+     *          }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ScheduleTask[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListSchedulesUnauthorizedException
+     * @throws Exception\ListSchedulesForbiddenException
+     * @throws Exception\ListSchedulesNotFoundException
+     * @throws Exception\ListSchedulesInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listSchedules(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListSchedules($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get scheduler paused status.
+     *
+     * @param string $jobType          The type of the job. 'all' stands for all job types, current only support query with all
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\SchedulerStatus|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetSchedulePausedUnauthorizedException
+     * @throws Exception\GetSchedulePausedForbiddenException
+     * @throws Exception\GetSchedulePausedNotFoundException
+     * @throws Exception\GetSchedulePausedInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getSchedulePaused(string $jobType, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetSchedulePaused($jobType, $headerParameters), $fetch);
+    }
+
+    /**
+     * This API simply replies a pong to indicate the process to handle API is up, disregarding the health status of dependent components. This path does not require any authentication.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getPing(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetPing($headerParameters), $fetch);
+    }
+
+    /**
+     * Get Retention Metadatas.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\RetentionMetadata|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getRentenitionMetadata(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetRentenitionMetadata($headerParameters), $fetch);
+    }
+
+    /**
+     * Create Retention Policy, you can reference metadatas API for the policy model. You can check project metadatas to find whether a retention policy is already binded. This method should only be called when no retention policy binded to project yet.
+     *
+     * @param Model\RetentionPolicy $policy           create Retention Policy successfully
+     * @param array                 $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\CreateRetentionBadRequestException
+     * @throws Exception\CreateRetentionUnauthorizedException
+     * @throws Exception\CreateRetentionForbiddenException
+     * @throws Exception\CreateRetentionInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function createRetention(Model\RetentionPolicy $policy, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\CreateRetention($policy, $headerParameters), $fetch);
+    }
+
+    /**
+     * Delete Retention Policy, you can reference metadatas API for the policy model. You can check project metadatas to find whether a retention policy is already binded. This method should only be called when retention policy has already binded to project.
+     *
+     * @param int   $id               retention ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\DeleteRetentionUnauthorizedException
+     * @throws Exception\DeleteRetentionForbiddenException
+     * @throws Exception\DeleteRetentionInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function deleteRetention(int $id, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\DeleteRetention($id, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get Retention Policy.
+     *
+     * @param int   $id               retention ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\RetentionPolicy|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetRetentionUnauthorizedException
+     * @throws Exception\GetRetentionForbiddenException
+     * @throws Exception\GetRetentionInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getRetention(int $id, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetRetention($id, $headerParameters), $fetch);
+    }
+
+    /**
+     * Update Retention Policy, you can reference metadatas API for the policy model. You can check project metadatas to find whether a retention policy is already binded. This method should only be called when retention policy has already binded to project.
+     *
+     * @param int   $id               retention ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdateRetentionUnauthorizedException
+     * @throws Exception\UpdateRetentionForbiddenException
+     * @throws Exception\UpdateRetentionInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updateRetention(int $id, Model\RetentionPolicy $policy, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdateRetention($id, $policy, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get Retention executions, execution status may be delayed before job service schedule it up.
+     *
+     * @param int   $id              retention ID
+     * @param array $queryParameters {
+     *
+     * @var int $page the page number
+     * @var int $page_size The size of per page.
+     *          }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\RetentionExecution[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListRetentionExecutionsUnauthorizedException
+     * @throws Exception\ListRetentionExecutionsForbiddenException
+     * @throws Exception\ListRetentionExecutionsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listRetentionExecutions(int $id, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListRetentionExecutions($id, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Trigger a Retention Execution, if dry_run is True, nothing would be deleted actually.
+     *
+     * @param int   $id               retention ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\TriggerRetentionExecutionUnauthorizedException
+     * @throws Exception\TriggerRetentionExecutionForbiddenException
+     * @throws Exception\TriggerRetentionExecutionInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function triggerRetentionExecution(int $id, Model\RetentionsIdExecutionsPostBody $body, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\TriggerRetentionExecution($id, $body, $headerParameters), $fetch);
+    }
+
+    /**
+     * Stop a Retention execution, only support "stop" action now.
+     *
+     * @param int                                      $id               retention ID
+     * @param int                                      $eid              retention execution ID
+     * @param Model\RetentionsIdExecutionsEidPatchBody $body             the action, only support "stop" now
+     * @param array                                    $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\OperateRetentionExecutionUnauthorizedException
+     * @throws Exception\OperateRetentionExecutionForbiddenException
+     * @throws Exception\OperateRetentionExecutionInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function operateRetentionExecution(int $id, int $eid, Model\RetentionsIdExecutionsEidPatchBody $body, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\OperateRetentionExecution($id, $eid, $body, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get Retention tasks, each repository as a task.
+     *
+     * @param int   $id              retention ID
+     * @param int   $eid             retention execution ID
+     * @param array $queryParameters {
+     *
+     * @var int $page the page number
+     * @var int $page_size The size of per page.
+     *          }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\RetentionExecutionTask[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListRetentionTasksUnauthorizedException
+     * @throws Exception\ListRetentionTasksForbiddenException
+     * @throws Exception\ListRetentionTasksInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listRetentionTasks(int $id, int $eid, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListRetentionTasks($id, $eid, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get Retention job task log, tags ratain or deletion detail will be shown in a table.
+     *
+     * @param int   $id               retention ID
+     * @param int   $eid              retention execution ID
+     * @param int   $tid              retention execution ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\GetRetentionTaskLogUnauthorizedException
+     * @throws Exception\GetRetentionTaskLogForbiddenException
+     * @throws Exception\GetRetentionTaskLogInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getRetentionTaskLog(int $id, int $eid, int $tid, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetRetentionTaskLog($id, $eid, $tid, $headerParameters), $fetch);
+    }
+
+    /**
+     * Returns a list of currently configured scanner registrations.
+     *
+     * @param array $queryParameters {
+     *
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ScannerRegistration[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListScannersBadRequestException
+     * @throws Exception\ListScannersUnauthorizedException
+     * @throws Exception\ListScannersForbiddenException
+     * @throws Exception\ListScannersInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listScanners(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListScanners($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Creats a new scanner registration with the given data.
+     *
+     * @param Model\ScannerRegistrationReq $registration     a scanner registration to be created
+     * @param array                        $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\CreateScannerBadRequestException
+     * @throws Exception\CreateScannerUnauthorizedException
+     * @throws Exception\CreateScannerForbiddenException
+     * @throws Exception\CreateScannerInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function createScanner(Model\ScannerRegistrationReq $registration, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\CreateScanner($registration, $headerParameters), $fetch);
+    }
+
+    /**
+     * Pings scanner adapter to test endpoint URL and authorization settings.
+     *
+     * @param Model\ScannerRegistrationSettings $settings         a scanner registration settings to be tested
+     * @param array                             $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\PingScannerBadRequestException
+     * @throws Exception\PingScannerUnauthorizedException
+     * @throws Exception\PingScannerForbiddenException
+     * @throws Exception\PingScannerInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function pingScanner(Model\ScannerRegistrationSettings $settings, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\PingScanner($settings, $headerParameters), $fetch);
+    }
+
+    /**
+     * Deletes the specified scanner registration.
+     *
+     * @param string $registrationId   the scanner registration identifier
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ScannerRegistration|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\DeleteScannerUnauthorizedException
+     * @throws Exception\DeleteScannerForbiddenException
+     * @throws Exception\DeleteScannerNotFoundException
+     * @throws Exception\DeleteScannerInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function deleteScanner(string $registrationId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\DeleteScanner($registrationId, $headerParameters), $fetch);
+    }
+
+    /**
+     * Retruns the details of the specified scanner registration.
+     *
+     * @param string $registrationId   the scanner registration identifer
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ScannerRegistration|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetScannerUnauthorizedException
+     * @throws Exception\GetScannerForbiddenException
+     * @throws Exception\GetScannerNotFoundException
+     * @throws Exception\GetScannerInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getScanner(string $registrationId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetScanner($registrationId, $headerParameters), $fetch);
+    }
+
+    /**
+     * Set the specified scanner registration as the system default one.
+     *
+     * @param string $registrationId   the scanner registration identifier
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\SetScannerAsDefaultUnauthorizedException
+     * @throws Exception\SetScannerAsDefaultForbiddenException
+     * @throws Exception\SetScannerAsDefaultInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function setScannerAsDefault(string $registrationId, Model\IsDefault $payload, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\SetScannerAsDefault($registrationId, $payload, $headerParameters), $fetch);
+    }
+
+    /**
+     * Updates the specified scanner registration.
+     *
+     * @param string                       $registrationId   the scanner registration identifier
+     * @param Model\ScannerRegistrationReq $registration     a scanner registraiton to be updated
+     * @param array                        $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdateScannerUnauthorizedException
+     * @throws Exception\UpdateScannerForbiddenException
+     * @throws Exception\UpdateScannerNotFoundException
+     * @throws Exception\UpdateScannerInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updateScanner(string $registrationId, Model\ScannerRegistrationReq $registration, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdateScanner($registrationId, $registration, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the metadata of the specified scanner registration, including the capabilities and customized properties.
+     *
+     * @param string $registrationId   the scanner registration identifier
+     * @param array  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ScannerAdapterMetadata|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetScannerMetadataUnauthorizedException
+     * @throws Exception\GetScannerMetadataForbiddenException
+     * @throws Exception\GetScannerMetadataInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getScannerMetadata(string $registrationId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetScannerMetadata($registrationId, $headerParameters), $fetch);
+    }
+
+    /**
      * @param array $queryParameters {
      *
      * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
@@ -763,6 +4850,25 @@ class Client extends Runtime\Client\Client
     public function createUser(Model\UserCreationReq $userReq, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new Endpoint\CreateUser($userReq, $headerParameters), $fetch);
+    }
+
+    /**
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\UserResp|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetCurrentUserInfoUnauthorizedException
+     * @throws Exception\GetCurrentUserInfoInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getCurrentUserInfo(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetCurrentUserInfo($headerParameters), $fetch);
     }
 
     /**
@@ -862,6 +4968,28 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * @param Model\UserSysAdminFlag $sysadminFlag     toggle a user to admin or not
+     * @param array                  $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\SetUserSysAdminUnauthorizedException
+     * @throws Exception\SetUserSysAdminForbiddenException
+     * @throws Exception\SetUserSysAdminNotFoundException
+     * @throws Exception\SetUserSysAdminInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function setUserSysAdmin(int $userId, Model\UserSysAdminFlag $sysadminFlag, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\SetUserSysAdmin($userId, $sysadminFlag, $headerParameters), $fetch);
+    }
+
+    /**
      * This endpoint is for user to update password. Users with the admin role can change any user's password. Regular users can change only their own password.
      *
      * @param Model\PasswordReq $password         password to be updated, the attribute 'old_password' is optional when the API is called by the system administrator
@@ -883,6 +5011,386 @@ class Client extends Runtime\Client\Client
     public function updateUserPassword(int $userId, Model\PasswordReq $password, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new Endpoint\UpdateUserPassword($userId, $password, $headerParameters), $fetch);
+    }
+
+    /**
+     * @param array $queryParameters {
+     *
+     * @var string $scope The scope for the permission
+     * @var bool   $relative If true, the resources in the response are relative to the scope,
+     *             eg for resource '/project/1/repository' if relative is 'true' then the resource in response will be 'repository'.
+     *
+     * }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Permission[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetCurrentUserPermissionsUnauthorizedException
+     * @throws Exception\GetCurrentUserPermissionsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getCurrentUserPermissions(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetCurrentUserPermissions($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint let user generate a new CLI secret for himself.  This API only works when auth mode is set to 'OIDC'. Once this API returns with successful status, the old secret will be invalid, as there will be only one CLI secret for a user.
+     *
+     * @param int   $userId           User ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\SetCliSecretBadRequestException
+     * @throws Exception\SetCliSecretUnauthorizedException
+     * @throws Exception\SetCliSecretForbiddenException
+     * @throws Exception\SetCliSecretNotFoundException
+     * @throws Exception\SetCliSecretPreconditionFailedException
+     * @throws Exception\SetCliSecretInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function setCliSecret(int $userId, Model\OIDCCliSecretReq $secret, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\SetCliSecret($userId, $secret, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint let user list labels by name, scope and project_id.
+     *
+     * @param array $queryParameters {
+     *
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var string $sort Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending order and field2 in descending order with "sort=field1,-field2"
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var string $name the label name
+     * @var string $scope The label scope. Valid values are g and p. g for global labels and p for project labels.
+     * @var int    $project_id Relevant project ID, required when scope is p.
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Label[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListLabelsBadRequestException
+     * @throws Exception\ListLabelsUnauthorizedException
+     * @throws Exception\ListLabelsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listLabels(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListLabels($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint let user creates a label.
+     *
+     * @param Model\Label $label            the json object of label
+     * @param array       $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\CreateLabelBadRequestException
+     * @throws Exception\CreateLabelUnauthorizedException
+     * @throws Exception\CreateLabelConflictException
+     * @throws Exception\CreateLabelUnsupportedMediaTypeException
+     * @throws Exception\CreateLabelInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function createLabel(Model\Label $label, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\CreateLabel($label, $headerParameters), $fetch);
+    }
+
+    /**
+     * Delete the label specified by ID.
+     *
+     * @param int   $labelId          Label ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\DeleteLabelBadRequestException
+     * @throws Exception\DeleteLabelUnauthorizedException
+     * @throws Exception\DeleteLabelNotFoundException
+     * @throws Exception\DeleteLabelInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function deleteLabel(int $labelId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\DeleteLabel($labelId, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint let user get the label by specific ID.
+     *
+     * @param int   $labelId          Label ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Label|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetLabelByIDUnauthorizedException
+     * @throws Exception\GetLabelByIDNotFoundException
+     * @throws Exception\GetLabelByIDInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getLabelByID(int $labelId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetLabelByID($labelId, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint let user update label properties.
+     *
+     * @param int         $labelId          Label ID
+     * @param Model\Label $label            the updated label json object
+     * @param array       $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\UpdateLabelBadRequestException
+     * @throws Exception\UpdateLabelUnauthorizedException
+     * @throws Exception\UpdateLabelNotFoundException
+     * @throws Exception\UpdateLabelConflictException
+     * @throws Exception\UpdateLabelInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function updateLabel(int $labelId, Model\Label $label, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\UpdateLabel($labelId, $label, $headerParameters), $fetch);
+    }
+
+    /**
+     * Export scan data for selected projects.
+     *
+     * @param Model\ScanDataExportRequest $criteria         The criteria for the export
+     * @param array                       $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     * @var string $X-Scan-Data-Type The type of scan data to export
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ScanDataExportJob|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ExportScanDataBadRequestException
+     * @throws Exception\ExportScanDataUnauthorizedException
+     * @throws Exception\ExportScanDataForbiddenException
+     * @throws Exception\ExportScanDataNotFoundException
+     * @throws Exception\ExportScanDataMethodNotAllowedException
+     * @throws Exception\ExportScanDataConflictException
+     * @throws Exception\ExportScanDataInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function exportScanData(Model\ScanDataExportRequest $criteria, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ExportScanData($criteria, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the scan data export execution specified by ID.
+     *
+     * @param int   $executionId      Execution ID
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ScanDataExportExecution|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetScanDataExportExecutionUnauthorizedException
+     * @throws Exception\GetScanDataExportExecutionForbiddenException
+     * @throws Exception\GetScanDataExportExecutionNotFoundException
+     * @throws Exception\GetScanDataExportExecutionInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getScanDataExportExecution(int $executionId, array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetScanDataExportExecution($executionId, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get a list of specific scan data export execution jobs for a specified user.
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ScanDataExportExecutionList|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetScanDataExportExecutionListUnauthorizedException
+     * @throws Exception\GetScanDataExportExecutionListForbiddenException
+     * @throws Exception\GetScanDataExportExecutionListNotFoundException
+     * @throws Exception\GetScanDataExportExecutionListInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getScanDataExportExecutionList(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetScanDataExportExecutionList($headerParameters), $fetch);
+    }
+
+    /**
+     * Download the scan data report. Default format is CSV.
+     *
+     * @param int   $executionId     Execution ID
+     * @param array $queryParameters {
+     *
+     * @var string $format The format of the data to be exported. e.g. CSV or PDF
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     *
+     * @throws Exception\DownloadScanDataUnauthorizedException
+     * @throws Exception\DownloadScanDataForbiddenException
+     * @throws Exception\DownloadScanDataNotFoundException
+     * @throws Exception\DownloadScanDataInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function downloadScanData(int $executionId, array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\DownloadScanData($executionId, $queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Retrieve the vulnerability summary of the system.
+     *
+     * @param array $queryParameters {
+     *
+     * @var bool $with_dangerous_cve Specify whether the dangerous CVEs are included inside summary information
+     * @var bool $with_dangerous_artifact Specify whether the dangerous Artifact are included inside summary information
+     *           }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\SecuritySummary|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetSecuritySummaryUnauthorizedException
+     * @throws Exception\GetSecuritySummaryForbiddenException
+     * @throws Exception\GetSecuritySummaryNotFoundException
+     * @throws Exception\GetSecuritySummaryInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getSecuritySummary(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetSecuritySummary($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * Get the vulnerability list. use q to pass the query condition,
+     * supported conditions:
+     * cve_id(exact match)
+     * cvss_score_v3(range condition)
+     * severity(exact match)
+     * repository_name(exact match)
+     * project_id(exact match)
+     * package(exact match)
+     * tag(exact match)
+     * digest(exact match).
+     *
+     * @param array $queryParameters {
+     *
+     * @var string $q Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+     * @var int    $page The page number
+     * @var int    $page_size The size of per page
+     * @var bool   $tune_count enable to ignore X-Total-Count when the total count > 1000, if the total count is less than 1000, the real total count is returned, else -1
+     * @var bool   $with_tag Specify whether the tag information is included inside vulnerability information
+     *             }
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\VulnerabilityItem[]|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\ListVulnerabilitiesBadRequestException
+     * @throws Exception\ListVulnerabilitiesUnauthorizedException
+     * @throws Exception\ListVulnerabilitiesInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function listVulnerabilities(array $queryParameters = [], array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\ListVulnerabilities($queryParameters, $headerParameters), $fetch);
+    }
+
+    /**
+     * This endpoint is for retrieving resource and action info that only provides for admin user(system admin and project admin).
+     *
+     * @param array $headerParameters {
+     *
+     * @var string $X-Request-Id An unique ID for the request
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\Permissions|\Psr\Http\Message\ResponseInterface
+     *
+     * @throws Exception\GetPermissionsUnauthorizedException
+     * @throws Exception\GetPermissionsForbiddenException
+     * @throws Exception\GetPermissionsNotFoundException
+     * @throws Exception\GetPermissionsInternalServerErrorException
+     * @throws Exception\UnexpectedStatusCodeException
+     */
+    public function getPermissions(array $headerParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetPermissions($headerParameters), $fetch);
     }
 
     public static function create($httpClient = null, array $additionalPlugins = [], array $additionalNormalizers = [])
