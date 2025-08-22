@@ -1,7 +1,8 @@
 {
-    "name": "flownative/harbor-api-client",
+    "name": "scottbass3/harbor-api-client",
     "description": "This package provides API models and a client for Harbor",
     "type": "library",
+    "keywords": ["harbor", "api"],
     "license": "MIT",
     "autoload": {
         "psr-4": {

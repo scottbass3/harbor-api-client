@@ -2,4 +2,3 @@
 /vendor/
 /bin/
 .php-cs-fixer.cache
-composer.lock
