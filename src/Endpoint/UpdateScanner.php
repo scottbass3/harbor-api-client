@@ -8,24 +8,24 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class UpdateScanner extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class UpdateScanner extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $registration_id;
 
     /**
      * Updates the specified scanner registration.
      *
      * @param string                                              $registrationId   the scanner registration identifier
-     * @param \Flownative\Harbor\Api\Model\ScannerRegistrationReq $registration     a scanner registraiton to be updated
+     * @param \Scottbass3\Harbor\Api\Model\ScannerRegistrationReq $registration     a scanner registraiton to be updated
      * @param array                                               $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(string $registrationId, \Flownative\Harbor\Api\Model\ScannerRegistrationReq $registration, array $headerParameters = [])
+    public function __construct(string $registrationId, \Scottbass3\Harbor\Api\Model\ScannerRegistrationReq $registration, array $headerParameters = [])
     {
         $this->registration_id = $registrationId;
         $this->body = $registration;
@@ -66,11 +66,11 @@ class UpdateScanner extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint i
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\UpdateScannerUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateScannerForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateScannerNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateScannerInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateScannerUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateScannerForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateScannerNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateScannerInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -80,18 +80,18 @@ class UpdateScanner extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint i
             return null;
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateScannerUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateScannerUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateScannerForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateScannerForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateScannerNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateScannerNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateScannerInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateScannerInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

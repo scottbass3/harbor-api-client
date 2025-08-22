@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class ListWebhookJobs extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class ListWebhookJobs extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name_or_id;
 
     /**
@@ -91,34 +91,34 @@ class ListWebhookJobs extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint
     }
 
     /**
-     * @return \Flownative\Harbor\Api\Model\WebhookJob[]
+     * @return \Scottbass3\Harbor\Api\Model\WebhookJob[]
      *
-     * @throws \Flownative\Harbor\Api\Exception\ListWebhookJobsBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\ListWebhookJobsUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\ListWebhookJobsForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\ListWebhookJobsInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListWebhookJobsBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListWebhookJobsUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListWebhookJobsForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListWebhookJobsInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Flownative\Harbor\Api\Model\WebhookJob[]', 'json');
+            return $serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\WebhookJob[]', 'json');
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListWebhookJobsBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListWebhookJobsBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListWebhookJobsUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListWebhookJobsUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListWebhookJobsForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListWebhookJobsForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListWebhookJobsInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListWebhookJobsInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

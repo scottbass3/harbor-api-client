@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class SetScannerOfProject extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class SetScannerOfProject extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name_or_id;
 
     /**
@@ -25,7 +25,7 @@ class SetScannerOfProject extends \Flownative\Harbor\Api\Runtime\Client\BaseEndp
      * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
      *             }
      */
-    public function __construct(string $projectNameOrId, \Flownative\Harbor\Api\Model\ProjectScanner $payload, array $headerParameters = [])
+    public function __construct(string $projectNameOrId, \Scottbass3\Harbor\Api\Model\ProjectScanner $payload, array $headerParameters = [])
     {
         $this->project_name_or_id = $projectNameOrId;
         $this->body = $payload;
@@ -67,12 +67,12 @@ class SetScannerOfProject extends \Flownative\Harbor\Api\Runtime\Client\BaseEndp
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\SetScannerOfProjectBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\SetScannerOfProjectUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\SetScannerOfProjectForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\SetScannerOfProjectNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\SetScannerOfProjectInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\SetScannerOfProjectBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\SetScannerOfProjectUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\SetScannerOfProjectForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\SetScannerOfProjectNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\SetScannerOfProjectInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -82,21 +82,21 @@ class SetScannerOfProject extends \Flownative\Harbor\Api\Runtime\Client\BaseEndp
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\SetScannerOfProjectBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\SetScannerOfProjectBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\SetScannerOfProjectUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\SetScannerOfProjectUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\SetScannerOfProjectForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\SetScannerOfProjectForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\SetScannerOfProjectNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\SetScannerOfProjectNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\SetScannerOfProjectInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\SetScannerOfProjectInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

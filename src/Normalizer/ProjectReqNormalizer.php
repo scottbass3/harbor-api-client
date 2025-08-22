@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class ProjectReqNormalizer implements DenormalizerInterface, NormalizerInterface
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\ProjectReq::class;
+        return $type === \Scottbass3\Harbor\Api\Model\ProjectReq::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\ProjectReq::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\ProjectReq::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,7 +45,7 @@ class ProjectReqNormalizer implements DenormalizerInterface, NormalizerInterface
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\ProjectReq();
+        $object = new \Scottbass3\Harbor\Api\Model\ProjectReq();
         if (\array_key_exists('public', $data) && \is_int($data['public'])) {
             $data['public'] = (bool) $data['public'];
         }
@@ -63,12 +63,12 @@ class ProjectReqNormalizer implements DenormalizerInterface, NormalizerInterface
             $object->setPublic(null);
         }
         if (\array_key_exists('metadata', $data) && $data['metadata'] !== null) {
-            $object->setMetadata($this->denormalizer->denormalize($data['metadata'], \Flownative\Harbor\Api\Model\ProjectMetadata::class, 'json', $context));
+            $object->setMetadata($this->denormalizer->denormalize($data['metadata'], \Scottbass3\Harbor\Api\Model\ProjectMetadata::class, 'json', $context));
         } elseif (\array_key_exists('metadata', $data) && $data['metadata'] === null) {
             $object->setMetadata(null);
         }
         if (\array_key_exists('cve_allowlist', $data) && $data['cve_allowlist'] !== null) {
-            $object->setCveAllowlist($this->denormalizer->denormalize($data['cve_allowlist'], \Flownative\Harbor\Api\Model\CVEAllowlist::class, 'json', $context));
+            $object->setCveAllowlist($this->denormalizer->denormalize($data['cve_allowlist'], \Scottbass3\Harbor\Api\Model\CVEAllowlist::class, 'json', $context));
         } elseif (\array_key_exists('cve_allowlist', $data) && $data['cve_allowlist'] === null) {
             $object->setCveAllowlist(null);
         }
@@ -113,6 +113,6 @@ class ProjectReqNormalizer implements DenormalizerInterface, NormalizerInterface
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\ProjectReq::class => false];
+        return [\Scottbass3\Harbor\Api\Model\ProjectReq::class => false];
     }
 }

@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class ReplicationPolicyNormalizer implements DenormalizerInterface, NormalizerIn
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\ReplicationPolicy::class;
+        return $type === \Scottbass3\Harbor\Api\Model\ReplicationPolicy::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\ReplicationPolicy::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\ReplicationPolicy::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,7 +45,7 @@ class ReplicationPolicyNormalizer implements DenormalizerInterface, NormalizerIn
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\ReplicationPolicy();
+        $object = new \Scottbass3\Harbor\Api\Model\ReplicationPolicy();
         if (\array_key_exists('replicate_deletion', $data) && \is_int($data['replicate_deletion'])) {
             $data['replicate_deletion'] = (bool) $data['replicate_deletion'];
         }
@@ -80,12 +80,12 @@ class ReplicationPolicyNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setDescription(null);
         }
         if (\array_key_exists('src_registry', $data) && $data['src_registry'] !== null) {
-            $object->setSrcRegistry($this->denormalizer->denormalize($data['src_registry'], \Flownative\Harbor\Api\Model\Registry::class, 'json', $context));
+            $object->setSrcRegistry($this->denormalizer->denormalize($data['src_registry'], \Scottbass3\Harbor\Api\Model\Registry::class, 'json', $context));
         } elseif (\array_key_exists('src_registry', $data) && $data['src_registry'] === null) {
             $object->setSrcRegistry(null);
         }
         if (\array_key_exists('dest_registry', $data) && $data['dest_registry'] !== null) {
-            $object->setDestRegistry($this->denormalizer->denormalize($data['dest_registry'], \Flownative\Harbor\Api\Model\Registry::class, 'json', $context));
+            $object->setDestRegistry($this->denormalizer->denormalize($data['dest_registry'], \Scottbass3\Harbor\Api\Model\Registry::class, 'json', $context));
         } elseif (\array_key_exists('dest_registry', $data) && $data['dest_registry'] === null) {
             $object->setDestRegistry(null);
         }
@@ -100,14 +100,14 @@ class ReplicationPolicyNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setDestNamespaceReplaceCount(null);
         }
         if (\array_key_exists('trigger', $data) && $data['trigger'] !== null) {
-            $object->setTrigger($this->denormalizer->denormalize($data['trigger'], \Flownative\Harbor\Api\Model\ReplicationTrigger::class, 'json', $context));
+            $object->setTrigger($this->denormalizer->denormalize($data['trigger'], \Scottbass3\Harbor\Api\Model\ReplicationTrigger::class, 'json', $context));
         } elseif (\array_key_exists('trigger', $data) && $data['trigger'] === null) {
             $object->setTrigger(null);
         }
         if (\array_key_exists('filters', $data) && $data['filters'] !== null) {
             $values = [];
             foreach ($data['filters'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \Flownative\Harbor\Api\Model\ReplicationFilter::class, 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, \Scottbass3\Harbor\Api\Model\ReplicationFilter::class, 'json', $context);
             }
             $object->setFilters($values);
         } elseif (\array_key_exists('filters', $data) && $data['filters'] === null) {
@@ -221,6 +221,6 @@ class ReplicationPolicyNormalizer implements DenormalizerInterface, NormalizerIn
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\ReplicationPolicy::class => false];
+        return [\Scottbass3\Harbor\Api\Model\ReplicationPolicy::class => false];
     }
 }

@@ -8,7 +8,7 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Exception;
+namespace Scottbass3\Harbor\Api\Exception;
 
 class CreateUserForbiddenException extends ForbiddenException
 {

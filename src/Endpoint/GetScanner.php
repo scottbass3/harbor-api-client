@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class GetScanner extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class GetScanner extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $registration_id;
 
     /**
@@ -62,34 +62,34 @@ class GetScanner extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint impl
     }
 
     /**
-     * @return \Flownative\Harbor\Api\Model\ScannerRegistration
+     * @return \Scottbass3\Harbor\Api\Model\ScannerRegistration
      *
-     * @throws \Flownative\Harbor\Api\Exception\GetScannerUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\GetScannerForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\GetScannerNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\GetScannerInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetScannerUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetScannerForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetScannerNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetScannerInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Flownative\Harbor\Api\Model\ScannerRegistration', 'json');
+            return $serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\ScannerRegistration', 'json');
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetScannerUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetScannerUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetScannerForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetScannerForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetScannerNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetScannerNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetScannerInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetScannerInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

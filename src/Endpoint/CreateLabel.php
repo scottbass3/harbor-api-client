@@ -8,22 +8,22 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class CreateLabel extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class CreateLabel extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * This endpoint let user creates a label.
      *
-     * @param \Flownative\Harbor\Api\Model\Label $label            the json object of label
+     * @param \Scottbass3\Harbor\Api\Model\Label $label            the json object of label
      * @param array                              $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(\Flownative\Harbor\Api\Model\Label $label, array $headerParameters = [])
+    public function __construct(\Scottbass3\Harbor\Api\Model\Label $label, array $headerParameters = [])
     {
         $this->body = $label;
         $this->headerParameters = $headerParameters;
@@ -63,12 +63,12 @@ class CreateLabel extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint imp
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\CreateLabelBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\CreateLabelUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\CreateLabelConflictException
-     * @throws \Flownative\Harbor\Api\Exception\CreateLabelUnsupportedMediaTypeException
-     * @throws \Flownative\Harbor\Api\Exception\CreateLabelInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateLabelBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateLabelUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateLabelConflictException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateLabelUnsupportedMediaTypeException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateLabelInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -78,21 +78,21 @@ class CreateLabel extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint imp
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateLabelBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateLabelBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateLabelUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateLabelUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (409 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateLabelConflictException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateLabelConflictException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (415 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateLabelUnsupportedMediaTypeException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateLabelUnsupportedMediaTypeException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateLabelInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateLabelInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

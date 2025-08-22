@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class GetRetentionTaskLog extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class GetRetentionTaskLog extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $id;
     protected $eid;
     protected $tid;
@@ -70,10 +70,10 @@ class GetRetentionTaskLog extends \Flownative\Harbor\Api\Runtime\Client\BaseEndp
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\GetRetentionTaskLogUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\GetRetentionTaskLogForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\GetRetentionTaskLogInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetRetentionTaskLogUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetRetentionTaskLogForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetRetentionTaskLogInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -83,15 +83,15 @@ class GetRetentionTaskLog extends \Flownative\Harbor\Api\Runtime\Client\BaseEndp
             return json_decode($body);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetRetentionTaskLogUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetRetentionTaskLogUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetRetentionTaskLogForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetRetentionTaskLogForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetRetentionTaskLogInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetRetentionTaskLogInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

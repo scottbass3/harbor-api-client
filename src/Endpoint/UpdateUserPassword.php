@@ -8,23 +8,23 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class UpdateUserPassword extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class UpdateUserPassword extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $user_id;
 
     /**
      * This endpoint is for user to update password. Users with the admin role can change any user's password. Regular users can change only their own password.
      *
-     * @param \Flownative\Harbor\Api\Model\PasswordReq $password         password to be updated, the attribute 'old_password' is optional when the API is called by the system administrator
+     * @param \Scottbass3\Harbor\Api\Model\PasswordReq $password         password to be updated, the attribute 'old_password' is optional when the API is called by the system administrator
      * @param array                                    $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(int $userId, \Flownative\Harbor\Api\Model\PasswordReq $password, array $headerParameters = [])
+    public function __construct(int $userId, \Scottbass3\Harbor\Api\Model\PasswordReq $password, array $headerParameters = [])
     {
         $this->user_id = $userId;
         $this->body = $password;
@@ -65,11 +65,11 @@ class UpdateUserPassword extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpo
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\UpdateUserPasswordBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateUserPasswordUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateUserPasswordForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateUserPasswordInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateUserPasswordBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateUserPasswordUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateUserPasswordForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateUserPasswordInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -79,18 +79,18 @@ class UpdateUserPassword extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpo
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateUserPasswordBadRequestException($response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateUserPasswordBadRequestException($response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateUserPasswordUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateUserPasswordUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateUserPasswordForbiddenException($response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateUserPasswordForbiddenException($response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateUserPasswordInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateUserPasswordInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

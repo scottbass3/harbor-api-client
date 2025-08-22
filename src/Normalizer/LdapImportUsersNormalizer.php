@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class LdapImportUsersNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\LdapImportUsers::class;
+        return $type === \Scottbass3\Harbor\Api\Model\LdapImportUsers::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\LdapImportUsers::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\LdapImportUsers::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,7 +45,7 @@ class LdapImportUsersNormalizer implements DenormalizerInterface, NormalizerInte
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\LdapImportUsers();
+        $object = new \Scottbass3\Harbor\Api\Model\LdapImportUsers();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -78,6 +78,6 @@ class LdapImportUsersNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\LdapImportUsers::class => false];
+        return [\Scottbass3\Harbor\Api\Model\LdapImportUsers::class => false];
     }
 }

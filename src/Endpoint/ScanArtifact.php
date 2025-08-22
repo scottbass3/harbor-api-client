@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class ScanArtifact extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class ScanArtifact extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name;
     protected $repository_name;
     protected $reference;
@@ -70,12 +70,12 @@ class ScanArtifact extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint im
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\ScanArtifactBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\ScanArtifactUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\ScanArtifactForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\ScanArtifactNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\ScanArtifactInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\ScanArtifactBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\ScanArtifactUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\ScanArtifactForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\ScanArtifactNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\ScanArtifactInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -85,21 +85,21 @@ class ScanArtifact extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint im
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ScanArtifactBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ScanArtifactBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ScanArtifactUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ScanArtifactUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ScanArtifactForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ScanArtifactForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ScanArtifactNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ScanArtifactNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ScanArtifactInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ScanArtifactInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class GetInternalconfig extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class GetInternalconfig extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * This endpoint is for retrieving system configurations that only provides for internal api call.
@@ -61,10 +61,10 @@ class GetInternalconfig extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoi
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\GetInternalconfigUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\GetInternalconfigForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\GetInternalconfigInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetInternalconfigUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetInternalconfigForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetInternalconfigInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -74,15 +74,15 @@ class GetInternalconfig extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoi
             return json_decode($body);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetInternalconfigUnauthorizedException($response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetInternalconfigUnauthorizedException($response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetInternalconfigForbiddenException($response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetInternalconfigForbiddenException($response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetInternalconfigInternalServerErrorException($response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetInternalconfigInternalServerErrorException($response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

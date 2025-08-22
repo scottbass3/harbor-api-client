@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -26,293 +26,293 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
     use CheckArray;
     use ValidatorTrait;
     protected $normalizers = [
-        \Flownative\Harbor\Api\Model\Errors::class => ErrorsNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Errors::class => ErrorsNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Error::class => ErrorNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Error::class => ErrorNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Search::class => SearchNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Search::class => SearchNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\SearchRepository::class => SearchRepositoryNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\SearchRepository::class => SearchRepositoryNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Repository::class => RepositoryNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Repository::class => RepositoryNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Artifact::class => ArtifactNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Artifact::class => ArtifactNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Tag::class => TagNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Tag::class => TagNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\AdditionLink::class => AdditionLinkNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\AdditionLink::class => AdditionLinkNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Reference::class => ReferenceNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Reference::class => ReferenceNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Platform::class => PlatformNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Platform::class => PlatformNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Label::class => LabelNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Label::class => LabelNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Scanner::class => ScannerNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Scanner::class => ScannerNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\NativeReportSummary::class => NativeReportSummaryNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\NativeReportSummary::class => NativeReportSummaryNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\VulnerabilitySummary::class => VulnerabilitySummaryNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\VulnerabilitySummary::class => VulnerabilitySummaryNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\AuditLog::class => AuditLogNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\AuditLog::class => AuditLogNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Metadata::class => MetadataNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Metadata::class => MetadataNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Instance::class => InstanceNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Instance::class => InstanceNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\PreheatPolicy::class => PreheatPolicyNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\PreheatPolicy::class => PreheatPolicyNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Metrics::class => MetricsNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Metrics::class => MetricsNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Execution::class => ExecutionNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Execution::class => ExecutionNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Task::class => TaskNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Task::class => TaskNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ProviderUnderProject::class => ProviderUnderProjectNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ProviderUnderProject::class => ProviderUnderProjectNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Icon::class => IconNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Icon::class => IconNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ProjectReq::class => ProjectReqNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ProjectReq::class => ProjectReqNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Project::class => ProjectNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Project::class => ProjectNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ProjectDeletable::class => ProjectDeletableNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ProjectDeletable::class => ProjectDeletableNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ProjectMetadata::class => ProjectMetadataNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ProjectMetadata::class => ProjectMetadataNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ProjectSummary::class => ProjectSummaryNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ProjectSummary::class => ProjectSummaryNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ProjectSummaryQuota::class => ProjectSummaryQuotaNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ProjectSummaryQuota::class => ProjectSummaryQuotaNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ProjectScanner::class => ProjectScannerNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ProjectScanner::class => ProjectScannerNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\CVEAllowlist::class => CVEAllowlistNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\CVEAllowlist::class => CVEAllowlistNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\CVEAllowlistItem::class => CVEAllowlistItemNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\CVEAllowlistItem::class => CVEAllowlistItemNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ReplicationPolicy::class => ReplicationPolicyNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ReplicationPolicy::class => ReplicationPolicyNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ReplicationTrigger::class => ReplicationTriggerNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ReplicationTrigger::class => ReplicationTriggerNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ReplicationTriggerSettings::class => ReplicationTriggerSettingsNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ReplicationTriggerSettings::class => ReplicationTriggerSettingsNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ReplicationFilter::class => ReplicationFilterNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ReplicationFilter::class => ReplicationFilterNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RegistryCredential::class => RegistryCredentialNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RegistryCredential::class => RegistryCredentialNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Registry::class => RegistryNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Registry::class => RegistryNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RegistryUpdate::class => RegistryUpdateNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RegistryUpdate::class => RegistryUpdateNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RegistryPing::class => RegistryPingNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RegistryPing::class => RegistryPingNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RegistryInfo::class => RegistryInfoNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RegistryInfo::class => RegistryInfoNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RegistryProviderInfo::class => RegistryProviderInfoNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RegistryProviderInfo::class => RegistryProviderInfoNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RegistryProviderEndpointPattern::class => RegistryProviderEndpointPatternNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RegistryProviderEndpointPattern::class => RegistryProviderEndpointPatternNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RegistryProviderCredentialPattern::class => RegistryProviderCredentialPatternNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RegistryProviderCredentialPattern::class => RegistryProviderCredentialPatternNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RegistryEndpoint::class => RegistryEndpointNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RegistryEndpoint::class => RegistryEndpointNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\FilterStyle::class => FilterStyleNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\FilterStyle::class => FilterStyleNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ReplicationExecution::class => ReplicationExecutionNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ReplicationExecution::class => ReplicationExecutionNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\StartReplicationExecution::class => StartReplicationExecutionNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\StartReplicationExecution::class => StartReplicationExecutionNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ReplicationTask::class => ReplicationTaskNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ReplicationTask::class => ReplicationTaskNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Robot::class => RobotNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Robot::class => RobotNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RobotCreate::class => RobotCreateNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RobotCreate::class => RobotCreateNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RobotCreated::class => RobotCreatedNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RobotCreated::class => RobotCreatedNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RobotSec::class => RobotSecNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RobotSec::class => RobotSecNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RobotPermission::class => RobotPermissionNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RobotPermission::class => RobotPermissionNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Access::class => AccessNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Access::class => AccessNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RobotCreateV1::class => RobotCreateV1Normalizer::class,
+        \Scottbass3\Harbor\Api\Model\RobotCreateV1::class => RobotCreateV1Normalizer::class,
 
-        \Flownative\Harbor\Api\Model\Storage::class => StorageNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Storage::class => StorageNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\GeneralInfo::class => GeneralInfoNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\GeneralInfo::class => GeneralInfoNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\AuthproxySetting::class => AuthproxySettingNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\AuthproxySetting::class => AuthproxySettingNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\SystemInfo::class => SystemInfoNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\SystemInfo::class => SystemInfoNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\GCHistory::class => GCHistoryNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\GCHistory::class => GCHistoryNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ExecHistory::class => ExecHistoryNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ExecHistory::class => ExecHistoryNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Schedule::class => ScheduleNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Schedule::class => ScheduleNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ScheduleObj::class => ScheduleObjNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ScheduleObj::class => ScheduleObjNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Stats::class => StatsNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Stats::class => StatsNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RetentionMetadata::class => RetentionMetadataNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RetentionMetadata::class => RetentionMetadataNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RetentionRuleMetadata::class => RetentionRuleMetadataNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RetentionRuleMetadata::class => RetentionRuleMetadataNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RetentionRuleParamMetadata::class => RetentionRuleParamMetadataNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RetentionRuleParamMetadata::class => RetentionRuleParamMetadataNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RetentionSelectorMetadata::class => RetentionSelectorMetadataNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RetentionSelectorMetadata::class => RetentionSelectorMetadataNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RetentionPolicy::class => RetentionPolicyNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RetentionPolicy::class => RetentionPolicyNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RetentionRuleTrigger::class => RetentionRuleTriggerNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RetentionRuleTrigger::class => RetentionRuleTriggerNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RetentionPolicyScope::class => RetentionPolicyScopeNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RetentionPolicyScope::class => RetentionPolicyScopeNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RetentionRule::class => RetentionRuleNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RetentionRule::class => RetentionRuleNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RetentionSelector::class => RetentionSelectorNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RetentionSelector::class => RetentionSelectorNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RetentionExecution::class => RetentionExecutionNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RetentionExecution::class => RetentionExecutionNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RetentionExecutionTask::class => RetentionExecutionTaskNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RetentionExecutionTask::class => RetentionExecutionTaskNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\QuotaUpdateReq::class => QuotaUpdateReqNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\QuotaUpdateReq::class => QuotaUpdateReqNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Quota::class => QuotaNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Quota::class => QuotaNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ScannerRegistration::class => ScannerRegistrationNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ScannerRegistration::class => ScannerRegistrationNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ScannerRegistrationReq::class => ScannerRegistrationReqNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ScannerRegistrationReq::class => ScannerRegistrationReqNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ScannerRegistrationSettings::class => ScannerRegistrationSettingsNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ScannerRegistrationSettings::class => ScannerRegistrationSettingsNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\IsDefault::class => IsDefaultNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\IsDefault::class => IsDefaultNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ScannerCapability::class => ScannerCapabilityNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ScannerCapability::class => ScannerCapabilityNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ScannerAdapterMetadata::class => ScannerAdapterMetadataNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ScannerAdapterMetadata::class => ScannerAdapterMetadataNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ImmutableRule::class => ImmutableRuleNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ImmutableRule::class => ImmutableRuleNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ImmutableSelector::class => ImmutableSelectorNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ImmutableSelector::class => ImmutableSelectorNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\LdapConf::class => LdapConfNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\LdapConf::class => LdapConfNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\LdapPingResult::class => LdapPingResultNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\LdapPingResult::class => LdapPingResultNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\LdapImportUsers::class => LdapImportUsersNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\LdapImportUsers::class => LdapImportUsersNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\LdapFailedImportUser::class => LdapFailedImportUserNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\LdapFailedImportUser::class => LdapFailedImportUserNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\LdapUser::class => LdapUserNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\LdapUser::class => LdapUserNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\UserGroup::class => UserGroupNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\UserGroup::class => UserGroupNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\UserGroupSearchItem::class => UserGroupSearchItemNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\UserGroupSearchItem::class => UserGroupSearchItemNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\SupportedWebhookEventTypes::class => SupportedWebhookEventTypesNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\SupportedWebhookEventTypes::class => SupportedWebhookEventTypesNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\PayloadFormat::class => PayloadFormatNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\PayloadFormat::class => PayloadFormatNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\WebhookTargetObject::class => WebhookTargetObjectNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\WebhookTargetObject::class => WebhookTargetObjectNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\WebhookPolicy::class => WebhookPolicyNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\WebhookPolicy::class => WebhookPolicyNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\WebhookLastTrigger::class => WebhookLastTriggerNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\WebhookLastTrigger::class => WebhookLastTriggerNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\WebhookJob::class => WebhookJobNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\WebhookJob::class => WebhookJobNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\InternalConfigurationValue::class => InternalConfigurationValueNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\InternalConfigurationValue::class => InternalConfigurationValueNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ConfigurationsResponse::class => ConfigurationsResponseNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ConfigurationsResponse::class => ConfigurationsResponseNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ConfigurationsResponseScanAllPolicy::class => ConfigurationsResponseScanAllPolicyNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ConfigurationsResponseScanAllPolicy::class => ConfigurationsResponseScanAllPolicyNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ConfigurationsResponseScanAllPolicyParameter::class => ConfigurationsResponseScanAllPolicyParameterNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ConfigurationsResponseScanAllPolicyParameter::class => ConfigurationsResponseScanAllPolicyParameterNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Configurations::class => ConfigurationsNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Configurations::class => ConfigurationsNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\StringConfigItem::class => StringConfigItemNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\StringConfigItem::class => StringConfigItemNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\BoolConfigItem::class => BoolConfigItemNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\BoolConfigItem::class => BoolConfigItemNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\IntegerConfigItem::class => IntegerConfigItemNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\IntegerConfigItem::class => IntegerConfigItemNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ProjectMemberEntity::class => ProjectMemberEntityNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ProjectMemberEntity::class => ProjectMemberEntityNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ProjectMember::class => ProjectMemberNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ProjectMember::class => ProjectMemberNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RoleRequest::class => RoleRequestNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RoleRequest::class => RoleRequestNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\UserEntity::class => UserEntityNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\UserEntity::class => UserEntityNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\UserProfile::class => UserProfileNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\UserProfile::class => UserProfileNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\UserCreationReq::class => UserCreationReqNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\UserCreationReq::class => UserCreationReqNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\OIDCUserInfo::class => OIDCUserInfoNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\OIDCUserInfo::class => OIDCUserInfoNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\UserResp::class => UserRespNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\UserResp::class => UserRespNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\UserSysAdminFlag::class => UserSysAdminFlagNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\UserSysAdminFlag::class => UserSysAdminFlagNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\UserSearch::class => UserSearchNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\UserSearch::class => UserSearchNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\PasswordReq::class => PasswordReqNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\PasswordReq::class => PasswordReqNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\UserSearchRespItem::class => UserSearchRespItemNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\UserSearchRespItem::class => UserSearchRespItemNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Permission::class => PermissionNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Permission::class => PermissionNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Permissions::class => PermissionsNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Permissions::class => PermissionsNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\OIDCCliSecretReq::class => OIDCCliSecretReqNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\OIDCCliSecretReq::class => OIDCCliSecretReqNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\OverallHealthStatus::class => OverallHealthStatusNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\OverallHealthStatus::class => OverallHealthStatusNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ComponentHealthStatus::class => ComponentHealthStatusNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ComponentHealthStatus::class => ComponentHealthStatusNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Statistic::class => StatisticNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Statistic::class => StatisticNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Accessory::class => AccessoryNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Accessory::class => AccessoryNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ScanDataExportRequest::class => ScanDataExportRequestNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ScanDataExportRequest::class => ScanDataExportRequestNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ScanDataExportJob::class => ScanDataExportJobNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ScanDataExportJob::class => ScanDataExportJobNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ScanDataExportExecution::class => ScanDataExportExecutionNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ScanDataExportExecution::class => ScanDataExportExecutionNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ScanDataExportExecutionList::class => ScanDataExportExecutionListNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ScanDataExportExecutionList::class => ScanDataExportExecutionListNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\WorkerPool::class => WorkerPoolNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\WorkerPool::class => WorkerPoolNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\Worker::class => WorkerNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\Worker::class => WorkerNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ActionRequest::class => ActionRequestNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ActionRequest::class => ActionRequestNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\JobQueue::class => JobQueueNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\JobQueue::class => JobQueueNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\ScheduleTask::class => ScheduleTaskNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\ScheduleTask::class => ScheduleTaskNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\SchedulerStatus::class => SchedulerStatusNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\SchedulerStatus::class => SchedulerStatusNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\SecuritySummary::class => SecuritySummaryNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\SecuritySummary::class => SecuritySummaryNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\DangerousCVE::class => DangerousCVENormalizer::class,
+        \Scottbass3\Harbor\Api\Model\DangerousCVE::class => DangerousCVENormalizer::class,
 
-        \Flownative\Harbor\Api\Model\DangerousArtifact::class => DangerousArtifactNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\DangerousArtifact::class => DangerousArtifactNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\VulnerabilityItem::class => VulnerabilityItemNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\VulnerabilityItem::class => VulnerabilityItemNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\SystemOidcPingPostBody::class => SystemOidcPingPostBodyNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\SystemOidcPingPostBody::class => SystemOidcPingPostBodyNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RetentionsIdExecutionsPostBody::class => RetentionsIdExecutionsPostBodyNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RetentionsIdExecutionsPostBody::class => RetentionsIdExecutionsPostBodyNormalizer::class,
 
-        \Flownative\Harbor\Api\Model\RetentionsIdExecutionsEidPatchBody::class => RetentionsIdExecutionsEidPatchBodyNormalizer::class,
+        \Scottbass3\Harbor\Api\Model\RetentionsIdExecutionsEidPatchBody::class => RetentionsIdExecutionsEidPatchBodyNormalizer::class,
 
-        \Jane\Component\JsonSchemaRuntime\Reference::class => \Flownative\Harbor\Api\Runtime\Normalizer\ReferenceNormalizer::class,
+        \Jane\Component\JsonSchemaRuntime\Reference::class => \Scottbass3\Harbor\Api\Runtime\Normalizer\ReferenceNormalizer::class,
     ];
     protected $normalizersCache = [];
 
@@ -360,149 +360,149 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
     public function getSupportedTypes(?string $format = null): array
     {
         return [
-            \Flownative\Harbor\Api\Model\Errors::class => false,
-            \Flownative\Harbor\Api\Model\Error::class => false,
-            \Flownative\Harbor\Api\Model\Search::class => false,
-            \Flownative\Harbor\Api\Model\SearchRepository::class => false,
-            \Flownative\Harbor\Api\Model\Repository::class => false,
-            \Flownative\Harbor\Api\Model\Artifact::class => false,
-            \Flownative\Harbor\Api\Model\Tag::class => false,
-            \Flownative\Harbor\Api\Model\AdditionLink::class => false,
-            \Flownative\Harbor\Api\Model\Reference::class => false,
-            \Flownative\Harbor\Api\Model\Platform::class => false,
-            \Flownative\Harbor\Api\Model\Label::class => false,
-            \Flownative\Harbor\Api\Model\Scanner::class => false,
-            \Flownative\Harbor\Api\Model\NativeReportSummary::class => false,
-            \Flownative\Harbor\Api\Model\VulnerabilitySummary::class => false,
-            \Flownative\Harbor\Api\Model\AuditLog::class => false,
-            \Flownative\Harbor\Api\Model\Metadata::class => false,
-            \Flownative\Harbor\Api\Model\Instance::class => false,
-            \Flownative\Harbor\Api\Model\PreheatPolicy::class => false,
-            \Flownative\Harbor\Api\Model\Metrics::class => false,
-            \Flownative\Harbor\Api\Model\Execution::class => false,
-            \Flownative\Harbor\Api\Model\Task::class => false,
-            \Flownative\Harbor\Api\Model\ProviderUnderProject::class => false,
-            \Flownative\Harbor\Api\Model\Icon::class => false,
-            \Flownative\Harbor\Api\Model\ProjectReq::class => false,
-            \Flownative\Harbor\Api\Model\Project::class => false,
-            \Flownative\Harbor\Api\Model\ProjectDeletable::class => false,
-            \Flownative\Harbor\Api\Model\ProjectMetadata::class => false,
-            \Flownative\Harbor\Api\Model\ProjectSummary::class => false,
-            \Flownative\Harbor\Api\Model\ProjectSummaryQuota::class => false,
-            \Flownative\Harbor\Api\Model\ProjectScanner::class => false,
-            \Flownative\Harbor\Api\Model\CVEAllowlist::class => false,
-            \Flownative\Harbor\Api\Model\CVEAllowlistItem::class => false,
-            \Flownative\Harbor\Api\Model\ReplicationPolicy::class => false,
-            \Flownative\Harbor\Api\Model\ReplicationTrigger::class => false,
-            \Flownative\Harbor\Api\Model\ReplicationTriggerSettings::class => false,
-            \Flownative\Harbor\Api\Model\ReplicationFilter::class => false,
-            \Flownative\Harbor\Api\Model\RegistryCredential::class => false,
-            \Flownative\Harbor\Api\Model\Registry::class => false,
-            \Flownative\Harbor\Api\Model\RegistryUpdate::class => false,
-            \Flownative\Harbor\Api\Model\RegistryPing::class => false,
-            \Flownative\Harbor\Api\Model\RegistryInfo::class => false,
-            \Flownative\Harbor\Api\Model\RegistryProviderInfo::class => false,
-            \Flownative\Harbor\Api\Model\RegistryProviderEndpointPattern::class => false,
-            \Flownative\Harbor\Api\Model\RegistryProviderCredentialPattern::class => false,
-            \Flownative\Harbor\Api\Model\RegistryEndpoint::class => false,
-            \Flownative\Harbor\Api\Model\FilterStyle::class => false,
-            \Flownative\Harbor\Api\Model\ReplicationExecution::class => false,
-            \Flownative\Harbor\Api\Model\StartReplicationExecution::class => false,
-            \Flownative\Harbor\Api\Model\ReplicationTask::class => false,
-            \Flownative\Harbor\Api\Model\Robot::class => false,
-            \Flownative\Harbor\Api\Model\RobotCreate::class => false,
-            \Flownative\Harbor\Api\Model\RobotCreated::class => false,
-            \Flownative\Harbor\Api\Model\RobotSec::class => false,
-            \Flownative\Harbor\Api\Model\RobotPermission::class => false,
-            \Flownative\Harbor\Api\Model\Access::class => false,
-            \Flownative\Harbor\Api\Model\RobotCreateV1::class => false,
-            \Flownative\Harbor\Api\Model\Storage::class => false,
-            \Flownative\Harbor\Api\Model\GeneralInfo::class => false,
-            \Flownative\Harbor\Api\Model\AuthproxySetting::class => false,
-            \Flownative\Harbor\Api\Model\SystemInfo::class => false,
-            \Flownative\Harbor\Api\Model\GCHistory::class => false,
-            \Flownative\Harbor\Api\Model\ExecHistory::class => false,
-            \Flownative\Harbor\Api\Model\Schedule::class => false,
-            \Flownative\Harbor\Api\Model\ScheduleObj::class => false,
-            \Flownative\Harbor\Api\Model\Stats::class => false,
-            \Flownative\Harbor\Api\Model\RetentionMetadata::class => false,
-            \Flownative\Harbor\Api\Model\RetentionRuleMetadata::class => false,
-            \Flownative\Harbor\Api\Model\RetentionRuleParamMetadata::class => false,
-            \Flownative\Harbor\Api\Model\RetentionSelectorMetadata::class => false,
-            \Flownative\Harbor\Api\Model\RetentionPolicy::class => false,
-            \Flownative\Harbor\Api\Model\RetentionRuleTrigger::class => false,
-            \Flownative\Harbor\Api\Model\RetentionPolicyScope::class => false,
-            \Flownative\Harbor\Api\Model\RetentionRule::class => false,
-            \Flownative\Harbor\Api\Model\RetentionSelector::class => false,
-            \Flownative\Harbor\Api\Model\RetentionExecution::class => false,
-            \Flownative\Harbor\Api\Model\RetentionExecutionTask::class => false,
-            \Flownative\Harbor\Api\Model\QuotaUpdateReq::class => false,
-            \Flownative\Harbor\Api\Model\Quota::class => false,
-            \Flownative\Harbor\Api\Model\ScannerRegistration::class => false,
-            \Flownative\Harbor\Api\Model\ScannerRegistrationReq::class => false,
-            \Flownative\Harbor\Api\Model\ScannerRegistrationSettings::class => false,
-            \Flownative\Harbor\Api\Model\IsDefault::class => false,
-            \Flownative\Harbor\Api\Model\ScannerCapability::class => false,
-            \Flownative\Harbor\Api\Model\ScannerAdapterMetadata::class => false,
-            \Flownative\Harbor\Api\Model\ImmutableRule::class => false,
-            \Flownative\Harbor\Api\Model\ImmutableSelector::class => false,
-            \Flownative\Harbor\Api\Model\LdapConf::class => false,
-            \Flownative\Harbor\Api\Model\LdapPingResult::class => false,
-            \Flownative\Harbor\Api\Model\LdapImportUsers::class => false,
-            \Flownative\Harbor\Api\Model\LdapFailedImportUser::class => false,
-            \Flownative\Harbor\Api\Model\LdapUser::class => false,
-            \Flownative\Harbor\Api\Model\UserGroup::class => false,
-            \Flownative\Harbor\Api\Model\UserGroupSearchItem::class => false,
-            \Flownative\Harbor\Api\Model\SupportedWebhookEventTypes::class => false,
-            \Flownative\Harbor\Api\Model\PayloadFormat::class => false,
-            \Flownative\Harbor\Api\Model\WebhookTargetObject::class => false,
-            \Flownative\Harbor\Api\Model\WebhookPolicy::class => false,
-            \Flownative\Harbor\Api\Model\WebhookLastTrigger::class => false,
-            \Flownative\Harbor\Api\Model\WebhookJob::class => false,
-            \Flownative\Harbor\Api\Model\InternalConfigurationValue::class => false,
-            \Flownative\Harbor\Api\Model\ConfigurationsResponse::class => false,
-            \Flownative\Harbor\Api\Model\ConfigurationsResponseScanAllPolicy::class => false,
-            \Flownative\Harbor\Api\Model\ConfigurationsResponseScanAllPolicyParameter::class => false,
-            \Flownative\Harbor\Api\Model\Configurations::class => false,
-            \Flownative\Harbor\Api\Model\StringConfigItem::class => false,
-            \Flownative\Harbor\Api\Model\BoolConfigItem::class => false,
-            \Flownative\Harbor\Api\Model\IntegerConfigItem::class => false,
-            \Flownative\Harbor\Api\Model\ProjectMemberEntity::class => false,
-            \Flownative\Harbor\Api\Model\ProjectMember::class => false,
-            \Flownative\Harbor\Api\Model\RoleRequest::class => false,
-            \Flownative\Harbor\Api\Model\UserEntity::class => false,
-            \Flownative\Harbor\Api\Model\UserProfile::class => false,
-            \Flownative\Harbor\Api\Model\UserCreationReq::class => false,
-            \Flownative\Harbor\Api\Model\OIDCUserInfo::class => false,
-            \Flownative\Harbor\Api\Model\UserResp::class => false,
-            \Flownative\Harbor\Api\Model\UserSysAdminFlag::class => false,
-            \Flownative\Harbor\Api\Model\UserSearch::class => false,
-            \Flownative\Harbor\Api\Model\PasswordReq::class => false,
-            \Flownative\Harbor\Api\Model\UserSearchRespItem::class => false,
-            \Flownative\Harbor\Api\Model\Permission::class => false,
-            \Flownative\Harbor\Api\Model\Permissions::class => false,
-            \Flownative\Harbor\Api\Model\OIDCCliSecretReq::class => false,
-            \Flownative\Harbor\Api\Model\OverallHealthStatus::class => false,
-            \Flownative\Harbor\Api\Model\ComponentHealthStatus::class => false,
-            \Flownative\Harbor\Api\Model\Statistic::class => false,
-            \Flownative\Harbor\Api\Model\Accessory::class => false,
-            \Flownative\Harbor\Api\Model\ScanDataExportRequest::class => false,
-            \Flownative\Harbor\Api\Model\ScanDataExportJob::class => false,
-            \Flownative\Harbor\Api\Model\ScanDataExportExecution::class => false,
-            \Flownative\Harbor\Api\Model\ScanDataExportExecutionList::class => false,
-            \Flownative\Harbor\Api\Model\WorkerPool::class => false,
-            \Flownative\Harbor\Api\Model\Worker::class => false,
-            \Flownative\Harbor\Api\Model\ActionRequest::class => false,
-            \Flownative\Harbor\Api\Model\JobQueue::class => false,
-            \Flownative\Harbor\Api\Model\ScheduleTask::class => false,
-            \Flownative\Harbor\Api\Model\SchedulerStatus::class => false,
-            \Flownative\Harbor\Api\Model\SecuritySummary::class => false,
-            \Flownative\Harbor\Api\Model\DangerousCVE::class => false,
-            \Flownative\Harbor\Api\Model\DangerousArtifact::class => false,
-            \Flownative\Harbor\Api\Model\VulnerabilityItem::class => false,
-            \Flownative\Harbor\Api\Model\SystemOidcPingPostBody::class => false,
-            \Flownative\Harbor\Api\Model\RetentionsIdExecutionsPostBody::class => false,
-            \Flownative\Harbor\Api\Model\RetentionsIdExecutionsEidPatchBody::class => false,
+            \Scottbass3\Harbor\Api\Model\Errors::class => false,
+            \Scottbass3\Harbor\Api\Model\Error::class => false,
+            \Scottbass3\Harbor\Api\Model\Search::class => false,
+            \Scottbass3\Harbor\Api\Model\SearchRepository::class => false,
+            \Scottbass3\Harbor\Api\Model\Repository::class => false,
+            \Scottbass3\Harbor\Api\Model\Artifact::class => false,
+            \Scottbass3\Harbor\Api\Model\Tag::class => false,
+            \Scottbass3\Harbor\Api\Model\AdditionLink::class => false,
+            \Scottbass3\Harbor\Api\Model\Reference::class => false,
+            \Scottbass3\Harbor\Api\Model\Platform::class => false,
+            \Scottbass3\Harbor\Api\Model\Label::class => false,
+            \Scottbass3\Harbor\Api\Model\Scanner::class => false,
+            \Scottbass3\Harbor\Api\Model\NativeReportSummary::class => false,
+            \Scottbass3\Harbor\Api\Model\VulnerabilitySummary::class => false,
+            \Scottbass3\Harbor\Api\Model\AuditLog::class => false,
+            \Scottbass3\Harbor\Api\Model\Metadata::class => false,
+            \Scottbass3\Harbor\Api\Model\Instance::class => false,
+            \Scottbass3\Harbor\Api\Model\PreheatPolicy::class => false,
+            \Scottbass3\Harbor\Api\Model\Metrics::class => false,
+            \Scottbass3\Harbor\Api\Model\Execution::class => false,
+            \Scottbass3\Harbor\Api\Model\Task::class => false,
+            \Scottbass3\Harbor\Api\Model\ProviderUnderProject::class => false,
+            \Scottbass3\Harbor\Api\Model\Icon::class => false,
+            \Scottbass3\Harbor\Api\Model\ProjectReq::class => false,
+            \Scottbass3\Harbor\Api\Model\Project::class => false,
+            \Scottbass3\Harbor\Api\Model\ProjectDeletable::class => false,
+            \Scottbass3\Harbor\Api\Model\ProjectMetadata::class => false,
+            \Scottbass3\Harbor\Api\Model\ProjectSummary::class => false,
+            \Scottbass3\Harbor\Api\Model\ProjectSummaryQuota::class => false,
+            \Scottbass3\Harbor\Api\Model\ProjectScanner::class => false,
+            \Scottbass3\Harbor\Api\Model\CVEAllowlist::class => false,
+            \Scottbass3\Harbor\Api\Model\CVEAllowlistItem::class => false,
+            \Scottbass3\Harbor\Api\Model\ReplicationPolicy::class => false,
+            \Scottbass3\Harbor\Api\Model\ReplicationTrigger::class => false,
+            \Scottbass3\Harbor\Api\Model\ReplicationTriggerSettings::class => false,
+            \Scottbass3\Harbor\Api\Model\ReplicationFilter::class => false,
+            \Scottbass3\Harbor\Api\Model\RegistryCredential::class => false,
+            \Scottbass3\Harbor\Api\Model\Registry::class => false,
+            \Scottbass3\Harbor\Api\Model\RegistryUpdate::class => false,
+            \Scottbass3\Harbor\Api\Model\RegistryPing::class => false,
+            \Scottbass3\Harbor\Api\Model\RegistryInfo::class => false,
+            \Scottbass3\Harbor\Api\Model\RegistryProviderInfo::class => false,
+            \Scottbass3\Harbor\Api\Model\RegistryProviderEndpointPattern::class => false,
+            \Scottbass3\Harbor\Api\Model\RegistryProviderCredentialPattern::class => false,
+            \Scottbass3\Harbor\Api\Model\RegistryEndpoint::class => false,
+            \Scottbass3\Harbor\Api\Model\FilterStyle::class => false,
+            \Scottbass3\Harbor\Api\Model\ReplicationExecution::class => false,
+            \Scottbass3\Harbor\Api\Model\StartReplicationExecution::class => false,
+            \Scottbass3\Harbor\Api\Model\ReplicationTask::class => false,
+            \Scottbass3\Harbor\Api\Model\Robot::class => false,
+            \Scottbass3\Harbor\Api\Model\RobotCreate::class => false,
+            \Scottbass3\Harbor\Api\Model\RobotCreated::class => false,
+            \Scottbass3\Harbor\Api\Model\RobotSec::class => false,
+            \Scottbass3\Harbor\Api\Model\RobotPermission::class => false,
+            \Scottbass3\Harbor\Api\Model\Access::class => false,
+            \Scottbass3\Harbor\Api\Model\RobotCreateV1::class => false,
+            \Scottbass3\Harbor\Api\Model\Storage::class => false,
+            \Scottbass3\Harbor\Api\Model\GeneralInfo::class => false,
+            \Scottbass3\Harbor\Api\Model\AuthproxySetting::class => false,
+            \Scottbass3\Harbor\Api\Model\SystemInfo::class => false,
+            \Scottbass3\Harbor\Api\Model\GCHistory::class => false,
+            \Scottbass3\Harbor\Api\Model\ExecHistory::class => false,
+            \Scottbass3\Harbor\Api\Model\Schedule::class => false,
+            \Scottbass3\Harbor\Api\Model\ScheduleObj::class => false,
+            \Scottbass3\Harbor\Api\Model\Stats::class => false,
+            \Scottbass3\Harbor\Api\Model\RetentionMetadata::class => false,
+            \Scottbass3\Harbor\Api\Model\RetentionRuleMetadata::class => false,
+            \Scottbass3\Harbor\Api\Model\RetentionRuleParamMetadata::class => false,
+            \Scottbass3\Harbor\Api\Model\RetentionSelectorMetadata::class => false,
+            \Scottbass3\Harbor\Api\Model\RetentionPolicy::class => false,
+            \Scottbass3\Harbor\Api\Model\RetentionRuleTrigger::class => false,
+            \Scottbass3\Harbor\Api\Model\RetentionPolicyScope::class => false,
+            \Scottbass3\Harbor\Api\Model\RetentionRule::class => false,
+            \Scottbass3\Harbor\Api\Model\RetentionSelector::class => false,
+            \Scottbass3\Harbor\Api\Model\RetentionExecution::class => false,
+            \Scottbass3\Harbor\Api\Model\RetentionExecutionTask::class => false,
+            \Scottbass3\Harbor\Api\Model\QuotaUpdateReq::class => false,
+            \Scottbass3\Harbor\Api\Model\Quota::class => false,
+            \Scottbass3\Harbor\Api\Model\ScannerRegistration::class => false,
+            \Scottbass3\Harbor\Api\Model\ScannerRegistrationReq::class => false,
+            \Scottbass3\Harbor\Api\Model\ScannerRegistrationSettings::class => false,
+            \Scottbass3\Harbor\Api\Model\IsDefault::class => false,
+            \Scottbass3\Harbor\Api\Model\ScannerCapability::class => false,
+            \Scottbass3\Harbor\Api\Model\ScannerAdapterMetadata::class => false,
+            \Scottbass3\Harbor\Api\Model\ImmutableRule::class => false,
+            \Scottbass3\Harbor\Api\Model\ImmutableSelector::class => false,
+            \Scottbass3\Harbor\Api\Model\LdapConf::class => false,
+            \Scottbass3\Harbor\Api\Model\LdapPingResult::class => false,
+            \Scottbass3\Harbor\Api\Model\LdapImportUsers::class => false,
+            \Scottbass3\Harbor\Api\Model\LdapFailedImportUser::class => false,
+            \Scottbass3\Harbor\Api\Model\LdapUser::class => false,
+            \Scottbass3\Harbor\Api\Model\UserGroup::class => false,
+            \Scottbass3\Harbor\Api\Model\UserGroupSearchItem::class => false,
+            \Scottbass3\Harbor\Api\Model\SupportedWebhookEventTypes::class => false,
+            \Scottbass3\Harbor\Api\Model\PayloadFormat::class => false,
+            \Scottbass3\Harbor\Api\Model\WebhookTargetObject::class => false,
+            \Scottbass3\Harbor\Api\Model\WebhookPolicy::class => false,
+            \Scottbass3\Harbor\Api\Model\WebhookLastTrigger::class => false,
+            \Scottbass3\Harbor\Api\Model\WebhookJob::class => false,
+            \Scottbass3\Harbor\Api\Model\InternalConfigurationValue::class => false,
+            \Scottbass3\Harbor\Api\Model\ConfigurationsResponse::class => false,
+            \Scottbass3\Harbor\Api\Model\ConfigurationsResponseScanAllPolicy::class => false,
+            \Scottbass3\Harbor\Api\Model\ConfigurationsResponseScanAllPolicyParameter::class => false,
+            \Scottbass3\Harbor\Api\Model\Configurations::class => false,
+            \Scottbass3\Harbor\Api\Model\StringConfigItem::class => false,
+            \Scottbass3\Harbor\Api\Model\BoolConfigItem::class => false,
+            \Scottbass3\Harbor\Api\Model\IntegerConfigItem::class => false,
+            \Scottbass3\Harbor\Api\Model\ProjectMemberEntity::class => false,
+            \Scottbass3\Harbor\Api\Model\ProjectMember::class => false,
+            \Scottbass3\Harbor\Api\Model\RoleRequest::class => false,
+            \Scottbass3\Harbor\Api\Model\UserEntity::class => false,
+            \Scottbass3\Harbor\Api\Model\UserProfile::class => false,
+            \Scottbass3\Harbor\Api\Model\UserCreationReq::class => false,
+            \Scottbass3\Harbor\Api\Model\OIDCUserInfo::class => false,
+            \Scottbass3\Harbor\Api\Model\UserResp::class => false,
+            \Scottbass3\Harbor\Api\Model\UserSysAdminFlag::class => false,
+            \Scottbass3\Harbor\Api\Model\UserSearch::class => false,
+            \Scottbass3\Harbor\Api\Model\PasswordReq::class => false,
+            \Scottbass3\Harbor\Api\Model\UserSearchRespItem::class => false,
+            \Scottbass3\Harbor\Api\Model\Permission::class => false,
+            \Scottbass3\Harbor\Api\Model\Permissions::class => false,
+            \Scottbass3\Harbor\Api\Model\OIDCCliSecretReq::class => false,
+            \Scottbass3\Harbor\Api\Model\OverallHealthStatus::class => false,
+            \Scottbass3\Harbor\Api\Model\ComponentHealthStatus::class => false,
+            \Scottbass3\Harbor\Api\Model\Statistic::class => false,
+            \Scottbass3\Harbor\Api\Model\Accessory::class => false,
+            \Scottbass3\Harbor\Api\Model\ScanDataExportRequest::class => false,
+            \Scottbass3\Harbor\Api\Model\ScanDataExportJob::class => false,
+            \Scottbass3\Harbor\Api\Model\ScanDataExportExecution::class => false,
+            \Scottbass3\Harbor\Api\Model\ScanDataExportExecutionList::class => false,
+            \Scottbass3\Harbor\Api\Model\WorkerPool::class => false,
+            \Scottbass3\Harbor\Api\Model\Worker::class => false,
+            \Scottbass3\Harbor\Api\Model\ActionRequest::class => false,
+            \Scottbass3\Harbor\Api\Model\JobQueue::class => false,
+            \Scottbass3\Harbor\Api\Model\ScheduleTask::class => false,
+            \Scottbass3\Harbor\Api\Model\SchedulerStatus::class => false,
+            \Scottbass3\Harbor\Api\Model\SecuritySummary::class => false,
+            \Scottbass3\Harbor\Api\Model\DangerousCVE::class => false,
+            \Scottbass3\Harbor\Api\Model\DangerousArtifact::class => false,
+            \Scottbass3\Harbor\Api\Model\VulnerabilityItem::class => false,
+            \Scottbass3\Harbor\Api\Model\SystemOidcPingPostBody::class => false,
+            \Scottbass3\Harbor\Api\Model\RetentionsIdExecutionsPostBody::class => false,
+            \Scottbass3\Harbor\Api\Model\RetentionsIdExecutionsEidPatchBody::class => false,
             \Jane\Component\JsonSchemaRuntime\Reference::class => false,
         ];
     }

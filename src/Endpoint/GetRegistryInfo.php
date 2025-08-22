@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class GetRegistryInfo extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class GetRegistryInfo extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $id;
 
     /**
@@ -62,34 +62,34 @@ class GetRegistryInfo extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint
     }
 
     /**
-     * @return \Flownative\Harbor\Api\Model\RegistryInfo
+     * @return \Scottbass3\Harbor\Api\Model\RegistryInfo
      *
-     * @throws \Flownative\Harbor\Api\Exception\GetRegistryInfoUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\GetRegistryInfoForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\GetRegistryInfoNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\GetRegistryInfoInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetRegistryInfoUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetRegistryInfoForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetRegistryInfoNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetRegistryInfoInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Flownative\Harbor\Api\Model\RegistryInfo', 'json');
+            return $serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\RegistryInfo', 'json');
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetRegistryInfoUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetRegistryInfoUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetRegistryInfoForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetRegistryInfoForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetRegistryInfoNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetRegistryInfoNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetRegistryInfoInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetRegistryInfoInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

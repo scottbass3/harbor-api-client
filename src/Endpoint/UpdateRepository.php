@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class UpdateRepository extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class UpdateRepository extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name;
     protected $repository_name;
 
@@ -21,13 +21,13 @@ class UpdateRepository extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoin
      *
      * @param string                                  $projectName      The name of the project
      * @param string                                  $repositoryName   The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
-     * @param \Flownative\Harbor\Api\Model\Repository $repository       the JSON object of repository
+     * @param \Scottbass3\Harbor\Api\Model\Repository $repository       the JSON object of repository
      * @param array                                   $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(string $projectName, string $repositoryName, \Flownative\Harbor\Api\Model\Repository $repository, array $headerParameters = [])
+    public function __construct(string $projectName, string $repositoryName, \Scottbass3\Harbor\Api\Model\Repository $repository, array $headerParameters = [])
     {
         $this->project_name = $projectName;
         $this->repository_name = $repositoryName;
@@ -69,12 +69,12 @@ class UpdateRepository extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoin
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\UpdateRepositoryBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateRepositoryUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateRepositoryForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateRepositoryNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateRepositoryInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateRepositoryBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateRepositoryUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateRepositoryForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateRepositoryNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateRepositoryInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -84,21 +84,21 @@ class UpdateRepository extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoin
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateRepositoryBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateRepositoryBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateRepositoryUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateRepositoryUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateRepositoryForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateRepositoryForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateRepositoryNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateRepositoryNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateRepositoryInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateRepositoryInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

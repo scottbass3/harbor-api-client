@@ -8,22 +8,22 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class CreateScanAllSchedule extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class CreateScanAllSchedule extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * This endpoint is for creating a schedule or a manual trigger for the scan all job, which scans all of images in Harbor.
      *
-     * @param \Flownative\Harbor\Api\Model\Schedule $schedule         create a schedule or a manual trigger for the scan all job
+     * @param \Scottbass3\Harbor\Api\Model\Schedule $schedule         create a schedule or a manual trigger for the scan all job
      * @param array                                 $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(\Flownative\Harbor\Api\Model\Schedule $schedule, array $headerParameters = [])
+    public function __construct(\Scottbass3\Harbor\Api\Model\Schedule $schedule, array $headerParameters = [])
     {
         $this->body = $schedule;
         $this->headerParameters = $headerParameters;
@@ -63,13 +63,13 @@ class CreateScanAllSchedule extends \Flownative\Harbor\Api\Runtime\Client\BaseEn
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\CreateScanAllScheduleBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\CreateScanAllScheduleUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\CreateScanAllScheduleForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\CreateScanAllScheduleConflictException
-     * @throws \Flownative\Harbor\Api\Exception\CreateScanAllSchedulePreconditionFailedException
-     * @throws \Flownative\Harbor\Api\Exception\CreateScanAllScheduleInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateScanAllScheduleBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateScanAllScheduleUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateScanAllScheduleForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateScanAllScheduleConflictException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateScanAllSchedulePreconditionFailedException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateScanAllScheduleInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -79,24 +79,24 @@ class CreateScanAllSchedule extends \Flownative\Harbor\Api\Runtime\Client\BaseEn
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateScanAllScheduleBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateScanAllScheduleBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateScanAllScheduleUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateScanAllScheduleUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateScanAllScheduleForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateScanAllScheduleForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (409 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateScanAllScheduleConflictException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateScanAllScheduleConflictException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (412 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateScanAllSchedulePreconditionFailedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateScanAllSchedulePreconditionFailedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateScanAllScheduleInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateScanAllScheduleInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

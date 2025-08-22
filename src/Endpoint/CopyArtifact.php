@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class CopyArtifact extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class CopyArtifact extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name;
     protected $repository_name;
 
@@ -84,13 +84,13 @@ class CopyArtifact extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint im
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\CopyArtifactBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\CopyArtifactUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\CopyArtifactForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\CopyArtifactNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\CopyArtifactMethodNotAllowedException
-     * @throws \Flownative\Harbor\Api\Exception\CopyArtifactInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\CopyArtifactBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\CopyArtifactUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\CopyArtifactForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\CopyArtifactNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\CopyArtifactMethodNotAllowedException
+     * @throws \Scottbass3\Harbor\Api\Exception\CopyArtifactInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -100,24 +100,24 @@ class CopyArtifact extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint im
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CopyArtifactBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CopyArtifactBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CopyArtifactUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CopyArtifactUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CopyArtifactForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CopyArtifactForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CopyArtifactNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CopyArtifactNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (405 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CopyArtifactMethodNotAllowedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CopyArtifactMethodNotAllowedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CopyArtifactInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CopyArtifactInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

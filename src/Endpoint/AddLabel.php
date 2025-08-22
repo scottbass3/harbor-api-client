@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class AddLabel extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class AddLabel extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name;
     protected $repository_name;
     protected $reference;
@@ -23,13 +23,13 @@ class AddLabel extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implem
      * @param string                             $projectName      The name of the project
      * @param string                             $repositoryName   The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
      * @param string                             $reference        The reference of the artifact, can be digest or tag
-     * @param \Flownative\Harbor\Api\Model\Label $label            The label that added to the artifact. Only the ID property is needed.
+     * @param \Scottbass3\Harbor\Api\Model\Label $label            The label that added to the artifact. Only the ID property is needed.
      * @param array                              $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(string $projectName, string $repositoryName, string $reference, \Flownative\Harbor\Api\Model\Label $label, array $headerParameters = [])
+    public function __construct(string $projectName, string $repositoryName, string $reference, \Scottbass3\Harbor\Api\Model\Label $label, array $headerParameters = [])
     {
         $this->project_name = $projectName;
         $this->repository_name = $repositoryName;
@@ -72,13 +72,13 @@ class AddLabel extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implem
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\AddLabelBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\AddLabelUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\AddLabelForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\AddLabelNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\AddLabelConflictException
-     * @throws \Flownative\Harbor\Api\Exception\AddLabelInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\AddLabelBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\AddLabelUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\AddLabelForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\AddLabelNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\AddLabelConflictException
+     * @throws \Scottbass3\Harbor\Api\Exception\AddLabelInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -88,24 +88,24 @@ class AddLabel extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implem
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\AddLabelBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\AddLabelBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\AddLabelUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\AddLabelUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\AddLabelForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\AddLabelForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\AddLabelNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\AddLabelNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (409 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\AddLabelConflictException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\AddLabelConflictException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\AddLabelInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\AddLabelInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

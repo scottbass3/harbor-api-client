@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class GetCert extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class GetCert extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * This endpoint is for downloading a default root certificate.
@@ -61,9 +61,9 @@ class GetCert extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint impleme
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\GetCertNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\GetCertInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetCertNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetCertInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -73,12 +73,12 @@ class GetCert extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint impleme
             return json_decode($body);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetCertNotFoundException($response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetCertNotFoundException($response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetCertInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetCertInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class RemoveLabel extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class RemoveLabel extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name;
     protected $repository_name;
     protected $reference;
@@ -73,12 +73,12 @@ class RemoveLabel extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint imp
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\RemoveLabelUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\RemoveLabelForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\RemoveLabelNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\RemoveLabelConflictException
-     * @throws \Flownative\Harbor\Api\Exception\RemoveLabelInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\RemoveLabelUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\RemoveLabelForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\RemoveLabelNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\RemoveLabelConflictException
+     * @throws \Scottbass3\Harbor\Api\Exception\RemoveLabelInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -88,21 +88,21 @@ class RemoveLabel extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint imp
             return null;
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\RemoveLabelUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\RemoveLabelUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\RemoveLabelForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\RemoveLabelForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\RemoveLabelNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\RemoveLabelNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (409 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\RemoveLabelConflictException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\RemoveLabelConflictException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\RemoveLabelInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\RemoveLabelInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

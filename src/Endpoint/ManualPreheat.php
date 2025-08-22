@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class ManualPreheat extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class ManualPreheat extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name;
     protected $preheat_policy_name;
 
@@ -21,13 +21,13 @@ class ManualPreheat extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint i
      *
      * @param string                                     $projectName       The name of the project
      * @param string                                     $preheatPolicyName Preheat Policy Name
-     * @param \Flownative\Harbor\Api\Model\PreheatPolicy $policy            The policy schema info
+     * @param \Scottbass3\Harbor\Api\Model\PreheatPolicy $policy            The policy schema info
      * @param array                                      $headerParameters  {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(string $projectName, string $preheatPolicyName, \Flownative\Harbor\Api\Model\PreheatPolicy $policy, array $headerParameters = [])
+    public function __construct(string $projectName, string $preheatPolicyName, \Scottbass3\Harbor\Api\Model\PreheatPolicy $policy, array $headerParameters = [])
     {
         $this->project_name = $projectName;
         $this->preheat_policy_name = $preheatPolicyName;
@@ -69,12 +69,12 @@ class ManualPreheat extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint i
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\ManualPreheatBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\ManualPreheatUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\ManualPreheatForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\ManualPreheatNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\ManualPreheatInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\ManualPreheatBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\ManualPreheatUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\ManualPreheatForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\ManualPreheatNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\ManualPreheatInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -84,21 +84,21 @@ class ManualPreheat extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint i
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ManualPreheatBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ManualPreheatBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ManualPreheatUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ManualPreheatUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ManualPreheatForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ManualPreheatForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ManualPreheatNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ManualPreheatNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ManualPreheatInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ManualPreheatInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

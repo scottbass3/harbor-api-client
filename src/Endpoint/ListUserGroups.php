@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class ListUserGroups extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class ListUserGroups extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * Get all user groups information, it is open for system admin.
@@ -82,30 +82,30 @@ class ListUserGroups extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint 
     }
 
     /**
-     * @return \Flownative\Harbor\Api\Model\UserGroup[]
+     * @return \Scottbass3\Harbor\Api\Model\UserGroup[]
      *
-     * @throws \Flownative\Harbor\Api\Exception\ListUserGroupsUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\ListUserGroupsForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\ListUserGroupsInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListUserGroupsUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListUserGroupsForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListUserGroupsInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Flownative\Harbor\Api\Model\UserGroup[]', 'json');
+            return $serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\UserGroup[]', 'json');
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListUserGroupsUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListUserGroupsUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListUserGroupsForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListUserGroupsForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListUserGroupsInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListUserGroupsInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

@@ -8,23 +8,23 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class ExportScanData extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class ExportScanData extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * Export scan data for selected projects.
      *
-     * @param \Flownative\Harbor\Api\Model\ScanDataExportRequest $criteria         The criteria for the export
+     * @param \Scottbass3\Harbor\Api\Model\ScanDataExportRequest $criteria         The criteria for the export
      * @param array                                              $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      * @var string $X-Scan-Data-Type The type of scan data to export
      *             }
      */
-    public function __construct(\Flownative\Harbor\Api\Model\ScanDataExportRequest $criteria, array $headerParameters = [])
+    public function __construct(\Scottbass3\Harbor\Api\Model\ScanDataExportRequest $criteria, array $headerParameters = [])
     {
         $this->body = $criteria;
         $this->headerParameters = $headerParameters;
@@ -63,46 +63,46 @@ class ExportScanData extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint 
     }
 
     /**
-     * @return \Flownative\Harbor\Api\Model\ScanDataExportJob
+     * @return \Scottbass3\Harbor\Api\Model\ScanDataExportJob
      *
-     * @throws \Flownative\Harbor\Api\Exception\ExportScanDataBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\ExportScanDataUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\ExportScanDataForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\ExportScanDataNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\ExportScanDataMethodNotAllowedException
-     * @throws \Flownative\Harbor\Api\Exception\ExportScanDataConflictException
-     * @throws \Flownative\Harbor\Api\Exception\ExportScanDataInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\ExportScanDataBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\ExportScanDataUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\ExportScanDataForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\ExportScanDataNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\ExportScanDataMethodNotAllowedException
+     * @throws \Scottbass3\Harbor\Api\Exception\ExportScanDataConflictException
+     * @throws \Scottbass3\Harbor\Api\Exception\ExportScanDataInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Flownative\Harbor\Api\Model\ScanDataExportJob', 'json');
+            return $serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\ScanDataExportJob', 'json');
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ExportScanDataBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ExportScanDataBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ExportScanDataUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ExportScanDataUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ExportScanDataForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ExportScanDataForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ExportScanDataNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ExportScanDataNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (405 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ExportScanDataMethodNotAllowedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ExportScanDataMethodNotAllowedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (409 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ExportScanDataConflictException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ExportScanDataConflictException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ExportScanDataInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ExportScanDataInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

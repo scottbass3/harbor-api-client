@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class RegistryInfoNormalizer implements DenormalizerInterface, NormalizerInterfa
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\RegistryInfo::class;
+        return $type === \Scottbass3\Harbor\Api\Model\RegistryInfo::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\RegistryInfo::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\RegistryInfo::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,7 +45,7 @@ class RegistryInfoNormalizer implements DenormalizerInterface, NormalizerInterfa
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\RegistryInfo();
+        $object = new \Scottbass3\Harbor\Api\Model\RegistryInfo();
         if (\array_key_exists('supported_copy_by_chunk', $data) && \is_int($data['supported_copy_by_chunk'])) {
             $data['supported_copy_by_chunk'] = (bool) $data['supported_copy_by_chunk'];
         }
@@ -65,7 +65,7 @@ class RegistryInfoNormalizer implements DenormalizerInterface, NormalizerInterfa
         if (\array_key_exists('supported_resource_filters', $data) && $data['supported_resource_filters'] !== null) {
             $values = [];
             foreach ($data['supported_resource_filters'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \Flownative\Harbor\Api\Model\FilterStyle::class, 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, \Scottbass3\Harbor\Api\Model\FilterStyle::class, 'json', $context);
             }
             $object->setSupportedResourceFilters($values);
         } elseif (\array_key_exists('supported_resource_filters', $data) && $data['supported_resource_filters'] === null) {
@@ -121,6 +121,6 @@ class RegistryInfoNormalizer implements DenormalizerInterface, NormalizerInterfa
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\RegistryInfo::class => false];
+        return [\Scottbass3\Harbor\Api\Model\RegistryInfo::class => false];
     }
 }

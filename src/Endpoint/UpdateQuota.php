@@ -8,24 +8,24 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class UpdateQuota extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class UpdateQuota extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $id;
 
     /**
      * Update hard limits of the specified quota.
      *
      * @param int                                         $id               Quota ID
-     * @param \Flownative\Harbor\Api\Model\QuotaUpdateReq $hard             The new hard limits for the quota
+     * @param \Scottbass3\Harbor\Api\Model\QuotaUpdateReq $hard             The new hard limits for the quota
      * @param array                                       $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(int $id, \Flownative\Harbor\Api\Model\QuotaUpdateReq $hard, array $headerParameters = [])
+    public function __construct(int $id, \Scottbass3\Harbor\Api\Model\QuotaUpdateReq $hard, array $headerParameters = [])
     {
         $this->id = $id;
         $this->body = $hard;
@@ -66,12 +66,12 @@ class UpdateQuota extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint imp
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\UpdateQuotaBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateQuotaUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateQuotaForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateQuotaNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateQuotaInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateQuotaBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateQuotaUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateQuotaForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateQuotaNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateQuotaInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -81,21 +81,21 @@ class UpdateQuota extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint imp
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateQuotaBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateQuotaBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateQuotaUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateQuotaUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateQuotaForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateQuotaForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateQuotaNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateQuotaNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateQuotaInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateQuotaInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

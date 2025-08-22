@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class ConfigurationsResponseNormalizer implements DenormalizerInterface, Normali
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\ConfigurationsResponse::class;
+        return $type === \Scottbass3\Harbor\Api\Model\ConfigurationsResponse::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\ConfigurationsResponse::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\ConfigurationsResponse::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,272 +45,272 @@ class ConfigurationsResponseNormalizer implements DenormalizerInterface, Normali
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\ConfigurationsResponse();
+        $object = new \Scottbass3\Harbor\Api\Model\ConfigurationsResponse();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
         if (\array_key_exists('auth_mode', $data) && $data['auth_mode'] !== null) {
-            $object->setAuthMode($this->denormalizer->denormalize($data['auth_mode'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setAuthMode($this->denormalizer->denormalize($data['auth_mode'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('auth_mode', $data) && $data['auth_mode'] === null) {
             $object->setAuthMode(null);
         }
         if (\array_key_exists('primary_auth_mode', $data) && $data['primary_auth_mode'] !== null) {
-            $object->setPrimaryAuthMode($this->denormalizer->denormalize($data['primary_auth_mode'], \Flownative\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
+            $object->setPrimaryAuthMode($this->denormalizer->denormalize($data['primary_auth_mode'], \Scottbass3\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('primary_auth_mode', $data) && $data['primary_auth_mode'] === null) {
             $object->setPrimaryAuthMode(null);
         }
         if (\array_key_exists('ldap_base_dn', $data) && $data['ldap_base_dn'] !== null) {
-            $object->setLdapBaseDn($this->denormalizer->denormalize($data['ldap_base_dn'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setLdapBaseDn($this->denormalizer->denormalize($data['ldap_base_dn'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('ldap_base_dn', $data) && $data['ldap_base_dn'] === null) {
             $object->setLdapBaseDn(null);
         }
         if (\array_key_exists('ldap_filter', $data) && $data['ldap_filter'] !== null) {
-            $object->setLdapFilter($this->denormalizer->denormalize($data['ldap_filter'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setLdapFilter($this->denormalizer->denormalize($data['ldap_filter'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('ldap_filter', $data) && $data['ldap_filter'] === null) {
             $object->setLdapFilter(null);
         }
         if (\array_key_exists('ldap_group_base_dn', $data) && $data['ldap_group_base_dn'] !== null) {
-            $object->setLdapGroupBaseDn($this->denormalizer->denormalize($data['ldap_group_base_dn'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setLdapGroupBaseDn($this->denormalizer->denormalize($data['ldap_group_base_dn'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('ldap_group_base_dn', $data) && $data['ldap_group_base_dn'] === null) {
             $object->setLdapGroupBaseDn(null);
         }
         if (\array_key_exists('ldap_group_admin_dn', $data) && $data['ldap_group_admin_dn'] !== null) {
-            $object->setLdapGroupAdminDn($this->denormalizer->denormalize($data['ldap_group_admin_dn'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setLdapGroupAdminDn($this->denormalizer->denormalize($data['ldap_group_admin_dn'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('ldap_group_admin_dn', $data) && $data['ldap_group_admin_dn'] === null) {
             $object->setLdapGroupAdminDn(null);
         }
         if (\array_key_exists('ldap_group_attribute_name', $data) && $data['ldap_group_attribute_name'] !== null) {
-            $object->setLdapGroupAttributeName($this->denormalizer->denormalize($data['ldap_group_attribute_name'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setLdapGroupAttributeName($this->denormalizer->denormalize($data['ldap_group_attribute_name'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('ldap_group_attribute_name', $data) && $data['ldap_group_attribute_name'] === null) {
             $object->setLdapGroupAttributeName(null);
         }
         if (\array_key_exists('ldap_group_search_filter', $data) && $data['ldap_group_search_filter'] !== null) {
-            $object->setLdapGroupSearchFilter($this->denormalizer->denormalize($data['ldap_group_search_filter'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setLdapGroupSearchFilter($this->denormalizer->denormalize($data['ldap_group_search_filter'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('ldap_group_search_filter', $data) && $data['ldap_group_search_filter'] === null) {
             $object->setLdapGroupSearchFilter(null);
         }
         if (\array_key_exists('ldap_group_search_scope', $data) && $data['ldap_group_search_scope'] !== null) {
-            $object->setLdapGroupSearchScope($this->denormalizer->denormalize($data['ldap_group_search_scope'], \Flownative\Harbor\Api\Model\IntegerConfigItem::class, 'json', $context));
+            $object->setLdapGroupSearchScope($this->denormalizer->denormalize($data['ldap_group_search_scope'], \Scottbass3\Harbor\Api\Model\IntegerConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('ldap_group_search_scope', $data) && $data['ldap_group_search_scope'] === null) {
             $object->setLdapGroupSearchScope(null);
         }
         if (\array_key_exists('ldap_scope', $data) && $data['ldap_scope'] !== null) {
-            $object->setLdapScope($this->denormalizer->denormalize($data['ldap_scope'], \Flownative\Harbor\Api\Model\IntegerConfigItem::class, 'json', $context));
+            $object->setLdapScope($this->denormalizer->denormalize($data['ldap_scope'], \Scottbass3\Harbor\Api\Model\IntegerConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('ldap_scope', $data) && $data['ldap_scope'] === null) {
             $object->setLdapScope(null);
         }
         if (\array_key_exists('ldap_search_dn', $data) && $data['ldap_search_dn'] !== null) {
-            $object->setLdapSearchDn($this->denormalizer->denormalize($data['ldap_search_dn'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setLdapSearchDn($this->denormalizer->denormalize($data['ldap_search_dn'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('ldap_search_dn', $data) && $data['ldap_search_dn'] === null) {
             $object->setLdapSearchDn(null);
         }
         if (\array_key_exists('ldap_timeout', $data) && $data['ldap_timeout'] !== null) {
-            $object->setLdapTimeout($this->denormalizer->denormalize($data['ldap_timeout'], \Flownative\Harbor\Api\Model\IntegerConfigItem::class, 'json', $context));
+            $object->setLdapTimeout($this->denormalizer->denormalize($data['ldap_timeout'], \Scottbass3\Harbor\Api\Model\IntegerConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('ldap_timeout', $data) && $data['ldap_timeout'] === null) {
             $object->setLdapTimeout(null);
         }
         if (\array_key_exists('ldap_uid', $data) && $data['ldap_uid'] !== null) {
-            $object->setLdapUid($this->denormalizer->denormalize($data['ldap_uid'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setLdapUid($this->denormalizer->denormalize($data['ldap_uid'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('ldap_uid', $data) && $data['ldap_uid'] === null) {
             $object->setLdapUid(null);
         }
         if (\array_key_exists('ldap_url', $data) && $data['ldap_url'] !== null) {
-            $object->setLdapUrl($this->denormalizer->denormalize($data['ldap_url'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setLdapUrl($this->denormalizer->denormalize($data['ldap_url'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('ldap_url', $data) && $data['ldap_url'] === null) {
             $object->setLdapUrl(null);
         }
         if (\array_key_exists('ldap_verify_cert', $data) && $data['ldap_verify_cert'] !== null) {
-            $object->setLdapVerifyCert($this->denormalizer->denormalize($data['ldap_verify_cert'], \Flownative\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
+            $object->setLdapVerifyCert($this->denormalizer->denormalize($data['ldap_verify_cert'], \Scottbass3\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('ldap_verify_cert', $data) && $data['ldap_verify_cert'] === null) {
             $object->setLdapVerifyCert(null);
         }
         if (\array_key_exists('ldap_group_membership_attribute', $data) && $data['ldap_group_membership_attribute'] !== null) {
-            $object->setLdapGroupMembershipAttribute($this->denormalizer->denormalize($data['ldap_group_membership_attribute'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setLdapGroupMembershipAttribute($this->denormalizer->denormalize($data['ldap_group_membership_attribute'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('ldap_group_membership_attribute', $data) && $data['ldap_group_membership_attribute'] === null) {
             $object->setLdapGroupMembershipAttribute(null);
         }
         if (\array_key_exists('project_creation_restriction', $data) && $data['project_creation_restriction'] !== null) {
-            $object->setProjectCreationRestriction($this->denormalizer->denormalize($data['project_creation_restriction'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setProjectCreationRestriction($this->denormalizer->denormalize($data['project_creation_restriction'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('project_creation_restriction', $data) && $data['project_creation_restriction'] === null) {
             $object->setProjectCreationRestriction(null);
         }
         if (\array_key_exists('read_only', $data) && $data['read_only'] !== null) {
-            $object->setReadOnly($this->denormalizer->denormalize($data['read_only'], \Flownative\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
+            $object->setReadOnly($this->denormalizer->denormalize($data['read_only'], \Scottbass3\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('read_only', $data) && $data['read_only'] === null) {
             $object->setReadOnly(null);
         }
         if (\array_key_exists('self_registration', $data) && $data['self_registration'] !== null) {
-            $object->setSelfRegistration($this->denormalizer->denormalize($data['self_registration'], \Flownative\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
+            $object->setSelfRegistration($this->denormalizer->denormalize($data['self_registration'], \Scottbass3\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('self_registration', $data) && $data['self_registration'] === null) {
             $object->setSelfRegistration(null);
         }
         if (\array_key_exists('token_expiration', $data) && $data['token_expiration'] !== null) {
-            $object->setTokenExpiration($this->denormalizer->denormalize($data['token_expiration'], \Flownative\Harbor\Api\Model\IntegerConfigItem::class, 'json', $context));
+            $object->setTokenExpiration($this->denormalizer->denormalize($data['token_expiration'], \Scottbass3\Harbor\Api\Model\IntegerConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('token_expiration', $data) && $data['token_expiration'] === null) {
             $object->setTokenExpiration(null);
         }
         if (\array_key_exists('uaa_client_id', $data) && $data['uaa_client_id'] !== null) {
-            $object->setUaaClientId($this->denormalizer->denormalize($data['uaa_client_id'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setUaaClientId($this->denormalizer->denormalize($data['uaa_client_id'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('uaa_client_id', $data) && $data['uaa_client_id'] === null) {
             $object->setUaaClientId(null);
         }
         if (\array_key_exists('uaa_client_secret', $data) && $data['uaa_client_secret'] !== null) {
-            $object->setUaaClientSecret($this->denormalizer->denormalize($data['uaa_client_secret'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setUaaClientSecret($this->denormalizer->denormalize($data['uaa_client_secret'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('uaa_client_secret', $data) && $data['uaa_client_secret'] === null) {
             $object->setUaaClientSecret(null);
         }
         if (\array_key_exists('uaa_endpoint', $data) && $data['uaa_endpoint'] !== null) {
-            $object->setUaaEndpoint($this->denormalizer->denormalize($data['uaa_endpoint'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setUaaEndpoint($this->denormalizer->denormalize($data['uaa_endpoint'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('uaa_endpoint', $data) && $data['uaa_endpoint'] === null) {
             $object->setUaaEndpoint(null);
         }
         if (\array_key_exists('uaa_verify_cert', $data) && $data['uaa_verify_cert'] !== null) {
-            $object->setUaaVerifyCert($this->denormalizer->denormalize($data['uaa_verify_cert'], \Flownative\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
+            $object->setUaaVerifyCert($this->denormalizer->denormalize($data['uaa_verify_cert'], \Scottbass3\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('uaa_verify_cert', $data) && $data['uaa_verify_cert'] === null) {
             $object->setUaaVerifyCert(null);
         }
         if (\array_key_exists('http_authproxy_endpoint', $data) && $data['http_authproxy_endpoint'] !== null) {
-            $object->setHttpAuthproxyEndpoint($this->denormalizer->denormalize($data['http_authproxy_endpoint'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setHttpAuthproxyEndpoint($this->denormalizer->denormalize($data['http_authproxy_endpoint'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('http_authproxy_endpoint', $data) && $data['http_authproxy_endpoint'] === null) {
             $object->setHttpAuthproxyEndpoint(null);
         }
         if (\array_key_exists('http_authproxy_tokenreview_endpoint', $data) && $data['http_authproxy_tokenreview_endpoint'] !== null) {
-            $object->setHttpAuthproxyTokenreviewEndpoint($this->denormalizer->denormalize($data['http_authproxy_tokenreview_endpoint'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setHttpAuthproxyTokenreviewEndpoint($this->denormalizer->denormalize($data['http_authproxy_tokenreview_endpoint'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('http_authproxy_tokenreview_endpoint', $data) && $data['http_authproxy_tokenreview_endpoint'] === null) {
             $object->setHttpAuthproxyTokenreviewEndpoint(null);
         }
         if (\array_key_exists('http_authproxy_admin_groups', $data) && $data['http_authproxy_admin_groups'] !== null) {
-            $object->setHttpAuthproxyAdminGroups($this->denormalizer->denormalize($data['http_authproxy_admin_groups'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setHttpAuthproxyAdminGroups($this->denormalizer->denormalize($data['http_authproxy_admin_groups'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('http_authproxy_admin_groups', $data) && $data['http_authproxy_admin_groups'] === null) {
             $object->setHttpAuthproxyAdminGroups(null);
         }
         if (\array_key_exists('http_authproxy_admin_usernames', $data) && $data['http_authproxy_admin_usernames'] !== null) {
-            $object->setHttpAuthproxyAdminUsernames($this->denormalizer->denormalize($data['http_authproxy_admin_usernames'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setHttpAuthproxyAdminUsernames($this->denormalizer->denormalize($data['http_authproxy_admin_usernames'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('http_authproxy_admin_usernames', $data) && $data['http_authproxy_admin_usernames'] === null) {
             $object->setHttpAuthproxyAdminUsernames(null);
         }
         if (\array_key_exists('http_authproxy_verify_cert', $data) && $data['http_authproxy_verify_cert'] !== null) {
-            $object->setHttpAuthproxyVerifyCert($this->denormalizer->denormalize($data['http_authproxy_verify_cert'], \Flownative\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
+            $object->setHttpAuthproxyVerifyCert($this->denormalizer->denormalize($data['http_authproxy_verify_cert'], \Scottbass3\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('http_authproxy_verify_cert', $data) && $data['http_authproxy_verify_cert'] === null) {
             $object->setHttpAuthproxyVerifyCert(null);
         }
         if (\array_key_exists('http_authproxy_skip_search', $data) && $data['http_authproxy_skip_search'] !== null) {
-            $object->setHttpAuthproxySkipSearch($this->denormalizer->denormalize($data['http_authproxy_skip_search'], \Flownative\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
+            $object->setHttpAuthproxySkipSearch($this->denormalizer->denormalize($data['http_authproxy_skip_search'], \Scottbass3\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('http_authproxy_skip_search', $data) && $data['http_authproxy_skip_search'] === null) {
             $object->setHttpAuthproxySkipSearch(null);
         }
         if (\array_key_exists('http_authproxy_server_certificate', $data) && $data['http_authproxy_server_certificate'] !== null) {
-            $object->setHttpAuthproxyServerCertificate($this->denormalizer->denormalize($data['http_authproxy_server_certificate'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setHttpAuthproxyServerCertificate($this->denormalizer->denormalize($data['http_authproxy_server_certificate'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('http_authproxy_server_certificate', $data) && $data['http_authproxy_server_certificate'] === null) {
             $object->setHttpAuthproxyServerCertificate(null);
         }
         if (\array_key_exists('oidc_name', $data) && $data['oidc_name'] !== null) {
-            $object->setOidcName($this->denormalizer->denormalize($data['oidc_name'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setOidcName($this->denormalizer->denormalize($data['oidc_name'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('oidc_name', $data) && $data['oidc_name'] === null) {
             $object->setOidcName(null);
         }
         if (\array_key_exists('oidc_endpoint', $data) && $data['oidc_endpoint'] !== null) {
-            $object->setOidcEndpoint($this->denormalizer->denormalize($data['oidc_endpoint'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setOidcEndpoint($this->denormalizer->denormalize($data['oidc_endpoint'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('oidc_endpoint', $data) && $data['oidc_endpoint'] === null) {
             $object->setOidcEndpoint(null);
         }
         if (\array_key_exists('oidc_client_id', $data) && $data['oidc_client_id'] !== null) {
-            $object->setOidcClientId($this->denormalizer->denormalize($data['oidc_client_id'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setOidcClientId($this->denormalizer->denormalize($data['oidc_client_id'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('oidc_client_id', $data) && $data['oidc_client_id'] === null) {
             $object->setOidcClientId(null);
         }
         if (\array_key_exists('oidc_groups_claim', $data) && $data['oidc_groups_claim'] !== null) {
-            $object->setOidcGroupsClaim($this->denormalizer->denormalize($data['oidc_groups_claim'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setOidcGroupsClaim($this->denormalizer->denormalize($data['oidc_groups_claim'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('oidc_groups_claim', $data) && $data['oidc_groups_claim'] === null) {
             $object->setOidcGroupsClaim(null);
         }
         if (\array_key_exists('oidc_admin_group', $data) && $data['oidc_admin_group'] !== null) {
-            $object->setOidcAdminGroup($this->denormalizer->denormalize($data['oidc_admin_group'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setOidcAdminGroup($this->denormalizer->denormalize($data['oidc_admin_group'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('oidc_admin_group', $data) && $data['oidc_admin_group'] === null) {
             $object->setOidcAdminGroup(null);
         }
         if (\array_key_exists('oidc_group_filter', $data) && $data['oidc_group_filter'] !== null) {
-            $object->setOidcGroupFilter($this->denormalizer->denormalize($data['oidc_group_filter'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setOidcGroupFilter($this->denormalizer->denormalize($data['oidc_group_filter'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('oidc_group_filter', $data) && $data['oidc_group_filter'] === null) {
             $object->setOidcGroupFilter(null);
         }
         if (\array_key_exists('oidc_scope', $data) && $data['oidc_scope'] !== null) {
-            $object->setOidcScope($this->denormalizer->denormalize($data['oidc_scope'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setOidcScope($this->denormalizer->denormalize($data['oidc_scope'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('oidc_scope', $data) && $data['oidc_scope'] === null) {
             $object->setOidcScope(null);
         }
         if (\array_key_exists('oidc_user_claim', $data) && $data['oidc_user_claim'] !== null) {
-            $object->setOidcUserClaim($this->denormalizer->denormalize($data['oidc_user_claim'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setOidcUserClaim($this->denormalizer->denormalize($data['oidc_user_claim'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('oidc_user_claim', $data) && $data['oidc_user_claim'] === null) {
             $object->setOidcUserClaim(null);
         }
         if (\array_key_exists('oidc_verify_cert', $data) && $data['oidc_verify_cert'] !== null) {
-            $object->setOidcVerifyCert($this->denormalizer->denormalize($data['oidc_verify_cert'], \Flownative\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
+            $object->setOidcVerifyCert($this->denormalizer->denormalize($data['oidc_verify_cert'], \Scottbass3\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('oidc_verify_cert', $data) && $data['oidc_verify_cert'] === null) {
             $object->setOidcVerifyCert(null);
         }
         if (\array_key_exists('oidc_auto_onboard', $data) && $data['oidc_auto_onboard'] !== null) {
-            $object->setOidcAutoOnboard($this->denormalizer->denormalize($data['oidc_auto_onboard'], \Flownative\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
+            $object->setOidcAutoOnboard($this->denormalizer->denormalize($data['oidc_auto_onboard'], \Scottbass3\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('oidc_auto_onboard', $data) && $data['oidc_auto_onboard'] === null) {
             $object->setOidcAutoOnboard(null);
         }
         if (\array_key_exists('oidc_extra_redirect_parms', $data) && $data['oidc_extra_redirect_parms'] !== null) {
-            $object->setOidcExtraRedirectParms($this->denormalizer->denormalize($data['oidc_extra_redirect_parms'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setOidcExtraRedirectParms($this->denormalizer->denormalize($data['oidc_extra_redirect_parms'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('oidc_extra_redirect_parms', $data) && $data['oidc_extra_redirect_parms'] === null) {
             $object->setOidcExtraRedirectParms(null);
         }
         if (\array_key_exists('robot_token_duration', $data) && $data['robot_token_duration'] !== null) {
-            $object->setRobotTokenDuration($this->denormalizer->denormalize($data['robot_token_duration'], \Flownative\Harbor\Api\Model\IntegerConfigItem::class, 'json', $context));
+            $object->setRobotTokenDuration($this->denormalizer->denormalize($data['robot_token_duration'], \Scottbass3\Harbor\Api\Model\IntegerConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('robot_token_duration', $data) && $data['robot_token_duration'] === null) {
             $object->setRobotTokenDuration(null);
         }
         if (\array_key_exists('robot_name_prefix', $data) && $data['robot_name_prefix'] !== null) {
-            $object->setRobotNamePrefix($this->denormalizer->denormalize($data['robot_name_prefix'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setRobotNamePrefix($this->denormalizer->denormalize($data['robot_name_prefix'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('robot_name_prefix', $data) && $data['robot_name_prefix'] === null) {
             $object->setRobotNamePrefix(null);
         }
         if (\array_key_exists('notification_enable', $data) && $data['notification_enable'] !== null) {
-            $object->setNotificationEnable($this->denormalizer->denormalize($data['notification_enable'], \Flownative\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
+            $object->setNotificationEnable($this->denormalizer->denormalize($data['notification_enable'], \Scottbass3\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('notification_enable', $data) && $data['notification_enable'] === null) {
             $object->setNotificationEnable(null);
         }
         if (\array_key_exists('quota_per_project_enable', $data) && $data['quota_per_project_enable'] !== null) {
-            $object->setQuotaPerProjectEnable($this->denormalizer->denormalize($data['quota_per_project_enable'], \Flownative\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
+            $object->setQuotaPerProjectEnable($this->denormalizer->denormalize($data['quota_per_project_enable'], \Scottbass3\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('quota_per_project_enable', $data) && $data['quota_per_project_enable'] === null) {
             $object->setQuotaPerProjectEnable(null);
         }
         if (\array_key_exists('storage_per_project', $data) && $data['storage_per_project'] !== null) {
-            $object->setStoragePerProject($this->denormalizer->denormalize($data['storage_per_project'], \Flownative\Harbor\Api\Model\IntegerConfigItem::class, 'json', $context));
+            $object->setStoragePerProject($this->denormalizer->denormalize($data['storage_per_project'], \Scottbass3\Harbor\Api\Model\IntegerConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('storage_per_project', $data) && $data['storage_per_project'] === null) {
             $object->setStoragePerProject(null);
         }
         if (\array_key_exists('audit_log_forward_endpoint', $data) && $data['audit_log_forward_endpoint'] !== null) {
-            $object->setAuditLogForwardEndpoint($this->denormalizer->denormalize($data['audit_log_forward_endpoint'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setAuditLogForwardEndpoint($this->denormalizer->denormalize($data['audit_log_forward_endpoint'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('audit_log_forward_endpoint', $data) && $data['audit_log_forward_endpoint'] === null) {
             $object->setAuditLogForwardEndpoint(null);
         }
         if (\array_key_exists('skip_audit_log_database', $data) && $data['skip_audit_log_database'] !== null) {
-            $object->setSkipAuditLogDatabase($this->denormalizer->denormalize($data['skip_audit_log_database'], \Flownative\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
+            $object->setSkipAuditLogDatabase($this->denormalizer->denormalize($data['skip_audit_log_database'], \Scottbass3\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('skip_audit_log_database', $data) && $data['skip_audit_log_database'] === null) {
             $object->setSkipAuditLogDatabase(null);
         }
         if (\array_key_exists('scanner_skip_update_pulltime', $data) && $data['scanner_skip_update_pulltime'] !== null) {
-            $object->setScannerSkipUpdatePulltime($this->denormalizer->denormalize($data['scanner_skip_update_pulltime'], \Flownative\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
+            $object->setScannerSkipUpdatePulltime($this->denormalizer->denormalize($data['scanner_skip_update_pulltime'], \Scottbass3\Harbor\Api\Model\BoolConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('scanner_skip_update_pulltime', $data) && $data['scanner_skip_update_pulltime'] === null) {
             $object->setScannerSkipUpdatePulltime(null);
         }
         if (\array_key_exists('scan_all_policy', $data) && $data['scan_all_policy'] !== null) {
-            $object->setScanAllPolicy($this->denormalizer->denormalize($data['scan_all_policy'], \Flownative\Harbor\Api\Model\ConfigurationsResponseScanAllPolicy::class, 'json', $context));
+            $object->setScanAllPolicy($this->denormalizer->denormalize($data['scan_all_policy'], \Scottbass3\Harbor\Api\Model\ConfigurationsResponseScanAllPolicy::class, 'json', $context));
         } elseif (\array_key_exists('scan_all_policy', $data) && $data['scan_all_policy'] === null) {
             $object->setScanAllPolicy(null);
         }
         if (\array_key_exists('session_timeout', $data) && $data['session_timeout'] !== null) {
-            $object->setSessionTimeout($this->denormalizer->denormalize($data['session_timeout'], \Flownative\Harbor\Api\Model\IntegerConfigItem::class, 'json', $context));
+            $object->setSessionTimeout($this->denormalizer->denormalize($data['session_timeout'], \Scottbass3\Harbor\Api\Model\IntegerConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('session_timeout', $data) && $data['session_timeout'] === null) {
             $object->setSessionTimeout(null);
         }
         if (\array_key_exists('banner_message', $data) && $data['banner_message'] !== null) {
-            $object->setBannerMessage($this->denormalizer->denormalize($data['banner_message'], \Flownative\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
+            $object->setBannerMessage($this->denormalizer->denormalize($data['banner_message'], \Scottbass3\Harbor\Api\Model\StringConfigItem::class, 'json', $context));
         } elseif (\array_key_exists('banner_message', $data) && $data['banner_message'] === null) {
             $object->setBannerMessage(null);
         }
@@ -486,6 +486,6 @@ class ConfigurationsResponseNormalizer implements DenormalizerInterface, Normali
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\ConfigurationsResponse::class => false];
+        return [\Scottbass3\Harbor\Api\Model\ConfigurationsResponse::class => false];
     }
 }

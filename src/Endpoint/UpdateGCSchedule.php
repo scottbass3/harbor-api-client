@@ -8,22 +8,22 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class UpdateGCSchedule extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class UpdateGCSchedule extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * This endpoint is for update gc schedule.
      *
-     * @param \Flownative\Harbor\Api\Model\Schedule $schedule         updates of gc's schedule
+     * @param \Scottbass3\Harbor\Api\Model\Schedule $schedule         updates of gc's schedule
      * @param array                                 $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(\Flownative\Harbor\Api\Model\Schedule $schedule, array $headerParameters = [])
+    public function __construct(\Scottbass3\Harbor\Api\Model\Schedule $schedule, array $headerParameters = [])
     {
         $this->body = $schedule;
         $this->headerParameters = $headerParameters;
@@ -63,11 +63,11 @@ class UpdateGCSchedule extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoin
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\UpdateGCScheduleBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateGCScheduleUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateGCScheduleForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateGCScheduleInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateGCScheduleBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateGCScheduleUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateGCScheduleForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateGCScheduleInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -77,18 +77,18 @@ class UpdateGCSchedule extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoin
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateGCScheduleBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateGCScheduleBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateGCScheduleUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateGCScheduleUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateGCScheduleForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateGCScheduleForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateGCScheduleInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateGCScheduleInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

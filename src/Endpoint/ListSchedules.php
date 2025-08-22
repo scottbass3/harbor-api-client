@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class ListSchedules extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class ListSchedules extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * List schedules.
@@ -78,34 +78,34 @@ class ListSchedules extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint i
     }
 
     /**
-     * @return \Flownative\Harbor\Api\Model\ScheduleTask[]
+     * @return \Scottbass3\Harbor\Api\Model\ScheduleTask[]
      *
-     * @throws \Flownative\Harbor\Api\Exception\ListSchedulesUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\ListSchedulesForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\ListSchedulesNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\ListSchedulesInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListSchedulesUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListSchedulesForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListSchedulesNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListSchedulesInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Flownative\Harbor\Api\Model\ScheduleTask[]', 'json');
+            return $serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\ScheduleTask[]', 'json');
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListSchedulesUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListSchedulesUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListSchedulesForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListSchedulesForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListSchedulesNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListSchedulesNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListSchedulesInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListSchedulesInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

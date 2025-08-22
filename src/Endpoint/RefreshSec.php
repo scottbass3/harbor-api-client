@@ -8,24 +8,24 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class RefreshSec extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class RefreshSec extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $robot_id;
 
     /**
      * Refresh the robot secret.
      *
      * @param int                                   $robotId          Robot ID
-     * @param \Flownative\Harbor\Api\Model\RobotSec $robotSec         the JSON object of a robot account
+     * @param \Scottbass3\Harbor\Api\Model\RobotSec $robotSec         the JSON object of a robot account
      * @param array                                 $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(int $robotId, \Flownative\Harbor\Api\Model\RobotSec $robotSec, array $headerParameters = [])
+    public function __construct(int $robotId, \Scottbass3\Harbor\Api\Model\RobotSec $robotSec, array $headerParameters = [])
     {
         $this->robot_id = $robotId;
         $this->body = $robotSec;
@@ -64,38 +64,38 @@ class RefreshSec extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint impl
     }
 
     /**
-     * @return \Flownative\Harbor\Api\Model\RobotSec
+     * @return \Scottbass3\Harbor\Api\Model\RobotSec
      *
-     * @throws \Flownative\Harbor\Api\Exception\RefreshSecBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\RefreshSecUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\RefreshSecForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\RefreshSecNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\RefreshSecInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\RefreshSecBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\RefreshSecUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\RefreshSecForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\RefreshSecNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\RefreshSecInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Flownative\Harbor\Api\Model\RobotSec', 'json');
+            return $serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\RobotSec', 'json');
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\RefreshSecBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\RefreshSecBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\RefreshSecUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\RefreshSecUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\RefreshSecForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\RefreshSecForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\RefreshSecNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\RefreshSecNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\RefreshSecInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\RefreshSecInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

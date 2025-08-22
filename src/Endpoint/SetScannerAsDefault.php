@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class SetScannerAsDefault extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class SetScannerAsDefault extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $registration_id;
 
     /**
@@ -24,7 +24,7 @@ class SetScannerAsDefault extends \Flownative\Harbor\Api\Runtime\Client\BaseEndp
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(string $registrationId, \Flownative\Harbor\Api\Model\IsDefault $payload, array $headerParameters = [])
+    public function __construct(string $registrationId, \Scottbass3\Harbor\Api\Model\IsDefault $payload, array $headerParameters = [])
     {
         $this->registration_id = $registrationId;
         $this->body = $payload;
@@ -65,10 +65,10 @@ class SetScannerAsDefault extends \Flownative\Harbor\Api\Runtime\Client\BaseEndp
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\SetScannerAsDefaultUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\SetScannerAsDefaultForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\SetScannerAsDefaultInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\SetScannerAsDefaultUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\SetScannerAsDefaultForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\SetScannerAsDefaultInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -78,15 +78,15 @@ class SetScannerAsDefault extends \Flownative\Harbor\Api\Runtime\Client\BaseEndp
             return null;
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\SetScannerAsDefaultUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\SetScannerAsDefaultUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\SetScannerAsDefaultForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\SetScannerAsDefaultForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\SetScannerAsDefaultInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\SetScannerAsDefaultInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

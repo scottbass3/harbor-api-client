@@ -6,7 +6,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Flownative\\Harbor\\Api\\": "src/"
+            "Scottbass3\\Harbor\\Api\\": "src/"
         }
     },
     "prefer-stable": true,

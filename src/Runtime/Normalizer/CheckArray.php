@@ -8,7 +8,7 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Runtime\Normalizer;
+namespace Scottbass3\Harbor\Api\Runtime\Normalizer;
 
 trait CheckArray
 {

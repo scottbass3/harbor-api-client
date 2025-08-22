@@ -8,24 +8,24 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class CreatePolicy extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class CreatePolicy extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name;
 
     /**
      * Create a preheat policy under a project.
      *
      * @param string                                     $projectName      The name of the project
-     * @param \Flownative\Harbor\Api\Model\PreheatPolicy $policy           The policy schema info
+     * @param \Scottbass3\Harbor\Api\Model\PreheatPolicy $policy           The policy schema info
      * @param array                                      $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(string $projectName, \Flownative\Harbor\Api\Model\PreheatPolicy $policy, array $headerParameters = [])
+    public function __construct(string $projectName, \Scottbass3\Harbor\Api\Model\PreheatPolicy $policy, array $headerParameters = [])
     {
         $this->project_name = $projectName;
         $this->body = $policy;
@@ -66,12 +66,12 @@ class CreatePolicy extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint im
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\CreatePolicyBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\CreatePolicyUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\CreatePolicyForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\CreatePolicyConflictException
-     * @throws \Flownative\Harbor\Api\Exception\CreatePolicyInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreatePolicyBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreatePolicyUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreatePolicyForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreatePolicyConflictException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreatePolicyInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -81,21 +81,21 @@ class CreatePolicy extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint im
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreatePolicyBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreatePolicyBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreatePolicyUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreatePolicyUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreatePolicyForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreatePolicyForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (409 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreatePolicyConflictException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreatePolicyConflictException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreatePolicyInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreatePolicyInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

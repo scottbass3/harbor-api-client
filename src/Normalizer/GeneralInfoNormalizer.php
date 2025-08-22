@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class GeneralInfoNormalizer implements DenormalizerInterface, NormalizerInterfac
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\GeneralInfo::class;
+        return $type === \Scottbass3\Harbor\Api\Model\GeneralInfo::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\GeneralInfo::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\GeneralInfo::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,7 +45,7 @@ class GeneralInfoNormalizer implements DenormalizerInterface, NormalizerInterfac
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\GeneralInfo();
+        $object = new \Scottbass3\Harbor\Api\Model\GeneralInfo();
         if (\array_key_exists('primary_auth_mode', $data) && \is_int($data['primary_auth_mode'])) {
             $data['primary_auth_mode'] = (bool) $data['primary_auth_mode'];
         }
@@ -130,7 +130,7 @@ class GeneralInfoNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setNotificationEnable(null);
         }
         if (\array_key_exists('authproxy_settings', $data) && $data['authproxy_settings'] !== null) {
-            $object->setAuthproxySettings($this->denormalizer->denormalize($data['authproxy_settings'], \Flownative\Harbor\Api\Model\AuthproxySetting::class, 'json', $context));
+            $object->setAuthproxySettings($this->denormalizer->denormalize($data['authproxy_settings'], \Scottbass3\Harbor\Api\Model\AuthproxySetting::class, 'json', $context));
         } elseif (\array_key_exists('authproxy_settings', $data) && $data['authproxy_settings'] === null) {
             $object->setAuthproxySettings(null);
         }
@@ -197,6 +197,6 @@ class GeneralInfoNormalizer implements DenormalizerInterface, NormalizerInterfac
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\GeneralInfo::class => false];
+        return [\Scottbass3\Harbor\Api\Model\GeneralInfo::class => false];
     }
 }

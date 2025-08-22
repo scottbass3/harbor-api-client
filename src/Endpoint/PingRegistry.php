@@ -8,22 +8,22 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class PingRegistry extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class PingRegistry extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * Check status of a registry.
      *
-     * @param \Flownative\Harbor\Api\Model\RegistryPing $registry         The registry
+     * @param \Scottbass3\Harbor\Api\Model\RegistryPing $registry         The registry
      * @param array                                     $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(\Flownative\Harbor\Api\Model\RegistryPing $registry, array $headerParameters = [])
+    public function __construct(\Scottbass3\Harbor\Api\Model\RegistryPing $registry, array $headerParameters = [])
     {
         $this->body = $registry;
         $this->headerParameters = $headerParameters;
@@ -63,12 +63,12 @@ class PingRegistry extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint im
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\PingRegistryBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\PingRegistryUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\PingRegistryForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\PingRegistryNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\PingRegistryInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\PingRegistryBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\PingRegistryUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\PingRegistryForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\PingRegistryNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\PingRegistryInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -78,21 +78,21 @@ class PingRegistry extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint im
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\PingRegistryBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\PingRegistryBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\PingRegistryUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\PingRegistryUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\PingRegistryForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\PingRegistryForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\PingRegistryNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\PingRegistryNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\PingRegistryInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\PingRegistryInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

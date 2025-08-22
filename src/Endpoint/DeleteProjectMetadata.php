@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class DeleteProjectMetadata extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class DeleteProjectMetadata extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name_or_id;
     protected $meta_name;
 
@@ -69,13 +69,13 @@ class DeleteProjectMetadata extends \Flownative\Harbor\Api\Runtime\Client\BaseEn
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\DeleteProjectMetadataBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\DeleteProjectMetadataUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\DeleteProjectMetadataForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\DeleteProjectMetadataNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\DeleteProjectMetadataConflictException
-     * @throws \Flownative\Harbor\Api\Exception\DeleteProjectMetadataInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\DeleteProjectMetadataBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\DeleteProjectMetadataUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\DeleteProjectMetadataForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\DeleteProjectMetadataNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\DeleteProjectMetadataConflictException
+     * @throws \Scottbass3\Harbor\Api\Exception\DeleteProjectMetadataInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -85,24 +85,24 @@ class DeleteProjectMetadata extends \Flownative\Harbor\Api\Runtime\Client\BaseEn
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteProjectMetadataBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\DeleteProjectMetadataBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteProjectMetadataUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\DeleteProjectMetadataUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteProjectMetadataForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\DeleteProjectMetadataForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteProjectMetadataNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\DeleteProjectMetadataNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (409 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteProjectMetadataConflictException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\DeleteProjectMetadataConflictException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteProjectMetadataInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\DeleteProjectMetadataInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

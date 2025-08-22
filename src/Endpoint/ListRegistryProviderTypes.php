@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class ListRegistryProviderTypes extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class ListRegistryProviderTypes extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * List registry adapters.
@@ -61,10 +61,10 @@ class ListRegistryProviderTypes extends \Flownative\Harbor\Api\Runtime\Client\Ba
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\ListRegistryProviderTypesUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\ListRegistryProviderTypesForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\ListRegistryProviderTypesInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListRegistryProviderTypesUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListRegistryProviderTypesForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListRegistryProviderTypesInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -74,15 +74,15 @@ class ListRegistryProviderTypes extends \Flownative\Harbor\Api\Runtime\Client\Ba
             return json_decode($body);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListRegistryProviderTypesUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListRegistryProviderTypesUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListRegistryProviderTypesForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListRegistryProviderTypesForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListRegistryProviderTypesInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListRegistryProviderTypesInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

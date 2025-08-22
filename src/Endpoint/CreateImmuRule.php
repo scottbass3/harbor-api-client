@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class CreateImmuRule extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class CreateImmuRule extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name_or_id;
 
     /**
@@ -25,7 +25,7 @@ class CreateImmuRule extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint 
      * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
      *             }
      */
-    public function __construct(string $projectNameOrId, \Flownative\Harbor\Api\Model\ImmutableRule $immutableRule, array $headerParameters = [])
+    public function __construct(string $projectNameOrId, \Scottbass3\Harbor\Api\Model\ImmutableRule $immutableRule, array $headerParameters = [])
     {
         $this->project_name_or_id = $projectNameOrId;
         $this->body = $immutableRule;
@@ -67,12 +67,12 @@ class CreateImmuRule extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint 
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\CreateImmuRuleBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\CreateImmuRuleUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\CreateImmuRuleForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\CreateImmuRuleNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\CreateImmuRuleInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateImmuRuleBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateImmuRuleUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateImmuRuleForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateImmuRuleNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateImmuRuleInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -82,21 +82,21 @@ class CreateImmuRule extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint 
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateImmuRuleBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateImmuRuleBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateImmuRuleUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateImmuRuleUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateImmuRuleForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateImmuRuleForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateImmuRuleNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateImmuRuleNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateImmuRuleInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateImmuRuleInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

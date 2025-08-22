@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class SecuritySummaryNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\SecuritySummary::class;
+        return $type === \Scottbass3\Harbor\Api\Model\SecuritySummary::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\SecuritySummary::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\SecuritySummary::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,7 +45,7 @@ class SecuritySummaryNormalizer implements DenormalizerInterface, NormalizerInte
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\SecuritySummary();
+        $object = new \Scottbass3\Harbor\Api\Model\SecuritySummary();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -102,7 +102,7 @@ class SecuritySummaryNormalizer implements DenormalizerInterface, NormalizerInte
         if (\array_key_exists('dangerous_cves', $data) && $data['dangerous_cves'] !== null) {
             $values = [];
             foreach ($data['dangerous_cves'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \Flownative\Harbor\Api\Model\DangerousCVE::class, 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, \Scottbass3\Harbor\Api\Model\DangerousCVE::class, 'json', $context);
             }
             $object->setDangerousCves($values);
         } elseif (\array_key_exists('dangerous_cves', $data) && $data['dangerous_cves'] === null) {
@@ -111,7 +111,7 @@ class SecuritySummaryNormalizer implements DenormalizerInterface, NormalizerInte
         if (\array_key_exists('dangerous_artifacts', $data) && $data['dangerous_artifacts'] !== null) {
             $values_1 = [];
             foreach ($data['dangerous_artifacts'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, \Flownative\Harbor\Api\Model\DangerousArtifact::class, 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, \Scottbass3\Harbor\Api\Model\DangerousArtifact::class, 'json', $context);
             }
             $object->setDangerousArtifacts($values_1);
         } elseif (\array_key_exists('dangerous_artifacts', $data) && $data['dangerous_artifacts'] === null) {
@@ -174,6 +174,6 @@ class SecuritySummaryNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\SecuritySummary::class => false];
+        return [\Scottbass3\Harbor\Api\Model\SecuritySummary::class => false];
     }
 }

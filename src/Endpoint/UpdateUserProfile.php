@@ -8,22 +8,22 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class UpdateUserProfile extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class UpdateUserProfile extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $user_id;
 
     /**
      * @param int                                      $userId           Registered user ID
-     * @param \Flownative\Harbor\Api\Model\UserProfile $profile          only email, realname and comment can be modified
+     * @param \Scottbass3\Harbor\Api\Model\UserProfile $profile          only email, realname and comment can be modified
      * @param array                                    $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(int $userId, \Flownative\Harbor\Api\Model\UserProfile $profile, array $headerParameters = [])
+    public function __construct(int $userId, \Scottbass3\Harbor\Api\Model\UserProfile $profile, array $headerParameters = [])
     {
         $this->user_id = $userId;
         $this->body = $profile;
@@ -64,11 +64,11 @@ class UpdateUserProfile extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoi
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\UpdateUserProfileUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateUserProfileForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateUserProfileNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateUserProfileInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateUserProfileUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateUserProfileForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateUserProfileNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateUserProfileInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -78,18 +78,18 @@ class UpdateUserProfile extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoi
             return null;
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateUserProfileUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateUserProfileUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateUserProfileForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateUserProfileForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateUserProfileNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateUserProfileNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateUserProfileInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateUserProfileInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

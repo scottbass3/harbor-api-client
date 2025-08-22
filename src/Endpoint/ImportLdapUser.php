@@ -8,22 +8,22 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class ImportLdapUser extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class ImportLdapUser extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * This endpoint adds the selected available ldap users to harbor based on related configuration parameters from the system. System will try to guess the user email address and realname, add to harbor user information. If have errors when import user, will return the list of importing failed uid and the failed reason.
      *
-     * @param \Flownative\Harbor\Api\Model\LdapImportUsers $uidList          The uid listed for importing. This list will check users validity of ldap service based on configuration from the system.
+     * @param \Scottbass3\Harbor\Api\Model\LdapImportUsers $uidList          The uid listed for importing. This list will check users validity of ldap service based on configuration from the system.
      * @param array                                        $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(\Flownative\Harbor\Api\Model\LdapImportUsers $uidList, array $headerParameters = [])
+    public function __construct(\Scottbass3\Harbor\Api\Model\LdapImportUsers $uidList, array $headerParameters = [])
     {
         $this->body = $uidList;
         $this->headerParameters = $headerParameters;
@@ -63,12 +63,12 @@ class ImportLdapUser extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint 
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\ImportLdapUserBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\ImportLdapUserUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\ImportLdapUserForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\ImportLdapUserNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\ImportLdapUserInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\ImportLdapUserBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\ImportLdapUserUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\ImportLdapUserForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\ImportLdapUserNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\ImportLdapUserInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -78,21 +78,21 @@ class ImportLdapUser extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint 
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ImportLdapUserBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ImportLdapUserBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ImportLdapUserUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ImportLdapUserUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ImportLdapUserForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ImportLdapUserForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ImportLdapUserNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\LdapFailedImportUser[]', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ImportLdapUserNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\LdapFailedImportUser[]', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ImportLdapUserInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ImportLdapUserInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

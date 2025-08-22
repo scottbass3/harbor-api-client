@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class PermissionsNormalizer implements DenormalizerInterface, NormalizerInterfac
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\Permissions::class;
+        return $type === \Scottbass3\Harbor\Api\Model\Permissions::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\Permissions::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\Permissions::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,14 +45,14 @@ class PermissionsNormalizer implements DenormalizerInterface, NormalizerInterfac
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\Permissions();
+        $object = new \Scottbass3\Harbor\Api\Model\Permissions();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
         if (\array_key_exists('system', $data) && $data['system'] !== null) {
             $values = [];
             foreach ($data['system'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \Flownative\Harbor\Api\Model\Permission::class, 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, \Scottbass3\Harbor\Api\Model\Permission::class, 'json', $context);
             }
             $object->setSystem($values);
         } elseif (\array_key_exists('system', $data) && $data['system'] === null) {
@@ -61,7 +61,7 @@ class PermissionsNormalizer implements DenormalizerInterface, NormalizerInterfac
         if (\array_key_exists('project', $data) && $data['project'] !== null) {
             $values_1 = [];
             foreach ($data['project'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, \Flownative\Harbor\Api\Model\Permission::class, 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, \Scottbass3\Harbor\Api\Model\Permission::class, 'json', $context);
             }
             $object->setProject($values_1);
         } elseif (\array_key_exists('project', $data) && $data['project'] === null) {
@@ -94,6 +94,6 @@ class PermissionsNormalizer implements DenormalizerInterface, NormalizerInterfac
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\Permissions::class => false];
+        return [\Scottbass3\Harbor\Api\Model\Permissions::class => false];
     }
 }

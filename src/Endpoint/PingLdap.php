@@ -8,22 +8,22 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class PingLdap extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class PingLdap extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * This endpoint ping the available ldap service for test related configuration parameters.
      *
-     * @param \Flownative\Harbor\Api\Model\LdapConf $ldapconf         ldap configuration. support input ldap service configuration. If it is a empty request, will load current configuration from the system.
+     * @param \Scottbass3\Harbor\Api\Model\LdapConf $ldapconf         ldap configuration. support input ldap service configuration. If it is a empty request, will load current configuration from the system.
      * @param array                                 $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(\Flownative\Harbor\Api\Model\LdapConf $ldapconf, array $headerParameters = [])
+    public function __construct(\Scottbass3\Harbor\Api\Model\LdapConf $ldapconf, array $headerParameters = [])
     {
         $this->body = $ldapconf;
         $this->headerParameters = $headerParameters;
@@ -61,34 +61,34 @@ class PingLdap extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implem
     }
 
     /**
-     * @return \Flownative\Harbor\Api\Model\LdapPingResult
+     * @return \Scottbass3\Harbor\Api\Model\LdapPingResult
      *
-     * @throws \Flownative\Harbor\Api\Exception\PingLdapBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\PingLdapUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\PingLdapForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\PingLdapInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\PingLdapBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\PingLdapUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\PingLdapForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\PingLdapInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Flownative\Harbor\Api\Model\LdapPingResult', 'json');
+            return $serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\LdapPingResult', 'json');
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\PingLdapBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\PingLdapBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\PingLdapUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\PingLdapUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\PingLdapForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\PingLdapForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\PingLdapInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\PingLdapInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

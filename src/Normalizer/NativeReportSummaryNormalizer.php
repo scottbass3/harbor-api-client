@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class NativeReportSummaryNormalizer implements DenormalizerInterface, Normalizer
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\NativeReportSummary::class;
+        return $type === \Scottbass3\Harbor\Api\Model\NativeReportSummary::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\NativeReportSummary::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\NativeReportSummary::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,7 +45,7 @@ class NativeReportSummaryNormalizer implements DenormalizerInterface, Normalizer
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\NativeReportSummary();
+        $object = new \Scottbass3\Harbor\Api\Model\NativeReportSummary();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -70,7 +70,7 @@ class NativeReportSummaryNormalizer implements DenormalizerInterface, Normalizer
             $object->setDuration(null);
         }
         if (\array_key_exists('summary', $data) && $data['summary'] !== null) {
-            $object->setSummary($this->denormalizer->denormalize($data['summary'], \Flownative\Harbor\Api\Model\VulnerabilitySummary::class, 'json', $context));
+            $object->setSummary($this->denormalizer->denormalize($data['summary'], \Scottbass3\Harbor\Api\Model\VulnerabilitySummary::class, 'json', $context));
         } elseif (\array_key_exists('summary', $data) && $data['summary'] === null) {
             $object->setSummary(null);
         }
@@ -90,7 +90,7 @@ class NativeReportSummaryNormalizer implements DenormalizerInterface, Normalizer
             $object->setCompletePercent(null);
         }
         if (\array_key_exists('scanner', $data) && $data['scanner'] !== null) {
-            $object->setScanner($this->denormalizer->denormalize($data['scanner'], \Flownative\Harbor\Api\Model\Scanner::class, 'json', $context));
+            $object->setScanner($this->denormalizer->denormalize($data['scanner'], \Scottbass3\Harbor\Api\Model\Scanner::class, 'json', $context));
         } elseif (\array_key_exists('scanner', $data) && $data['scanner'] === null) {
             $object->setScanner(null);
         }
@@ -134,6 +134,6 @@ class NativeReportSummaryNormalizer implements DenormalizerInterface, Normalizer
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\NativeReportSummary::class => false];
+        return [\Scottbass3\Harbor\Api\Model\NativeReportSummary::class => false];
     }
 }

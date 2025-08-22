@@ -8,25 +8,25 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class CreateWebhookPolicyOfProject extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class CreateWebhookPolicyOfProject extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name_or_id;
 
     /**
      * This endpoint create a webhook policy if the project does not have one.
      *
      * @param string                                     $projectNameOrId  The name or id of the project
-     * @param \Flownative\Harbor\Api\Model\WebhookPolicy $policy           properties "targets" and "event_types" needed
+     * @param \Scottbass3\Harbor\Api\Model\WebhookPolicy $policy           properties "targets" and "event_types" needed
      * @param array                                      $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
      *             }
      */
-    public function __construct(string $projectNameOrId, \Flownative\Harbor\Api\Model\WebhookPolicy $policy, array $headerParameters = [])
+    public function __construct(string $projectNameOrId, \Scottbass3\Harbor\Api\Model\WebhookPolicy $policy, array $headerParameters = [])
     {
         $this->project_name_or_id = $projectNameOrId;
         $this->body = $policy;
@@ -68,11 +68,11 @@ class CreateWebhookPolicyOfProject extends \Flownative\Harbor\Api\Runtime\Client
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\CreateWebhookPolicyOfProjectBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\CreateWebhookPolicyOfProjectUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\CreateWebhookPolicyOfProjectForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\CreateWebhookPolicyOfProjectInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateWebhookPolicyOfProjectBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateWebhookPolicyOfProjectUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateWebhookPolicyOfProjectForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateWebhookPolicyOfProjectInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -82,18 +82,18 @@ class CreateWebhookPolicyOfProject extends \Flownative\Harbor\Api\Runtime\Client
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateWebhookPolicyOfProjectBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateWebhookPolicyOfProjectBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateWebhookPolicyOfProjectUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateWebhookPolicyOfProjectUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateWebhookPolicyOfProjectForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateWebhookPolicyOfProjectForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateWebhookPolicyOfProjectInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateWebhookPolicyOfProjectInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

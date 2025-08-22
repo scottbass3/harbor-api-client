@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class ListTasksOfWebhookExecution extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class ListTasksOfWebhookExecution extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name_or_id;
     protected $webhook_policy_id;
     protected $execution_id;
@@ -93,38 +93,38 @@ class ListTasksOfWebhookExecution extends \Flownative\Harbor\Api\Runtime\Client\
     }
 
     /**
-     * @return \Flownative\Harbor\Api\Model\Task[]
+     * @return \Scottbass3\Harbor\Api\Model\Task[]
      *
-     * @throws \Flownative\Harbor\Api\Exception\ListTasksOfWebhookExecutionBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\ListTasksOfWebhookExecutionUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\ListTasksOfWebhookExecutionForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\ListTasksOfWebhookExecutionNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\ListTasksOfWebhookExecutionInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListTasksOfWebhookExecutionBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListTasksOfWebhookExecutionUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListTasksOfWebhookExecutionForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListTasksOfWebhookExecutionNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\ListTasksOfWebhookExecutionInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Task[]', 'json');
+            return $serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Task[]', 'json');
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListTasksOfWebhookExecutionBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListTasksOfWebhookExecutionBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListTasksOfWebhookExecutionUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListTasksOfWebhookExecutionUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListTasksOfWebhookExecutionForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListTasksOfWebhookExecutionForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListTasksOfWebhookExecutionNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListTasksOfWebhookExecutionNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\ListTasksOfWebhookExecutionInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\ListTasksOfWebhookExecutionInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class UpdateProjectMember extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class UpdateProjectMember extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name_or_id;
     protected $mid;
 
@@ -27,7 +27,7 @@ class UpdateProjectMember extends \Flownative\Harbor\Api\Runtime\Client\BaseEndp
      * @var bool   $X-Is-Resource-Name The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
      *             }
      */
-    public function __construct(string $projectNameOrId, int $mid, \Flownative\Harbor\Api\Model\RoleRequest $role, array $headerParameters = [])
+    public function __construct(string $projectNameOrId, int $mid, \Scottbass3\Harbor\Api\Model\RoleRequest $role, array $headerParameters = [])
     {
         $this->project_name_or_id = $projectNameOrId;
         $this->mid = $mid;
@@ -70,12 +70,12 @@ class UpdateProjectMember extends \Flownative\Harbor\Api\Runtime\Client\BaseEndp
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\UpdateProjectMemberBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateProjectMemberUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateProjectMemberForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateProjectMemberNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateProjectMemberInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateProjectMemberBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateProjectMemberUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateProjectMemberForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateProjectMemberNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateProjectMemberInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -85,21 +85,21 @@ class UpdateProjectMember extends \Flownative\Harbor\Api\Runtime\Client\BaseEndp
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateProjectMemberBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateProjectMemberBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateProjectMemberUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateProjectMemberUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateProjectMemberForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateProjectMemberForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateProjectMemberNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateProjectMemberNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateProjectMemberInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateProjectMemberInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class ScannerRegistrationReqNormalizer implements DenormalizerInterface, Normali
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\ScannerRegistrationReq::class;
+        return $type === \Scottbass3\Harbor\Api\Model\ScannerRegistrationReq::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\ScannerRegistrationReq::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\ScannerRegistrationReq::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,7 +45,7 @@ class ScannerRegistrationReqNormalizer implements DenormalizerInterface, Normali
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\ScannerRegistrationReq();
+        $object = new \Scottbass3\Harbor\Api\Model\ScannerRegistrationReq();
         if (\array_key_exists('skip_certVerify', $data) && \is_int($data['skip_certVerify'])) {
             $data['skip_certVerify'] = (bool) $data['skip_certVerify'];
         }
@@ -131,6 +131,6 @@ class ScannerRegistrationReqNormalizer implements DenormalizerInterface, Normali
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\ScannerRegistrationReq::class => false];
+        return [\Scottbass3\Harbor\Api\Model\ScannerRegistrationReq::class => false];
     }
 }

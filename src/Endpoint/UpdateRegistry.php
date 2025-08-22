@@ -8,24 +8,24 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class UpdateRegistry extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class UpdateRegistry extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $id;
 
     /**
      * Update the registry.
      *
      * @param int                                         $id               The registry ID
-     * @param \Flownative\Harbor\Api\Model\RegistryUpdate $registry         The registry
+     * @param \Scottbass3\Harbor\Api\Model\RegistryUpdate $registry         The registry
      * @param array                                       $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(int $id, \Flownative\Harbor\Api\Model\RegistryUpdate $registry, array $headerParameters = [])
+    public function __construct(int $id, \Scottbass3\Harbor\Api\Model\RegistryUpdate $registry, array $headerParameters = [])
     {
         $this->id = $id;
         $this->body = $registry;
@@ -66,12 +66,12 @@ class UpdateRegistry extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint 
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\UpdateRegistryUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateRegistryForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateRegistryNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateRegistryConflictException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateRegistryInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateRegistryUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateRegistryForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateRegistryNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateRegistryConflictException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateRegistryInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -81,21 +81,21 @@ class UpdateRegistry extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint 
             return null;
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateRegistryUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateRegistryUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateRegistryForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateRegistryForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateRegistryNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateRegistryNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (409 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateRegistryConflictException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateRegistryConflictException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateRegistryInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateRegistryInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

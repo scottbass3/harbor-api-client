@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class ConfigurationsResponseScanAllPolicyNormalizer implements DenormalizerInter
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\ConfigurationsResponseScanAllPolicy::class;
+        return $type === \Scottbass3\Harbor\Api\Model\ConfigurationsResponseScanAllPolicy::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\ConfigurationsResponseScanAllPolicy::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\ConfigurationsResponseScanAllPolicy::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,7 +45,7 @@ class ConfigurationsResponseScanAllPolicyNormalizer implements DenormalizerInter
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\ConfigurationsResponseScanAllPolicy();
+        $object = new \Scottbass3\Harbor\Api\Model\ConfigurationsResponseScanAllPolicy();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -55,7 +55,7 @@ class ConfigurationsResponseScanAllPolicyNormalizer implements DenormalizerInter
             $object->setType(null);
         }
         if (\array_key_exists('parameter', $data) && $data['parameter'] !== null) {
-            $object->setParameter($this->denormalizer->denormalize($data['parameter'], \Flownative\Harbor\Api\Model\ConfigurationsResponseScanAllPolicyParameter::class, 'json', $context));
+            $object->setParameter($this->denormalizer->denormalize($data['parameter'], \Scottbass3\Harbor\Api\Model\ConfigurationsResponseScanAllPolicyParameter::class, 'json', $context));
         } elseif (\array_key_exists('parameter', $data) && $data['parameter'] === null) {
             $object->setParameter(null);
         }
@@ -78,6 +78,6 @@ class ConfigurationsResponseScanAllPolicyNormalizer implements DenormalizerInter
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\ConfigurationsResponseScanAllPolicy::class => false];
+        return [\Scottbass3\Harbor\Api\Model\ConfigurationsResponseScanAllPolicy::class => false];
     }
 }

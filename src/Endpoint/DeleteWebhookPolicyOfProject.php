@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class DeleteWebhookPolicyOfProject extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class DeleteWebhookPolicyOfProject extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name_or_id;
     protected $webhook_policy_id;
 
@@ -69,12 +69,12 @@ class DeleteWebhookPolicyOfProject extends \Flownative\Harbor\Api\Runtime\Client
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -84,21 +84,21 @@ class DeleteWebhookPolicyOfProject extends \Flownative\Harbor\Api\Runtime\Client
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\DeleteWebhookPolicyOfProjectInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

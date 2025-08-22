@@ -2,7 +2,7 @@
 
 return [
     'openapi-file' => __DIR__ . '/harbor.json',
-    'namespace' => 'Flownative\Harbor\Api',
+    'namespace' => 'Scottbass3\Harbor\Api',
     'directory' => __DIR__ . '/src/',
     'reference' => true,
     'strict' => false,

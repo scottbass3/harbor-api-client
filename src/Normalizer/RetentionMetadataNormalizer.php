@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class RetentionMetadataNormalizer implements DenormalizerInterface, NormalizerIn
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\RetentionMetadata::class;
+        return $type === \Scottbass3\Harbor\Api\Model\RetentionMetadata::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\RetentionMetadata::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\RetentionMetadata::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,14 +45,14 @@ class RetentionMetadataNormalizer implements DenormalizerInterface, NormalizerIn
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\RetentionMetadata();
+        $object = new \Scottbass3\Harbor\Api\Model\RetentionMetadata();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
         if (\array_key_exists('templates', $data) && $data['templates'] !== null) {
             $values = [];
             foreach ($data['templates'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \Flownative\Harbor\Api\Model\RetentionRuleMetadata::class, 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, \Scottbass3\Harbor\Api\Model\RetentionRuleMetadata::class, 'json', $context);
             }
             $object->setTemplates($values);
         } elseif (\array_key_exists('templates', $data) && $data['templates'] === null) {
@@ -61,7 +61,7 @@ class RetentionMetadataNormalizer implements DenormalizerInterface, NormalizerIn
         if (\array_key_exists('scope_selectors', $data) && $data['scope_selectors'] !== null) {
             $values_1 = [];
             foreach ($data['scope_selectors'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, \Flownative\Harbor\Api\Model\RetentionSelectorMetadata::class, 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, \Scottbass3\Harbor\Api\Model\RetentionSelectorMetadata::class, 'json', $context);
             }
             $object->setScopeSelectors($values_1);
         } elseif (\array_key_exists('scope_selectors', $data) && $data['scope_selectors'] === null) {
@@ -70,7 +70,7 @@ class RetentionMetadataNormalizer implements DenormalizerInterface, NormalizerIn
         if (\array_key_exists('tag_selectors', $data) && $data['tag_selectors'] !== null) {
             $values_2 = [];
             foreach ($data['tag_selectors'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, \Flownative\Harbor\Api\Model\RetentionSelectorMetadata::class, 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, \Scottbass3\Harbor\Api\Model\RetentionSelectorMetadata::class, 'json', $context);
             }
             $object->setTagSelectors($values_2);
         } elseif (\array_key_exists('tag_selectors', $data) && $data['tag_selectors'] === null) {
@@ -110,6 +110,6 @@ class RetentionMetadataNormalizer implements DenormalizerInterface, NormalizerIn
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\RetentionMetadata::class => false];
+        return [\Scottbass3\Harbor\Api\Model\RetentionMetadata::class => false];
     }
 }

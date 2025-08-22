@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class ArtifactNormalizer implements DenormalizerInterface, NormalizerInterface, 
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\Artifact::class;
+        return $type === \Scottbass3\Harbor\Api\Model\Artifact::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\Artifact::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\Artifact::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,7 +45,7 @@ class ArtifactNormalizer implements DenormalizerInterface, NormalizerInterface, 
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\Artifact();
+        $object = new \Scottbass3\Harbor\Api\Model\Artifact();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -125,7 +125,7 @@ class ArtifactNormalizer implements DenormalizerInterface, NormalizerInterface, 
         if (\array_key_exists('references', $data) && $data['references'] !== null) {
             $values_2 = [];
             foreach ($data['references'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, \Flownative\Harbor\Api\Model\Reference::class, 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, \Scottbass3\Harbor\Api\Model\Reference::class, 'json', $context);
             }
             $object->setReferences($values_2);
         } elseif (\array_key_exists('references', $data) && $data['references'] === null) {
@@ -134,7 +134,7 @@ class ArtifactNormalizer implements DenormalizerInterface, NormalizerInterface, 
         if (\array_key_exists('tags', $data) && $data['tags'] !== null) {
             $values_3 = [];
             foreach ($data['tags'] as $value_3) {
-                $values_3[] = $this->denormalizer->denormalize($value_3, \Flownative\Harbor\Api\Model\Tag::class, 'json', $context);
+                $values_3[] = $this->denormalizer->denormalize($value_3, \Scottbass3\Harbor\Api\Model\Tag::class, 'json', $context);
             }
             $object->setTags($values_3);
         } elseif (\array_key_exists('tags', $data) && $data['tags'] === null) {
@@ -143,7 +143,7 @@ class ArtifactNormalizer implements DenormalizerInterface, NormalizerInterface, 
         if (\array_key_exists('addition_links', $data) && $data['addition_links'] !== null) {
             $values_4 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['addition_links'] as $key_2 => $value_4) {
-                $values_4[$key_2] = $this->denormalizer->denormalize($value_4, \Flownative\Harbor\Api\Model\AdditionLink::class, 'json', $context);
+                $values_4[$key_2] = $this->denormalizer->denormalize($value_4, \Scottbass3\Harbor\Api\Model\AdditionLink::class, 'json', $context);
             }
             $object->setAdditionLinks($values_4);
         } elseif (\array_key_exists('addition_links', $data) && $data['addition_links'] === null) {
@@ -152,7 +152,7 @@ class ArtifactNormalizer implements DenormalizerInterface, NormalizerInterface, 
         if (\array_key_exists('labels', $data) && $data['labels'] !== null) {
             $values_5 = [];
             foreach ($data['labels'] as $value_5) {
-                $values_5[] = $this->denormalizer->denormalize($value_5, \Flownative\Harbor\Api\Model\Label::class, 'json', $context);
+                $values_5[] = $this->denormalizer->denormalize($value_5, \Scottbass3\Harbor\Api\Model\Label::class, 'json', $context);
             }
             $object->setLabels($values_5);
         } elseif (\array_key_exists('labels', $data) && $data['labels'] === null) {
@@ -161,7 +161,7 @@ class ArtifactNormalizer implements DenormalizerInterface, NormalizerInterface, 
         if (\array_key_exists('scan_overview', $data) && $data['scan_overview'] !== null) {
             $values_6 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['scan_overview'] as $key_3 => $value_6) {
-                $values_6[$key_3] = $this->denormalizer->denormalize($value_6, \Flownative\Harbor\Api\Model\NativeReportSummary::class, 'json', $context);
+                $values_6[$key_3] = $this->denormalizer->denormalize($value_6, \Scottbass3\Harbor\Api\Model\NativeReportSummary::class, 'json', $context);
             }
             $object->setScanOverview($values_6);
         } elseif (\array_key_exists('scan_overview', $data) && $data['scan_overview'] === null) {
@@ -170,7 +170,7 @@ class ArtifactNormalizer implements DenormalizerInterface, NormalizerInterface, 
         if (\array_key_exists('accessories', $data) && $data['accessories'] !== null) {
             $values_7 = [];
             foreach ($data['accessories'] as $value_7) {
-                $values_7[] = $this->denormalizer->denormalize($value_7, \Flownative\Harbor\Api\Model\Accessory::class, 'json', $context);
+                $values_7[] = $this->denormalizer->denormalize($value_7, \Scottbass3\Harbor\Api\Model\Accessory::class, 'json', $context);
             }
             $object->setAccessories($values_7);
         } elseif (\array_key_exists('accessories', $data) && $data['accessories'] === null) {
@@ -278,6 +278,6 @@ class ArtifactNormalizer implements DenormalizerInterface, NormalizerInterface, 
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\Artifact::class => false];
+        return [\Scottbass3\Harbor\Api\Model\Artifact::class => false];
     }
 }

@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class GetScannerOfProject extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class GetScannerOfProject extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name_or_id;
 
     /**
@@ -64,38 +64,38 @@ class GetScannerOfProject extends \Flownative\Harbor\Api\Runtime\Client\BaseEndp
     }
 
     /**
-     * @return \Flownative\Harbor\Api\Model\ScannerRegistration
+     * @return \Scottbass3\Harbor\Api\Model\ScannerRegistration
      *
-     * @throws \Flownative\Harbor\Api\Exception\GetScannerOfProjectBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\GetScannerOfProjectUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\GetScannerOfProjectForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\GetScannerOfProjectNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\GetScannerOfProjectInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetScannerOfProjectBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetScannerOfProjectUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetScannerOfProjectForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetScannerOfProjectNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetScannerOfProjectInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Flownative\Harbor\Api\Model\ScannerRegistration', 'json');
+            return $serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\ScannerRegistration', 'json');
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetScannerOfProjectBadRequestException($response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetScannerOfProjectBadRequestException($response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetScannerOfProjectUnauthorizedException($response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetScannerOfProjectUnauthorizedException($response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetScannerOfProjectForbiddenException($response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetScannerOfProjectForbiddenException($response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetScannerOfProjectNotFoundException($response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetScannerOfProjectNotFoundException($response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetScannerOfProjectInternalServerErrorException($response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetScannerOfProjectInternalServerErrorException($response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

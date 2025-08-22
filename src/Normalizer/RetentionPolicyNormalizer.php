@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class RetentionPolicyNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\RetentionPolicy::class;
+        return $type === \Scottbass3\Harbor\Api\Model\RetentionPolicy::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\RetentionPolicy::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\RetentionPolicy::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,7 +45,7 @@ class RetentionPolicyNormalizer implements DenormalizerInterface, NormalizerInte
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\RetentionPolicy();
+        $object = new \Scottbass3\Harbor\Api\Model\RetentionPolicy();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -62,19 +62,19 @@ class RetentionPolicyNormalizer implements DenormalizerInterface, NormalizerInte
         if (\array_key_exists('rules', $data) && $data['rules'] !== null) {
             $values = [];
             foreach ($data['rules'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \Flownative\Harbor\Api\Model\RetentionRule::class, 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, \Scottbass3\Harbor\Api\Model\RetentionRule::class, 'json', $context);
             }
             $object->setRules($values);
         } elseif (\array_key_exists('rules', $data) && $data['rules'] === null) {
             $object->setRules(null);
         }
         if (\array_key_exists('trigger', $data) && $data['trigger'] !== null) {
-            $object->setTrigger($this->denormalizer->denormalize($data['trigger'], \Flownative\Harbor\Api\Model\RetentionRuleTrigger::class, 'json', $context));
+            $object->setTrigger($this->denormalizer->denormalize($data['trigger'], \Scottbass3\Harbor\Api\Model\RetentionRuleTrigger::class, 'json', $context));
         } elseif (\array_key_exists('trigger', $data) && $data['trigger'] === null) {
             $object->setTrigger(null);
         }
         if (\array_key_exists('scope', $data) && $data['scope'] !== null) {
-            $object->setScope($this->denormalizer->denormalize($data['scope'], \Flownative\Harbor\Api\Model\RetentionPolicyScope::class, 'json', $context));
+            $object->setScope($this->denormalizer->denormalize($data['scope'], \Scottbass3\Harbor\Api\Model\RetentionPolicyScope::class, 'json', $context));
         } elseif (\array_key_exists('scope', $data) && $data['scope'] === null) {
             $object->setScope(null);
         }
@@ -110,6 +110,6 @@ class RetentionPolicyNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\RetentionPolicy::class => false];
+        return [\Scottbass3\Harbor\Api\Model\RetentionPolicy::class => false];
     }
 }

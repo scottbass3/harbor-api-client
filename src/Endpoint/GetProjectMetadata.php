@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class GetProjectMetadata extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class GetProjectMetadata extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name_or_id;
     protected $meta_name;
 
@@ -69,12 +69,12 @@ class GetProjectMetadata extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpo
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\GetProjectMetadataBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\GetProjectMetadataUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\GetProjectMetadataForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\GetProjectMetadataNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\GetProjectMetadataInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetProjectMetadataBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetProjectMetadataUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetProjectMetadataForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetProjectMetadataNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetProjectMetadataInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -84,21 +84,21 @@ class GetProjectMetadata extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpo
             return json_decode($body);
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetProjectMetadataBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetProjectMetadataBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetProjectMetadataUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetProjectMetadataUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetProjectMetadataForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetProjectMetadataForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetProjectMetadataNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetProjectMetadataNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetProjectMetadataInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetProjectMetadataInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

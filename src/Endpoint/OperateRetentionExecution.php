@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class OperateRetentionExecution extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class OperateRetentionExecution extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $id;
     protected $eid;
 
@@ -21,13 +21,13 @@ class OperateRetentionExecution extends \Flownative\Harbor\Api\Runtime\Client\Ba
      *
      * @param int                                                             $id               retention ID
      * @param int                                                             $eid              retention execution ID
-     * @param \Flownative\Harbor\Api\Model\RetentionsIdExecutionsEidPatchBody $body             the action, only support "stop" now
+     * @param \Scottbass3\Harbor\Api\Model\RetentionsIdExecutionsEidPatchBody $body             the action, only support "stop" now
      * @param array                                                           $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(int $id, int $eid, \Flownative\Harbor\Api\Model\RetentionsIdExecutionsEidPatchBody $body, array $headerParameters = [])
+    public function __construct(int $id, int $eid, \Scottbass3\Harbor\Api\Model\RetentionsIdExecutionsEidPatchBody $body, array $headerParameters = [])
     {
         $this->id = $id;
         $this->eid = $eid;
@@ -69,10 +69,10 @@ class OperateRetentionExecution extends \Flownative\Harbor\Api\Runtime\Client\Ba
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\OperateRetentionExecutionUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\OperateRetentionExecutionForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\OperateRetentionExecutionInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\OperateRetentionExecutionUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\OperateRetentionExecutionForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\OperateRetentionExecutionInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -82,15 +82,15 @@ class OperateRetentionExecution extends \Flownative\Harbor\Api\Runtime\Client\Ba
             return null;
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\OperateRetentionExecutionUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\OperateRetentionExecutionUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\OperateRetentionExecutionForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\OperateRetentionExecutionForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\OperateRetentionExecutionInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\OperateRetentionExecutionInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

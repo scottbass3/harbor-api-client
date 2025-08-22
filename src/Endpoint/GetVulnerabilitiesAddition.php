@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class GetVulnerabilitiesAddition extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class GetVulnerabilitiesAddition extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name;
     protected $repository_name;
     protected $reference;
@@ -73,12 +73,12 @@ class GetVulnerabilitiesAddition extends \Flownative\Harbor\Api\Runtime\Client\B
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\GetVulnerabilitiesAdditionBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\GetVulnerabilitiesAdditionUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\GetVulnerabilitiesAdditionForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\GetVulnerabilitiesAdditionNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\GetVulnerabilitiesAdditionInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetVulnerabilitiesAdditionBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetVulnerabilitiesAdditionUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetVulnerabilitiesAdditionForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetVulnerabilitiesAdditionNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetVulnerabilitiesAdditionInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -88,21 +88,21 @@ class GetVulnerabilitiesAddition extends \Flownative\Harbor\Api\Runtime\Client\B
             return json_decode($body);
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetVulnerabilitiesAdditionBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetVulnerabilitiesAdditionBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetVulnerabilitiesAdditionUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetVulnerabilitiesAdditionUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetVulnerabilitiesAdditionForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetVulnerabilitiesAdditionForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetVulnerabilitiesAdditionNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetVulnerabilitiesAdditionNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetVulnerabilitiesAdditionInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetVulnerabilitiesAdditionInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

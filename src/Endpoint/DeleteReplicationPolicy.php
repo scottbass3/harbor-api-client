@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class DeleteReplicationPolicy extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class DeleteReplicationPolicy extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $id;
 
     /**
@@ -64,12 +64,12 @@ class DeleteReplicationPolicy extends \Flownative\Harbor\Api\Runtime\Client\Base
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\DeleteReplicationPolicyUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\DeleteReplicationPolicyForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\DeleteReplicationPolicyNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\DeleteReplicationPolicyPreconditionFailedException
-     * @throws \Flownative\Harbor\Api\Exception\DeleteReplicationPolicyInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\DeleteReplicationPolicyUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\DeleteReplicationPolicyForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\DeleteReplicationPolicyNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\DeleteReplicationPolicyPreconditionFailedException
+     * @throws \Scottbass3\Harbor\Api\Exception\DeleteReplicationPolicyInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -79,21 +79,21 @@ class DeleteReplicationPolicy extends \Flownative\Harbor\Api\Runtime\Client\Base
             return null;
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteReplicationPolicyUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\DeleteReplicationPolicyUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteReplicationPolicyForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\DeleteReplicationPolicyForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteReplicationPolicyNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\DeleteReplicationPolicyNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (412 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteReplicationPolicyPreconditionFailedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\DeleteReplicationPolicyPreconditionFailedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\DeleteReplicationPolicyInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\DeleteReplicationPolicyInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

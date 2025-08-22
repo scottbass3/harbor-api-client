@@ -8,12 +8,12 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Exception;
+namespace Scottbass3\Harbor\Api\Exception;
 
 class GetReplicationLogNotFoundException extends NotFoundException
 {
     /**
-     * @var \Flownative\Harbor\Api\Model\Errors
+     * @var \Scottbass3\Harbor\Api\Model\Errors
      */
     private $errors;
     /**
@@ -21,14 +21,14 @@ class GetReplicationLogNotFoundException extends NotFoundException
      */
     private $response;
 
-    public function __construct(\Flownative\Harbor\Api\Model\Errors $errors, \Psr\Http\Message\ResponseInterface $response)
+    public function __construct(\Scottbass3\Harbor\Api\Model\Errors $errors, \Psr\Http\Message\ResponseInterface $response)
     {
         parent::__construct('Not found');
         $this->errors = $errors;
         $this->response = $response;
     }
 
-    public function getErrors(): \Flownative\Harbor\Api\Model\Errors
+    public function getErrors(): \Scottbass3\Harbor\Api\Model\Errors
     {
         return $this->errors;
     }

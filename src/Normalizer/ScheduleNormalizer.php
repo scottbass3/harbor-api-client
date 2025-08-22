@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class ScheduleNormalizer implements DenormalizerInterface, NormalizerInterface, 
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\Schedule::class;
+        return $type === \Scottbass3\Harbor\Api\Model\Schedule::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\Schedule::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\Schedule::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,7 +45,7 @@ class ScheduleNormalizer implements DenormalizerInterface, NormalizerInterface, 
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\Schedule();
+        $object = new \Scottbass3\Harbor\Api\Model\Schedule();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -70,7 +70,7 @@ class ScheduleNormalizer implements DenormalizerInterface, NormalizerInterface, 
             $object->setUpdateTime(null);
         }
         if (\array_key_exists('schedule', $data) && $data['schedule'] !== null) {
-            $object->setSchedule($this->denormalizer->denormalize($data['schedule'], \Flownative\Harbor\Api\Model\ScheduleObj::class, 'json', $context));
+            $object->setSchedule($this->denormalizer->denormalize($data['schedule'], \Scottbass3\Harbor\Api\Model\ScheduleObj::class, 'json', $context));
         } elseif (\array_key_exists('schedule', $data) && $data['schedule'] === null) {
             $object->setSchedule(null);
         }
@@ -106,6 +106,6 @@ class ScheduleNormalizer implements DenormalizerInterface, NormalizerInterface, 
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\Schedule::class => false];
+        return [\Scottbass3\Harbor\Api\Model\Schedule::class => false];
     }
 }

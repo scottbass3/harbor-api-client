@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class ImmutableRuleNormalizer implements DenormalizerInterface, NormalizerInterf
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\ImmutableRule::class;
+        return $type === \Scottbass3\Harbor\Api\Model\ImmutableRule::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\ImmutableRule::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\ImmutableRule::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,7 +45,7 @@ class ImmutableRuleNormalizer implements DenormalizerInterface, NormalizerInterf
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\ImmutableRule();
+        $object = new \Scottbass3\Harbor\Api\Model\ImmutableRule();
         if (\array_key_exists('disabled', $data) && \is_int($data['disabled'])) {
             $data['disabled'] = (bool) $data['disabled'];
         }
@@ -89,7 +89,7 @@ class ImmutableRuleNormalizer implements DenormalizerInterface, NormalizerInterf
         if (\array_key_exists('tag_selectors', $data) && $data['tag_selectors'] !== null) {
             $values_1 = [];
             foreach ($data['tag_selectors'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, \Flownative\Harbor\Api\Model\ImmutableSelector::class, 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, \Scottbass3\Harbor\Api\Model\ImmutableSelector::class, 'json', $context);
             }
             $object->setTagSelectors($values_1);
         } elseif (\array_key_exists('tag_selectors', $data) && $data['tag_selectors'] === null) {
@@ -100,7 +100,7 @@ class ImmutableRuleNormalizer implements DenormalizerInterface, NormalizerInterf
             foreach ($data['scope_selectors'] as $key_1 => $value_2) {
                 $values_3 = [];
                 foreach ($value_2 as $value_3) {
-                    $values_3[] = $this->denormalizer->denormalize($value_3, \Flownative\Harbor\Api\Model\ImmutableSelector::class, 'json', $context);
+                    $values_3[] = $this->denormalizer->denormalize($value_3, \Scottbass3\Harbor\Api\Model\ImmutableSelector::class, 'json', $context);
                 }
                 $values_2[$key_1] = $values_3;
             }
@@ -161,6 +161,6 @@ class ImmutableRuleNormalizer implements DenormalizerInterface, NormalizerInterf
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\ImmutableRule::class => false];
+        return [\Scottbass3\Harbor\Api\Model\ImmutableRule::class => false];
     }
 }

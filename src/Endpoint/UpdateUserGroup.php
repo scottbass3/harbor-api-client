@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class UpdateUserGroup extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class UpdateUserGroup extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $group_id;
 
     /**
@@ -24,7 +24,7 @@ class UpdateUserGroup extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(int $groupId, \Flownative\Harbor\Api\Model\UserGroup $usergroup, array $headerParameters = [])
+    public function __construct(int $groupId, \Scottbass3\Harbor\Api\Model\UserGroup $usergroup, array $headerParameters = [])
     {
         $this->group_id = $groupId;
         $this->body = $usergroup;
@@ -65,12 +65,12 @@ class UpdateUserGroup extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\UpdateUserGroupBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateUserGroupUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateUserGroupForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateUserGroupNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateUserGroupInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateUserGroupBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateUserGroupUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateUserGroupForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateUserGroupNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateUserGroupInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -80,21 +80,21 @@ class UpdateUserGroup extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateUserGroupBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateUserGroupBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateUserGroupUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateUserGroupUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateUserGroupForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateUserGroupForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateUserGroupNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateUserGroupNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateUserGroupInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateUserGroupInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

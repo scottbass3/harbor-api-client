@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class CreateTag extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class CreateTag extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
     protected $project_name;
     protected $repository_name;
     protected $reference;
@@ -23,13 +23,13 @@ class CreateTag extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint imple
      * @param string                           $projectName      The name of the project
      * @param string                           $repositoryName   The name of the repository. If it contains slash, encode it twice over with URL encoding. e.g. a/b -> a%2Fb -> a%252Fb
      * @param string                           $reference        The reference of the artifact, can be digest or tag
-     * @param \Flownative\Harbor\Api\Model\Tag $tag              the JSON object of tag
+     * @param \Scottbass3\Harbor\Api\Model\Tag $tag              the JSON object of tag
      * @param array                            $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(string $projectName, string $repositoryName, string $reference, \Flownative\Harbor\Api\Model\Tag $tag, array $headerParameters = [])
+    public function __construct(string $projectName, string $repositoryName, string $reference, \Scottbass3\Harbor\Api\Model\Tag $tag, array $headerParameters = [])
     {
         $this->project_name = $projectName;
         $this->repository_name = $repositoryName;
@@ -72,14 +72,14 @@ class CreateTag extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint imple
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\CreateTagBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\CreateTagUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\CreateTagForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\CreateTagNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\CreateTagMethodNotAllowedException
-     * @throws \Flownative\Harbor\Api\Exception\CreateTagConflictException
-     * @throws \Flownative\Harbor\Api\Exception\CreateTagInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateTagBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateTagUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateTagForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateTagNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateTagMethodNotAllowedException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateTagConflictException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateTagInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -89,27 +89,27 @@ class CreateTag extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint imple
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateTagBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateTagBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateTagUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateTagUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateTagForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateTagForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateTagNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateTagNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (405 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateTagMethodNotAllowedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateTagMethodNotAllowedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (409 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateTagConflictException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateTagConflictException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateTagInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateTagInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

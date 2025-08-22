@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class WebhookTargetObjectNormalizer implements DenormalizerInterface, Normalizer
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\WebhookTargetObject::class;
+        return $type === \Scottbass3\Harbor\Api\Model\WebhookTargetObject::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\WebhookTargetObject::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\WebhookTargetObject::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,7 +45,7 @@ class WebhookTargetObjectNormalizer implements DenormalizerInterface, Normalizer
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\WebhookTargetObject();
+        $object = new \Scottbass3\Harbor\Api\Model\WebhookTargetObject();
         if (\array_key_exists('skip_cert_verify', $data) && \is_int($data['skip_cert_verify'])) {
             $data['skip_cert_verify'] = (bool) $data['skip_cert_verify'];
         }
@@ -105,6 +105,6 @@ class WebhookTargetObjectNormalizer implements DenormalizerInterface, Normalizer
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\WebhookTargetObject::class => false];
+        return [\Scottbass3\Harbor\Api\Model\WebhookTargetObject::class => false];
     }
 }

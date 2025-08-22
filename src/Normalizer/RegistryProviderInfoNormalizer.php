@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class RegistryProviderInfoNormalizer implements DenormalizerInterface, Normalize
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\RegistryProviderInfo::class;
+        return $type === \Scottbass3\Harbor\Api\Model\RegistryProviderInfo::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\RegistryProviderInfo::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\RegistryProviderInfo::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,17 +45,17 @@ class RegistryProviderInfoNormalizer implements DenormalizerInterface, Normalize
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\RegistryProviderInfo();
+        $object = new \Scottbass3\Harbor\Api\Model\RegistryProviderInfo();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
         if (\array_key_exists('endpoint_pattern', $data) && $data['endpoint_pattern'] !== null) {
-            $object->setEndpointPattern($this->denormalizer->denormalize($data['endpoint_pattern'], \Flownative\Harbor\Api\Model\RegistryProviderEndpointPattern::class, 'json', $context));
+            $object->setEndpointPattern($this->denormalizer->denormalize($data['endpoint_pattern'], \Scottbass3\Harbor\Api\Model\RegistryProviderEndpointPattern::class, 'json', $context));
         } elseif (\array_key_exists('endpoint_pattern', $data) && $data['endpoint_pattern'] === null) {
             $object->setEndpointPattern(null);
         }
         if (\array_key_exists('credential_pattern', $data) && $data['credential_pattern'] !== null) {
-            $object->setCredentialPattern($this->denormalizer->denormalize($data['credential_pattern'], \Flownative\Harbor\Api\Model\RegistryProviderCredentialPattern::class, 'json', $context));
+            $object->setCredentialPattern($this->denormalizer->denormalize($data['credential_pattern'], \Scottbass3\Harbor\Api\Model\RegistryProviderCredentialPattern::class, 'json', $context));
         } elseif (\array_key_exists('credential_pattern', $data) && $data['credential_pattern'] === null) {
             $object->setCredentialPattern(null);
         }
@@ -78,6 +78,6 @@ class RegistryProviderInfoNormalizer implements DenormalizerInterface, Normalize
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\RegistryProviderInfo::class => false];
+        return [\Scottbass3\Harbor\Api\Model\RegistryProviderInfo::class => false];
     }
 }

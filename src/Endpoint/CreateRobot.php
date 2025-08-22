@@ -8,22 +8,22 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class CreateRobot extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class CreateRobot extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * Create a robot account.
      *
-     * @param \Flownative\Harbor\Api\Model\RobotCreate $robot            the JSON object of a robot account
+     * @param \Scottbass3\Harbor\Api\Model\RobotCreate $robot            the JSON object of a robot account
      * @param array                                    $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(\Flownative\Harbor\Api\Model\RobotCreate $robot, array $headerParameters = [])
+    public function __construct(\Scottbass3\Harbor\Api\Model\RobotCreate $robot, array $headerParameters = [])
     {
         $this->body = $robot;
         $this->headerParameters = $headerParameters;
@@ -61,38 +61,38 @@ class CreateRobot extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint imp
     }
 
     /**
-     * @return \Flownative\Harbor\Api\Model\RobotCreated
+     * @return \Scottbass3\Harbor\Api\Model\RobotCreated
      *
-     * @throws \Flownative\Harbor\Api\Exception\CreateRobotBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\CreateRobotUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\CreateRobotForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\CreateRobotNotFoundException
-     * @throws \Flownative\Harbor\Api\Exception\CreateRobotInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateRobotBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateRobotUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateRobotForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateRobotNotFoundException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateRobotInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (201 === $status) {
-            return $serializer->deserialize($body, 'Flownative\Harbor\Api\Model\RobotCreated', 'json');
+            return $serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\RobotCreated', 'json');
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateRobotBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateRobotBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateRobotUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateRobotUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateRobotForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateRobotForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateRobotNotFoundException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateRobotNotFoundException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateRobotInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateRobotInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

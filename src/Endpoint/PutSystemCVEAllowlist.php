@@ -8,22 +8,22 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class PutSystemCVEAllowlist extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class PutSystemCVEAllowlist extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * This API overwrites the system level allowlist of CVE with the list in request body.  Only system Admin has permission to call this API.
      *
-     * @param \Flownative\Harbor\Api\Model\CVEAllowlist $allowlist        The allowlist with new content
+     * @param \Scottbass3\Harbor\Api\Model\CVEAllowlist $allowlist        The allowlist with new content
      * @param array                                     $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(\Flownative\Harbor\Api\Model\CVEAllowlist $allowlist, array $headerParameters = [])
+    public function __construct(\Scottbass3\Harbor\Api\Model\CVEAllowlist $allowlist, array $headerParameters = [])
     {
         $this->body = $allowlist;
         $this->headerParameters = $headerParameters;
@@ -63,10 +63,10 @@ class PutSystemCVEAllowlist extends \Flownative\Harbor\Api\Runtime\Client\BaseEn
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\PutSystemCVEAllowlistUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\PutSystemCVEAllowlistForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\PutSystemCVEAllowlistInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\PutSystemCVEAllowlistUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\PutSystemCVEAllowlistForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\PutSystemCVEAllowlistInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -76,15 +76,15 @@ class PutSystemCVEAllowlist extends \Flownative\Harbor\Api\Runtime\Client\BaseEn
             return null;
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\PutSystemCVEAllowlistUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\PutSystemCVEAllowlistUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\PutSystemCVEAllowlistForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\PutSystemCVEAllowlistForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\PutSystemCVEAllowlistInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\PutSystemCVEAllowlistInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

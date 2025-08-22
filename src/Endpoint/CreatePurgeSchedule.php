@@ -8,16 +8,16 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class CreatePurgeSchedule extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class CreatePurgeSchedule extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * This endpoint is for update purge job schedule.
      *
-     * @param \Flownative\Harbor\Api\Model\Schedule $schedule         The purge job's schedule, it is a json object. |
+     * @param \Scottbass3\Harbor\Api\Model\Schedule $schedule         The purge job's schedule, it is a json object. |
      *                                                                The sample format is |
      *                                                                {"parameters":{"audit_retention_hour":168,"dry_run":true, "include_operations":"create,delete,pull"},"schedule":{"type":"Hourly","cron":"0 0 * * * *"}} |
      *                                                                the include_operation should be a comma separated string, e.g. create,delete,pull, if it is empty, no operation will be purged.
@@ -26,7 +26,7 @@ class CreatePurgeSchedule extends \Flownative\Harbor\Api\Runtime\Client\BaseEndp
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(\Flownative\Harbor\Api\Model\Schedule $schedule, array $headerParameters = [])
+    public function __construct(\Scottbass3\Harbor\Api\Model\Schedule $schedule, array $headerParameters = [])
     {
         $this->body = $schedule;
         $this->headerParameters = $headerParameters;
@@ -66,11 +66,11 @@ class CreatePurgeSchedule extends \Flownative\Harbor\Api\Runtime\Client\BaseEndp
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\CreatePurgeScheduleBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\CreatePurgeScheduleUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\CreatePurgeScheduleForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\CreatePurgeScheduleInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreatePurgeScheduleBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreatePurgeScheduleUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreatePurgeScheduleForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreatePurgeScheduleInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -80,18 +80,18 @@ class CreatePurgeSchedule extends \Flownative\Harbor\Api\Runtime\Client\BaseEndp
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreatePurgeScheduleBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreatePurgeScheduleBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreatePurgeScheduleUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreatePurgeScheduleUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreatePurgeScheduleForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreatePurgeScheduleForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreatePurgeScheduleInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreatePurgeScheduleInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

@@ -8,12 +8,12 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Exception;
+namespace Scottbass3\Harbor\Api\Exception;
 
 class ImportLdapUserNotFoundException extends NotFoundException
 {
     /**
-     * @var \Flownative\Harbor\Api\Model\LdapFailedImportUser[][]
+     * @var \Scottbass3\Harbor\Api\Model\LdapFailedImportUser[][]
      */
     private $ldapFailedImportUserList;
     /**

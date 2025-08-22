@@ -8,22 +8,22 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class UpdateConfigurations extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class UpdateConfigurations extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * This endpoint is for modifying system configurations that only provides for admin user.
      *
-     * @param \Flownative\Harbor\Api\Model\Configurations $configurations   the configuration map can contain a subset of the attributes of the schema, which are to be updated
+     * @param \Scottbass3\Harbor\Api\Model\Configurations $configurations   the configuration map can contain a subset of the attributes of the schema, which are to be updated
      * @param array                                       $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(\Flownative\Harbor\Api\Model\Configurations $configurations, array $headerParameters = [])
+    public function __construct(\Scottbass3\Harbor\Api\Model\Configurations $configurations, array $headerParameters = [])
     {
         $this->body = $configurations;
         $this->headerParameters = $headerParameters;
@@ -63,10 +63,10 @@ class UpdateConfigurations extends \Flownative\Harbor\Api\Runtime\Client\BaseEnd
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\UpdateConfigurationsUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateConfigurationsForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\UpdateConfigurationsInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateConfigurationsUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateConfigurationsForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\UpdateConfigurationsInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -76,15 +76,15 @@ class UpdateConfigurations extends \Flownative\Harbor\Api\Runtime\Client\BaseEnd
             return null;
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateConfigurationsUnauthorizedException($response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateConfigurationsUnauthorizedException($response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateConfigurationsForbiddenException($response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateConfigurationsForbiddenException($response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\UpdateConfigurationsInternalServerErrorException($response);
+            throw new \Scottbass3\Harbor\Api\Exception\UpdateConfigurationsInternalServerErrorException($response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

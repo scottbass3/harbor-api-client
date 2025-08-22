@@ -8,11 +8,11 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class GetLatestScheduledScanAllMetrics extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class GetLatestScheduledScanAllMetrics extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * Get the metrics of the latest scheduled scan all process.
@@ -59,34 +59,34 @@ class GetLatestScheduledScanAllMetrics extends \Flownative\Harbor\Api\Runtime\Cl
     }
 
     /**
-     * @return \Flownative\Harbor\Api\Model\Stats
+     * @return \Scottbass3\Harbor\Api\Model\Stats
      *
-     * @throws \Flownative\Harbor\Api\Exception\GetLatestScheduledScanAllMetricsUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\GetLatestScheduledScanAllMetricsForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\GetLatestScheduledScanAllMetricsPreconditionFailedException
-     * @throws \Flownative\Harbor\Api\Exception\GetLatestScheduledScanAllMetricsInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetLatestScheduledScanAllMetricsUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetLatestScheduledScanAllMetricsForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetLatestScheduledScanAllMetricsPreconditionFailedException
+     * @throws \Scottbass3\Harbor\Api\Exception\GetLatestScheduledScanAllMetricsInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Stats', 'json');
+            return $serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Stats', 'json');
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetLatestScheduledScanAllMetricsUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetLatestScheduledScanAllMetricsUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetLatestScheduledScanAllMetricsForbiddenException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetLatestScheduledScanAllMetricsForbiddenException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (412 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetLatestScheduledScanAllMetricsPreconditionFailedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetLatestScheduledScanAllMetricsPreconditionFailedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\GetLatestScheduledScanAllMetricsInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\GetLatestScheduledScanAllMetricsInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

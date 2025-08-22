@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class ScannerAdapterMetadataNormalizer implements DenormalizerInterface, Normali
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\ScannerAdapterMetadata::class;
+        return $type === \Scottbass3\Harbor\Api\Model\ScannerAdapterMetadata::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\ScannerAdapterMetadata::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\ScannerAdapterMetadata::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,19 +45,19 @@ class ScannerAdapterMetadataNormalizer implements DenormalizerInterface, Normali
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\ScannerAdapterMetadata();
+        $object = new \Scottbass3\Harbor\Api\Model\ScannerAdapterMetadata();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
         if (\array_key_exists('scanner', $data) && $data['scanner'] !== null) {
-            $object->setScanner($this->denormalizer->denormalize($data['scanner'], \Flownative\Harbor\Api\Model\Scanner::class, 'json', $context));
+            $object->setScanner($this->denormalizer->denormalize($data['scanner'], \Scottbass3\Harbor\Api\Model\Scanner::class, 'json', $context));
         } elseif (\array_key_exists('scanner', $data) && $data['scanner'] === null) {
             $object->setScanner(null);
         }
         if (\array_key_exists('capabilities', $data) && $data['capabilities'] !== null) {
             $values = [];
             foreach ($data['capabilities'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \Flownative\Harbor\Api\Model\ScannerCapability::class, 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, \Scottbass3\Harbor\Api\Model\ScannerCapability::class, 'json', $context);
             }
             $object->setCapabilities($values);
         } elseif (\array_key_exists('capabilities', $data) && $data['capabilities'] === null) {
@@ -102,6 +102,6 @@ class ScannerAdapterMetadataNormalizer implements DenormalizerInterface, Normali
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\ScannerAdapterMetadata::class => false];
+        return [\Scottbass3\Harbor\Api\Model\ScannerAdapterMetadata::class => false];
     }
 }

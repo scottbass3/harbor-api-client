@@ -8,22 +8,22 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Endpoint;
+namespace Scottbass3\Harbor\Api\Endpoint;
 
-class CreateUser extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint implements \Flownative\Harbor\Api\Runtime\Client\Endpoint
+class CreateUser extends \Scottbass3\Harbor\Api\Runtime\Client\BaseEndpoint implements \Scottbass3\Harbor\Api\Runtime\Client\Endpoint
 {
-    use \Flownative\Harbor\Api\Runtime\Client\EndpointTrait;
+    use \Scottbass3\Harbor\Api\Runtime\Client\EndpointTrait;
 
     /**
      * This API can be used only when the authentication mode is for local DB.  When self registration is disabled.
      *
-     * @param \Flownative\Harbor\Api\Model\UserCreationReq $userReq          The new user
+     * @param \Scottbass3\Harbor\Api\Model\UserCreationReq $userReq          The new user
      * @param array                                        $headerParameters {
      *
      * @var string $X-Request-Id An unique ID for the request
      *             }
      */
-    public function __construct(\Flownative\Harbor\Api\Model\UserCreationReq $userReq, array $headerParameters = [])
+    public function __construct(\Scottbass3\Harbor\Api\Model\UserCreationReq $userReq, array $headerParameters = [])
     {
         $this->body = $userReq;
         $this->headerParameters = $headerParameters;
@@ -63,12 +63,12 @@ class CreateUser extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint impl
     /**
      * @return null
      *
-     * @throws \Flownative\Harbor\Api\Exception\CreateUserBadRequestException
-     * @throws \Flownative\Harbor\Api\Exception\CreateUserUnauthorizedException
-     * @throws \Flownative\Harbor\Api\Exception\CreateUserForbiddenException
-     * @throws \Flownative\Harbor\Api\Exception\CreateUserConflictException
-     * @throws \Flownative\Harbor\Api\Exception\CreateUserInternalServerErrorException
-     * @throws \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateUserBadRequestException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateUserUnauthorizedException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateUserForbiddenException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateUserConflictException
+     * @throws \Scottbass3\Harbor\Api\Exception\CreateUserInternalServerErrorException
+     * @throws \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
@@ -78,21 +78,21 @@ class CreateUser extends \Flownative\Harbor\Api\Runtime\Client\BaseEndpoint impl
             return null;
         }
         if (400 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateUserBadRequestException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateUserBadRequestException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (401 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateUserUnauthorizedException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateUserUnauthorizedException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (403 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateUserForbiddenException($response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateUserForbiddenException($response);
         }
         if (409 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateUserConflictException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateUserConflictException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Flownative\Harbor\Api\Exception\CreateUserInternalServerErrorException($serializer->deserialize($body, 'Flownative\Harbor\Api\Model\Errors', 'json'), $response);
+            throw new \Scottbass3\Harbor\Api\Exception\CreateUserInternalServerErrorException($serializer->deserialize($body, 'Scottbass3\Harbor\Api\Model\Errors', 'json'), $response);
         }
-        throw new \Flownative\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
+        throw new \Scottbass3\Harbor\Api\Exception\UnexpectedStatusCodeException($status, $body);
     }
 
     public function getAuthenticationScopes(): array

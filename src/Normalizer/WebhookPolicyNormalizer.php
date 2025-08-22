@@ -8,10 +8,10 @@ declare(strict_types=1);
  * Do no edit it directly.
  */
 
-namespace Flownative\Harbor\Api\Normalizer;
+namespace Scottbass3\Harbor\Api\Normalizer;
 
-use Flownative\Harbor\Api\Runtime\Normalizer\CheckArray;
-use Flownative\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\CheckArray;
+use Scottbass3\Harbor\Api\Runtime\Normalizer\ValidatorTrait;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,12 +29,12 @@ class WebhookPolicyNormalizer implements DenormalizerInterface, NormalizerInterf
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \Flownative\Harbor\Api\Model\WebhookPolicy::class;
+        return $type === \Scottbass3\Harbor\Api\Model\WebhookPolicy::class;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \Flownative\Harbor\Api\Model\WebhookPolicy::class;
+        return is_object($data) && get_class($data) === \Scottbass3\Harbor\Api\Model\WebhookPolicy::class;
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -45,7 +45,7 @@ class WebhookPolicyNormalizer implements DenormalizerInterface, NormalizerInterf
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Flownative\Harbor\Api\Model\WebhookPolicy();
+        $object = new \Scottbass3\Harbor\Api\Model\WebhookPolicy();
         if (\array_key_exists('enabled', $data) && \is_int($data['enabled'])) {
             $data['enabled'] = (bool) $data['enabled'];
         }
@@ -75,7 +75,7 @@ class WebhookPolicyNormalizer implements DenormalizerInterface, NormalizerInterf
         if (\array_key_exists('targets', $data) && $data['targets'] !== null) {
             $values = [];
             foreach ($data['targets'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \Flownative\Harbor\Api\Model\WebhookTargetObject::class, 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, \Scottbass3\Harbor\Api\Model\WebhookTargetObject::class, 'json', $context);
             }
             $object->setTargets($values);
         } elseif (\array_key_exists('targets', $data) && $data['targets'] === null) {
@@ -161,6 +161,6 @@ class WebhookPolicyNormalizer implements DenormalizerInterface, NormalizerInterf
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\Flownative\Harbor\Api\Model\WebhookPolicy::class => false];
+        return [\Scottbass3\Harbor\Api\Model\WebhookPolicy::class => false];
     }
 }
